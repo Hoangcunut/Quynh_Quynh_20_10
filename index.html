@@ -1717,35 +1717,115 @@
        TRẠM 6: BẾN ĐỖ YÊU THƯƠNG 20/10/2026 & BỨC TÂM THƯ
        ========================================================================== */
     .letter-envelope-section {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.9));
-      border: 2px dashed var(--primary);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(255, 243, 248, 0.92));
+      border: 2px dashed rgba(244, 114, 182, 0.6);
       border-radius: var(--radius-lg);
-      padding: 44px;
+      padding: 32px 28px 48px;
       max-width: 860px;
       margin: 0 auto;
-      box-shadow: 0 20px 60px rgba(255, 77, 121, 0.2);
+      box-shadow: 0 16px 45px rgba(244, 114, 182, 0.15), inset 0 0 30px rgba(255, 255, 255, 0.6);
       position: relative;
     }
 
     [data-theme="night"] .letter-envelope-section {
-      background: linear-gradient(135deg, rgba(26, 34, 56, 0.95), rgba(15, 23, 42, 0.92));
-      border-color: var(--accent-purple);
+      background: linear-gradient(145deg, rgba(30, 27, 75, 0.95), rgba(15, 23, 42, 0.94));
+      border-color: rgba(244, 114, 182, 0.45);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55), inset 0 0 30px rgba(139, 92, 246, 0.08);
+    }
+
+    .letter-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
 
     .letter-title {
       font-family: var(--font-title);
-      font-size: 1.85rem;
+      font-size: 1.7rem;
       color: var(--primary);
       text-align: center;
-      margin-bottom: 22px;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .letter-subtitle {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
     }
 
     .letter-content-text {
-      font-family: var(--font-hand);
-      font-size: 1.45rem;
-      line-height: 1.6;
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 1.02rem;
+      line-height: 1.85;
       color: var(--text-main);
       margin-bottom: 28px;
+      text-align: left;
+    }
+
+    [data-theme="night"] .letter-content-text {
+      color: #f1f5f9;
+    }
+
+    .letter-content-text p {
+      margin-bottom: 15px;
+    }
+
+    .letter-content-text p.letter-salutation {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #e11d48;
+      margin-bottom: 18px;
+    }
+
+    [data-theme="night"] .letter-content-text p.letter-salutation {
+      color: #fbbf24;
+    }
+
+    .letter-content-text .letter-highlight-quote {
+      margin: 20px 0;
+      padding: 14px 22px;
+      background: rgba(244, 63, 94, 0.08);
+      border-left: 3.5px solid #f43f5e;
+      border-radius: 0 14px 14px 0;
+      font-family: var(--font-title);
+      font-style: italic;
+      font-size: 1.12rem;
+      color: #be123c;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    [data-theme="night"] .letter-content-text .letter-highlight-quote {
+      background: rgba(245, 158, 11, 0.1);
+      border-left-color: #fbbf24;
+      color: #fef08a;
+    }
+
+    .letter-content-text p.letter-signature {
+      text-align: right;
+      font-style: italic;
+      color: #e11d48;
+      font-size: 1rem;
+      margin-top: 24px;
+      font-weight: 600;
+    }
+
+    [data-theme="night"] .letter-content-text p.letter-signature {
+      color: #fde047;
     }
 
     .date-picker-options {
@@ -1753,6 +1833,22 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       margin-top: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .letter-envelope-section {
+        padding: 24px 16px;
+      }
+      .letter-title {
+        font-size: 1.35rem;
+      }
+      .letter-content-text {
+        font-size: 0.95rem;
+        line-height: 1.75;
+      }
+      .date-picker-options {
+        grid-template-columns: 1fr;
+      }
     }
 
     .btn-date-choice {
@@ -6178,27 +6274,81 @@
            TRẠM 6: BẾN ĐỖ YÊU THƯƠNG 20/10/2026 & BỨC TÂM THƯ
            ========================================================================== -->
       <section id="station-6" class="letter-envelope-section" data-station-index="6">
-        <div style="text-align: center; margin-bottom: 12px;">
-          <div class="bus-stop-sign">🚏 Bến Số 6 • Điểm Dừng Chân Ngày 20/10/2026</div>
+        <div style="text-align: center; margin-bottom: 18px;">
+          <span class="letter-header-badge">🚏 BẾN SỐ 6 • BẾN ĐỖ YÊU THƯƠNG 20/10/2026</span>
+          <h2 class="letter-title">💌 Bức Thư Gửi Bạn Quỳnh Thân Mến</h2>
+          <p class="letter-subtitle">Nhân ngày Phụ nữ Việt Nam 20/10/2026 • Từ Chuyến Xe Buýt Mèo Kể Chuyện</p>
         </div>
-        <h2 class="letter-title">💌 Bức Thư Gửi Trần Lệ Quỳnh Ngày 20 Tháng 10 Năm 2026</h2>
+
         <div class="letter-content-text">
+          <p class="letter-salutation">Gửi bạn Quỳnh thân mến,</p>
+          
           <p>
-            Gửi Quỳnh – cô gái Sư Tử sinh ngày <strong>21/08/1999</strong> tràn đầy năng lượng tích cực và sự kiên cường,
+            Có những người đi qua cuộc đời bằng những bước chân thật nhẹ. Nhưng nhìn lại, ta mới thấy họ đã đi được một quãng đường thật dài.
           </p>
-          <p style="margin-top: 12px;">
-            Hôm nay là ngày 20/10/2026, mình muốn gửi tới bạn một lời chúc thật bình dị và chân thành nhất: Chúc Quỳnh một ngày thật vui vẻ, luôn giữ nụ cười rạng rỡ khoe răng khểnh, ấm áp như cốc trà gừng 4h sáng ở Phu Sa Phìn và bình yên như góc quán cà phê nhỏ những chiều thu Hà Nội.
+          
+          <p style="font-weight: 600; color: var(--accent-gold);">
+            Quỳnh là một người như thế.
           </p>
-          <p style="margin-top: 12px;">
-            Dõi theo những bước chân của Quỳnh qua 5 đỉnh núi Tây Bắc hiểm trở, qua những đêm dài nghiên cứu khoa học và những mô hình tỉ mẩn làm cho mèo Hiro, mình thực sự rất ngưỡng mộ ý chí kiên định, sự độc lập và tâm hồn phong phú của bạn. Chúc cho tuổi 27 của Quỳnh sẽ gặt hái thêm nhiều thành công rực rỡ trong sự nghiệp, luôn khoẻ mạnh và luôn được cuộc đời nâng niu, dịu dàng đối đãi!
+          
+          <p>
+            Hôm nay, ngày 20 tháng 10 năm 2026, nhân ngày Phụ nữ Việt Nam, mình muốn gửi đến Quỳnh một lời chúc thật giản dị. Mong Quỳnh luôn vui, luôn giữ được nụ cười trong trẻo của mình. Mong những ngày phía trước có nhiều điều tốt lành, để mỗi khi mệt mỏi, Quỳnh vẫn tìm được một nơi bình yên mà ngồi xuống, nhấp một ngụm trà, rồi lại mỉm cười mà bước tiếp.
+          </p>
+          
+          <p>
+            Mình vẫn nhớ những câu chuyện về những con đường Quỳnh đã đi qua. Năm đỉnh núi Tây Bắc, mỗi nơi một dáng vẻ, có đường dốc, có mây cao, có những buổi sớm lạnh đến mức một cốc trà gừng lúc bốn giờ sáng ở Phu Sa Phìn cũng trở nên ấm áp lạ thường.
+          </p>
+          
+          <p>
+            Rồi có những ngày Quỳnh lặng lẽ bên những công việc của mình. Những đêm dài nghiên cứu, những điều nhỏ bé được làm đi làm lại cho thật vừa ý, những mô hình tỉ mẩn dành cho chú mèo (hổ cam) Hiro. Những việc ấy, thoạt nhìn tưởng chẳng có gì lớn lao, nhưng chính từ những điều nhỏ bé ấy, người ta nhận ra một con người biết kiên nhẫn, biết chăm chút và biết theo đuổi điều mình yêu quý.
+          </p>
+          
+          <p style="font-weight: 600; color: var(--accent-gold);">
+            Mình quý nhất ở Quỳnh có lẽ là sự kiên định ấy.
+          </p>
+          
+          <p>
+            Không cần phải lúc nào cũng đứng ở nơi đông người, không cần phải nói những điều thật lớn. Cứ lặng lẽ bước đi, cứ làm điều mình tin là đúng, rồi một ngày nhìn lại, sẽ thấy mình đã đi xa hơn mình tưởng.
+          </p>
+          
+          <p>
+            Tuổi 27 của Quỳnh rồi sẽ mở ra thêm nhiều con đường mới. Mình mong trên những con đường ấy, Quỳnh sẽ gặp được thật nhiều người tốt, làm được những điều mình mong muốn và có đủ sức khỏe để đi đến nơi mình muốn đến.
+          </p>
+          
+          <p style="font-weight: 600;">
+            Mong cuộc đời đối đãi với Quỳnh thật dịu dàng.
+          </p>
+          
+          <p>
+            Mong những ngày nắng có nắng vừa đủ, những ngày mưa có một mái hiên để trú, những buổi chiều có một góc quán cà phê nhỏ để ngồi yên, và những chuyến đi xa rồi cũng sẽ có một nơi ấm áp để trở về.
+          </p>
+          
+          <p style="font-weight: 600; color: var(--accent-gold);">
+            Chúc Quỳnh một ngày 20/10 thật vui.
+          </p>
+          
+          <p>
+            Và nếu sau này có lúc nào đó nhìn lại những năm tháng tuổi 27, mong Quỳnh sẽ mỉm cười và nghĩ rằng:
+          </p>
+          
+          <div class="letter-highlight-quote">
+            “À, hóa ra những ngày ấy mình đã sống thật đẹp.”
+          </div>
+          
+          <p>
+            Chúc Quỳnh luôn mạnh mẽ mà vẫn dịu dàng, luôn nhiều năng lượng mà vẫn có những phút bình yên cho riêng mình.
+          </p>
+          
+          <p class="letter-signature">
+            — Một người đã rất vui khi được đi cùng Quỳnh qua chuyến xe này.
           </p>
         </div>
 
         <div style="border-top: 1px dashed var(--border-glass); padding-top: 24px; text-align: center;">
-          <h3 style="font-family: var(--font-title); font-size: 1.3rem; color: var(--primary);">
+          <h3 style="font-family: var(--font-title); font-size: 1.25rem; color: var(--primary);">
             ☕ Một Lời Mời Nhỏ Nếu Có Dịp Gặp Gỡ Ngoài Đời
           </h3>
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 6px; max-width: 580px; margin-left: auto; margin-right: auto;">
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 6px; max-width: 580px; margin-left: auto; margin-right: auto; line-height: 1.6;">
             Hiện tại chúng ta vẫn là những người bạn trò chuyện qua màn hình. Nếu một ngày nào đó Quỳnh thấy thuận tiện và thoải mái, chiếc vé nhỏ này sẽ là một lời mời cà phê nhẹ nhàng để được lắng nghe bạn kể thêm về những chuyến đi:
           </p>
           
@@ -6208,11 +6358,12 @@
             <button class="btn-date-choice" data-choice="Ghé quán cà phê mèo chơi cùng các boss">🐱 Ghé quán cà phê mèo thư giãn</button>
             <button class="btn-date-choice" data-choice="Ngồi nghe Quỳnh kể chuyện phượt 5 đỉnh núi Tây Bắc">🏔️ Kể chuyện chinh phục Tây Bắc</button>
           </div>
-        <div class="station-next-action-bar" style="margin-top: 24px; text-align: center;">
-          <button class="btn-station-next" onclick="rideCatbusToStation(7)">
-            <span>🚌 Lên Xe Đến Ga Cuối: The Last Puzzle & Món Quà Bí Mật ➔</span>
-          </button>
-        </div>
+
+          <div class="station-next-action-bar" style="margin-top: 24px; text-align: center;">
+            <button class="btn-station-next" onclick="rideCatbusToStation(7)">
+              <span>🚌 Lên Xe Đến Ga Cuối: The Last Puzzle & Món Quà Bí Mật ➔</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -8042,8 +8193,8 @@
         stationId: 'station-6',
         signVN: '20 / 10',
         badge: 'BẾN SỐ 6 • BẾN ĐỖ YÊU THƯƠNG',
-        title: 'Tâm Thư Tuổi 27 & Chiếc Vé Cà Phê Gặp Mặt Đầu Tiên',
-        desc: 'Lời mời ấm áp, tinh tế không áp lực: "Nếu một ngày nào đó Quỳnh thấy thuận tiện và thoải mái..." cùng 4 lựa chọn: Cà phê ngắm phố, Săn đồ ăn & Bánh Cudo, Cà phê mèo, Kể chuyện Tây Bắc.',
+        title: 'Bức Thư Gửi Bạn Quỳnh Thân Mến (20/10/2026)',
+        desc: '“Có những người đi qua cuộc đời bằng những bước chân thật nhẹ. Nhưng nhìn lại, ta mới thấy họ đã đi được một quãng đường thật dài. Quỳnh là một người như thế...”',
         skyTop: '#2e1065',
         skyBottom: '#4c0519',
         rainColor: 'rgba(251, 113, 133, 0.7)',
