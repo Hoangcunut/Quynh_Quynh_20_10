@@ -1,0 +1,23 @@
+# Raw large text scrape logs
+*.txt
+*.md
+!README.md
+*.mkv
+__pycache__/
+.tempmediaStorage/
+.system_generated/
+.gemini/
+scratch/
+
+# Large raw video sources not used on web
+image/video/
+
+
+# Raw uncleaned trekking folder
+leonui/
+
+# Scripts and drafts
+*.py
+khung_*.html
+test_inline.js
+*.json
