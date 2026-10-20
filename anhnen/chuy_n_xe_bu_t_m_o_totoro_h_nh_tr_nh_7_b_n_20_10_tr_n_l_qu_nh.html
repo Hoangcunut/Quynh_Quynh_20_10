@@ -7305,8 +7305,13 @@
       },
       {
         title: "Sparkle (Radwimps - Your Name)",
-        sub: "🌅 Hoàng Hôn Katawaredoki & Sao Băng",
+        sub: "🌅 Hoàng Hôn Katawaredoki & Bức Tâm Thư",
         src: "audio/sparkle.mp3"
+      },
+      {
+        title: "Nan Giải 《难解》 (Bản Hợp Xướng)",
+        sub: "🧩 Nhạc Ga Cuối • The Last Puzzle 20/10",
+        src: "audio/nan-giai.mp4"
       }
     ];
 
@@ -7891,15 +7896,17 @@
     }
 
     /* ==========================================================================
-       2. SẮP XẾP NHẠC NỀN: 2 GA 1 BÀI VÀ KẾT THÚC BẰNG SPARKLE (YOUR NAME)
+       2. SẮP XẾP NHẠC NỀN: PHÙ HỢP TỪNG CHẶNG VÀ GA CUỐI NAN GIẢI (HỢP XƯỚNG)
        - Ga 1 & 2: Track 0 (Bắc Thang Lên Hỏi Ông Trời)
        - Ga 3 & 4: Track 1 (Quẻ Bói)
-       - Ga 5, 6 & Ga Cuối: Track 2 (Sparkle - Your Name)
+       - Ga 5 & 6: Track 2 (Sparkle - Your Name)
+       - Ga 7 (Ga Cuối): Track 3 (Nan Giải 《难解》 - Bản Hợp Xướng)
        ========================================================================== */
     function getTrackIndexForStation(stationIdx) {
       if (stationIdx <= 2) return 0; // Ga 1 & 2: Bắc Thang Lên Hỏi Ông Trời
       if (stationIdx <= 4) return 1; // Ga 3 & 4: Quẻ Bói
-      return 2;                      // Ga 5, 6 & Ga Cuối: Sparkle (Your Name)
+      if (stationIdx <= 6) return 2; // Ga 5 & 6: Sparkle (Your Name)
+      return 3;                      // Ga Cuối (Ga 7): Nan Giải 《难解》 (Bản Hợp Xướng)
     }
 
     function syncStationSoundtrack(targetStationIdx) {
@@ -8318,7 +8325,7 @@
         signVN: 'BÍ MẬT',
         badge: 'GA CUỐI BÍ MẬT • THE LAST PUZZLE',
         title: 'Mảnh Ghép Ký Ức 4x4 (16 Mảnh) & Mật Mã 5 Đỉnh Núi',
-        desc: '“Tưởng rằng đã đến ga cuối rồi sao?... Vẫn còn một điều đang chờ được tìm thấy…” — Giải đố tranh 16 mảnh & mật mã thứ tự 5 đỉnh núi để nhận đóa hoa hồng rực rỡ và SPECIAL TICKET phát sáng!',
+        desc: '“Tưởng rằng đã đến ga cuối rồi sao?... Vẫn còn một điều đang chờ được tìm thấy…” — Cùng giai điệu hợp xướng “Nan Giải 《难解》”, giải đố tranh 16 mảnh & mật mã thứ tự 5 đỉnh núi để nhận đóa hoa hồng rực rỡ và SPECIAL TICKET phát sáng!',
         skyTop: '#090d16',
         skyBottom: '#3b1d5e',
         rainColor: 'rgba(250, 204, 21, 0.75)',
