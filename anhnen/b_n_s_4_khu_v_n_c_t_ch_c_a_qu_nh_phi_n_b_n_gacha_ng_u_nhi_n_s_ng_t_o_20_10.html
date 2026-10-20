@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bến Số 4 • Khu Vườn Cổ Tích Của Quỳnh (Phiên Bản Gacha Ngẫu Nhiên &amp; Sáng Tạo 20/10)</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --plum-deep: #150a1e;
+      --plum-mid: #281236;
+      --rose-accent: #f43f5e;
+      --amber-gold: #f59e0b;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 50% 18%, #3b174c 0%, #210d2d 52%, #0e0614 100%);
+      color: #f8fafc;
+      overflow-x: hidden;
+      user-select: none;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Keyframe Animations for Interactive Gacha Cards */
+    @keyframes floatIdle {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(1.5deg); }
+    }
+    @keyframes pocketWiggle {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      20% { transform: scale(1.14, 0.88) rotate(-8deg); }
+      45% { transform: scale(0.92, 1.12) rotate(8deg); }
+      70% { transform: scale(1.08, 0.95) rotate(-4deg); }
+    }
+    @keyframes noFaceBow {
+      0%, 100% { transform: translateY(0) scale(1); }
+      35% { transform: translateY(8px) scale(1.06, 0.92); }
+      65% { transform: translateY(-10px) scale(0.96, 1.06); }
+    }
+    @keyframes bambooShake3D {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      15% { transform: rotate(-16deg) translateY(-6px); }
+      30% { transform: rotate(15deg) translateY(4px); }
+      45% { transform: rotate(-14deg) translateY(-5px); }
+      60% { transform: rotate(12deg) translateY(3px); }
+      75% { transform: rotate(-8deg) translateY(-3px); }
+    }
+    @keyframes cardPopReveal {
+      0% { transform: scale(0.88) translateY(8px); opacity: 0.3; }
+      60% { transform: scale(1.03) translateY(-2px); opacity: 1; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    @keyframes vinylSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes particleFlyOut {
+      0% { transform: translate(0, 0) scale(0.4) rotate(0deg); opacity: 1; }
+      75% { opacity: 0.95; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(1.25) rotate(var(--rot)); opacity: 0; }
+    }
+    @keyframes shimmerSweep {
+      0% { transform: translateX(-120%) skewX(-20deg); }
+      100% { transform: translateX(220%) skewX(-20deg); }
+    }
+
+    .icon-float {
+      animation: floatIdle 3.4s ease-in-out infinite;
+    }
+    .anim-pocket {
+      animation: pocketWiggle 0.65s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    }
+    .anim-noface {
+      animation: noFaceBow 0.65s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    }
+    .anim-shake {
+      animation: bambooShake3D 0.7s ease-in-out !important;
+    }
+    .result-pop {
+      animation: cardPopReveal 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .vinyl-spinning {
+      animation: vinylSpin 4s linear infinite;
+    }
+
+    /* Magical Card Styling (Upgraded from flat gray to luminous cream/pearl + interactive aura) */
+    .fairy-card {
+      background: linear-gradient(165deg, rgba(247, 242, 246, 0.96) 0%, rgba(235, 225, 234, 0.93) 100%);
+      color: #271726;
+      border: 2px solid rgba(255, 255, 255, 0.65);
+      box-shadow: 0 20px 45px -12px rgba(10, 4, 18, 0.7), 0 0 25px rgba(244, 63, 94, 0.12);
+      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .fairy-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 55px -12px rgba(10, 4, 18, 0.82), 0 0 32px rgba(244, 114, 182, 0.32);
+      border-color: #f472b6;
+    }
+    .fairy-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      transform: translateX(-140%) skewX(-20deg);
+      pointer-events: none;
+    }
+    .fairy-card.shimmer-active::after {
+      animation: shimmerSweep 0.75s ease-out;
+    }
+
+    /* Pill Action Button matching and elevating screenshot's pink-bordered white pill */
+    .gacha-btn {
+      background: #ffffff;
+      color: #e11d48;
+      border: 1.5px solid #fb7185;
+      box-shadow: 0 6px 16px rgba(225, 29, 72, 0.14);
+      transition: all 0.22s ease;
+    }
+    .gacha-btn:hover {
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+      color: #ffffff;
+      border-color: #fda4af;
+      box-shadow: 0 8px 22px rgba(225, 29, 72, 0.38);
+      transform: scale(1.03);
+    }
+    .gacha-btn:active {
+      transform: scale(0.96);
+    }
+
+    .burst-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 60;
+      animation: particleFlyOut 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .glass-nav {
+      background: rgba(24, 11, 34, 0.82);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(244, 114, 182, 0.22);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-24 relative">
+
+  <!-- AMBIENT MAGICAL FIREFLIES & SAKURA PETALS CANVAS -->
+  <canvas id="magicGardenCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+  <!-- ==================== TOP NAVIGATION BAR (MATCHING LIVE SCREENSHOT + CODE EXPORT) ==================== -->
+  <header class="relative z-20 max-w-6xl w-full mx-auto px-4 pt-4 pb-2">
+    <div class="glass-nav rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shadow-xl">
+      <!-- Left Nav Button -->
+      <button id="btnPrevStation" type="button" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/15 text-stone-200 transition flex items-center gap-1.5">
+        <span>◀</span>
+        <span class="truncate max-w-[150px]">Chinh Phục 5 Đỉnh ...</span>
+      </button>
+
+      <!-- Center Station Progress & Title -->
+      <div class="flex flex-col items-center gap-1">
+        <div class="flex items-center gap-1.5">
+          <span class="w-3.5 h-1 rounded-full bg-white/20"></span>
+          <span class="w-3.5 h-1 rounded-full bg-white/20"></span>
+          <span class="w-3.5 h-1 rounded-full bg-white/20"></span>
+          <span class="w-7 h-1.5 rounded-full bg-gradient-to-r from-amber-400 to-pink-500"></span>
+          <span class="w-3.5 h-1 rounded-full bg-white/20"></span>
+          <span class="w-3.5 h-1 rounded-full bg-white/20"></span>
+          <span class="w-3.5 h-1 rounded-full bg-white/20"></span>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap justify-center">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-400/35">
+            BẾN SỐ 4 • XỨ SỞ DIỆU KỲ GHIBLI
+          </span>
+          <span class="text-xs font-bold text-white hidden sm:inline">
+            Khu Vườn Cổ Tích Gacha Ngẫu Nhiên 20/10
+          </span>
+        </div>
+      </div>
+
+      <!-- Right Actions: Random Spin All 4 & Copy Code -->
+      <div class="flex items-center gap-2">
+        <button id="btnOpenCodeModal" type="button" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/20 hover:bg-emerald-500/35 text-emerald-200 border border-emerald-400/40 transition flex items-center gap-1">
+          <span>📋</span>
+          <span>Lấy Code Thay Vào Web</span>
+        </button>
+        <button id="btnNextStationTop" type="button" class="px-4 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-amber-500 to-pink-500 text-white shadow-lg shadow-pink-500/25 hover:opacity-95 transition flex items-center gap-1.5">
+          <span class="truncate max-w-[135px]">Hoàng Hôn Katawar...</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT: KHU VƯỜN CỔ TÍCH CỦA QUỲNH ==================== -->
+  <main class="relative z-10 max-w-6xl w-full mx-auto px-4 py-3 flex flex-col items-center">
+
+    <!-- Golden Pill Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-600/35 border border-amber-400/60 text-amber-100 text-xs font-bold tracking-wider uppercase shadow-lg mb-2">
+      <span>🚶‍♀️</span>
+      <span>BẾN SỐ 4 • XỨ SỞ DIỆU KỲ DORAEMON &amp; GHIBLI</span>
+    </div>
+
+    <!-- Musical Subheading -->
+    <p class="text-pink-400 font-bold text-sm sm:text-base tracking-wide text-center mb-1">
+      Âm Nhạc Rộn Rã "Quẻ Bói" (Tông Cao Là Gào)
+    </p>
+
+    <!-- Main Section Title -->
+    <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight text-center mb-2 drop-shadow">
+      Khu Vườn Cổ Tích Của Quỳnh
+    </h1>
+
+    <!-- Subtitle Description + Live Randomizer Counter -->
+    <p class="text-stone-300 text-xs sm:text-sm text-center max-w-2xl leading-relaxed mb-4">
+      Nơi những bảo bối thần kỳ của Doraemon, sự hào hiệp của Vô Diện, đại tiệc Bánh Cudo Minions và Ống xăm quẻ bói ẩn chứa <span class="text-amber-300 font-semibold">32 bất ngờ ngẫu nhiên không trùng lặp</span> dành riêng cho Quỳnh dịp 20/10!
+    </p>
+
+    <!-- ==================== INTERACTIVE STATUS & COLLECTIBLE INVENTORY BAR ==================== -->
+    <div class="w-full glass-nav rounded-2xl p-3 mb-5 flex flex-wrap items-center justify-between gap-3 border border-pink-400/25 shadow-lg">
+      <div class="flex items-center gap-3 flex-wrap">
+        <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl text-xs">
+          <span>🎒</span>
+          <span class="text-stone-200 font-medium">Túi Quà 20/10 Đã Mở:</span>
+          <span id="collectedCountBadge" class="font-extrabold text-amber-300 mono">0 / 32</span>
+        </div>
+
+        <div class="flex items-center gap-2 bg-amber-500/15 border border-amber-400/30 px-3 py-1.5 rounded-xl text-xs">
+          <span>🪙</span>
+          <span class="text-amber-200 font-medium">Hũ Vàng Vô Diện:</span>
+          <span id="goldTotalBadge" class="font-extrabold text-amber-300 mono">0 Lượng</span>
+        </div>
+
+        <div class="flex items-center gap-2 bg-yellow-500/15 border border-yellow-400/30 px-3 py-1.5 rounded-xl text-xs">
+          <span>🥜</span>
+          <span class="text-yellow-200 font-medium">Combo Bánh Cudo:</span>
+          <span id="cudoComboBadge" class="font-extrabold text-yellow-300 mono">x0 Miếng</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+        <button id="btnViewInventory" type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-pink-200 border border-pink-300/30 transition flex items-center gap-1.5">
+          <span>🎁</span>
+          <span>Xem Vé &amp; Quẻ Đã Rút</span>
+        </button>
+        <button id="btnSpinAllFour" type="button" class="px-4 py-1.5 rounded-xl text-xs font-extrabold bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-white shadow-lg shadow-rose-500/30 hover:scale-105 transition flex items-center gap-1.5">
+          <span>🎲</span>
+          <span>Quay Ngẫu Nhiên Cả 4 Góc!</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== THE 4 CREATIVE RANDOMIZED GACHA CARDS ==================== -->
+    <section class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-7">
+
+      <!-- ==================== CARD 1: TÚI THẦN KỲ DORAEMON ==================== -->
+      <article id="cardDoraemon" class="fairy-card rounded-[28px] p-5 flex flex-col justify-between items-center text-center min-h-[415px]">
+        <!-- Top Rarity & Counter Pill -->
+        <div class="w-full flex items-center justify-between text-[11px] font-bold mb-1">
+          <span id="doraRarityBadge" class="px-2.5 py-0.5 rounded-full bg-sky-600/15 text-sky-800 border border-sky-600/30 mono">
+            4D POCKET • 8 BẢO BỐI
+          </span>
+          <span id="doraDrawCounter" class="text-stone-500 mono">Đã rút: 0/8</span>
+        </div>
+
+        <!-- Custom Animated SVG Icon: Doraemon's 4D Pocket & Anywhere Door -->
+        <div id="doraIconWrapper" class="icon-float my-2 cursor-pointer" title="Nhấp để thò tay vào Túi Thần Kỳ Doraemon!">
+          <svg viewBox="0 0 120 100" class="w-24 h-20 overflow-visible drop-shadow-md">
+            <!-- Glowing Cyan Magic Aura -->
+            <ellipse cx="60" cy="54" rx="44" ry="30" fill="rgba(56, 189, 248, 0.22)" />
+            <!-- Doraemon Blue Body Rim & Red Collar with Golden Bell -->
+            <path d="M 20,42 C 20,18 100,18 100,42 C 100,76 84,92 60,92 C 36,92 20,76 20,42 Z" fill="#0284c7" stroke="#1e293b" stroke-width="3" />
+            <ellipse cx="60" cy="56" rx="32" ry="28" fill="#ffffff" stroke="#1e293b" stroke-width="2.5" />
+            <!-- Red Collar -->
+            <path d="M 26,34 Q 60,44 94,34" fill="none" stroke="#e11d48" stroke-width="6" stroke-linecap="round" />
+            <!-- Golden Bell -->
+            <circle cx="60" cy="40" r="8.5" fill="#facc15" stroke="#1e293b" stroke-width="2.2" />
+            <line x1="53" y1="39" x2="67" y2="39" stroke="#1e293b" stroke-width="1.8" />
+            <circle cx="60" cy="43" r="2" fill="#1e293b" />
+            <!-- The 4D Half-Circle Pocket Opening -->
+            <path d="M 38,54 Q 60,60 82,54 C 82,74 72,82 60,82 C 48,82 38,74 38,54 Z" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5" />
+            <!-- Glowing Portal Inside Pocket + Peeking Anywhere Door & Bamboo Copter -->
+            <ellipse cx="60" cy="57" rx="18" ry="5" fill="#38bdf8" />
+            <rect id="doraPeekingDoor" x="51" y="45" width="14" height="14" rx="2" fill="#f43f5e" stroke="#1e293b" stroke-width="1.8" transform="rotate(-10 58 52)" />
+          </svg>
+        </div>
+
+        <!-- Title -->
+        <h2 class="serif-title text-xl sm:text-[22px] font-extrabold text-rose-500 leading-snug mb-2">
+          Túi Thần Kỳ<br />Doraemon
+        </h2>
+
+        <!-- Dynamic Randomized Outcome Box -->
+        <div id="doraResultBox" class="w-full bg-white/80 border border-rose-200 rounded-2xl p-3 mb-3 flex-1 flex flex-col justify-center shadow-inner">
+          <div id="doraItemName" class="text-xs font-extrabold text-rose-600 uppercase tracking-wide mb-1">
+            ✨ Sẵn Sàng Rút Bảo Bối 20/10
+          </div>
+          <p id="doraItemDesc" class="text-xs sm:text-[13px] text-stone-700 leading-relaxed">
+            Rút ngẫu nhiên 1 trong <span class="font-bold text-rose-600">8 Bảo Bối &amp; Phiếu Đặc Quyền VIP 20/10</span> (Cánh cửa đi Tam Đảo săn đồ ăn, Bình trà gừng ấm 4h sáng, Đèn pin thu nhỏ deadline...).
+          </p>
+          <div id="doraTicketCode" class="mt-2 hidden text-[10px] mono font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 self-center">
+            MÃ ĐẶC QUYỀN: #DORA-2010
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button id="btnDrawDoraemon" type="button" class="gacha-btn w-full py-2.5 px-4 rounded-full text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5">
+          <span>🔮</span>
+          <span id="btnDoraLabel">Rút Bảo Bối Ngẫu Nhiên</span>
+        </button>
+      </article>
+
+      <!-- ==================== CARD 2: VÔ DIỆN SPIRITED AWAY ==================== -->
+      <article id="cardNoFace" class="fairy-card rounded-[28px] p-5 flex flex-col justify-between items-center text-center min-h-[415px]">
+        <!-- Top Rarity & Gold Counter Pill -->
+        <div class="w-full flex items-center justify-between text-[11px] font-bold mb-1">
+          <span id="noFaceRarityBadge" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-900 border border-amber-500/40 mono">
+            KAONASHI • DÂNG VÀNG
+          </span>
+          <span id="noFaceGoldCount" class="text-amber-700 font-extrabold mono">🪙 0 Lượng</span>
+        </div>
+
+        <!-- Custom Animated SVG Icon: No-Face (Vô Diện) Offering Gold Nuggets -->
+        <div id="noFaceIconWrapper" class="icon-float my-2 cursor-pointer" title="Nhấp để Vô Diện dâng vàng và nhả lời khen bất ngờ!">
+          <svg viewBox="0 0 120 100" class="w-24 h-20 overflow-visible drop-shadow-md">
+            <ellipse cx="60" cy="54" rx="42" ry="30" fill="rgba(245, 158, 11, 0.2)" />
+            <!-- No-Face Black Spirit Body -->
+            <path d="M 32,88 C 30,42 38,14 60,14 C 82,14 90,42 88,88 Z" fill="#18181b" stroke="#09090b" stroke-width="3" />
+            <!-- White Oval Mask -->
+            <ellipse cx="60" cy="42" rx="18" ry="23" fill="#f8fafc" stroke="#1e293b" stroke-width="2.2" />
+            <!-- Iconic Purple Mask Markings -->
+            <path d="M 49,28 Q 52,25 55,28" fill="none" stroke="#7e22ce" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M 65,28 Q 68,25 71,28" fill="none" stroke="#7e22ce" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M 51,38 L 51,49 M 69,38 L 69,49" stroke="#7e22ce" stroke-width="2.5" stroke-linecap="round" />
+            <!-- Eyes & Smiling Mouth -->
+            <ellipse cx="52" cy="35" rx="3" ry="2.2" fill="#18181b" />
+            <ellipse cx="68" cy="35" rx="3" ry="2.2" fill="#18181b" />
+            <ellipse cx="60" cy="53" rx="5.5" ry="3" fill="#4c1d95" />
+            <!-- Hands Offering Overflowing Gold Nuggets -->
+            <path d="M 35,70 Q 60,82 85,70" fill="none" stroke="#27272a" stroke-width="6" stroke-linecap="round" />
+            <g fill="#facc15" stroke="#92400e" stroke-width="1.5">
+              <circle cx="48" cy="69" r="5.5" />
+              <circle cx="60" cy="67" r="6.5" />
+              <circle cx="72" cy="69" r="5.5" />
+              <circle cx="54" cy="63" r="5" fill="#fde047" />
+              <circle cx="66" cy="63" r="5" fill="#fde047" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- Title -->
+        <h2 class="serif-title text-xl sm:text-[22px] font-extrabold text-rose-500 leading-snug mb-2">
+          Vô Diện Spirited<br />Away
+        </h2>
+
+        <!-- Dynamic Randomized Outcome Box -->
+        <div id="noFaceResultBox" class="w-full bg-white/80 border border-rose-200 rounded-2xl p-3 mb-3 flex-1 flex flex-col justify-center shadow-inner">
+          <div id="noFaceItemName" class="text-xs font-extrabold text-amber-700 uppercase tracking-wide mb-1">
+            🪙 "Ah... Ah..." Hũ Vàng Hào Hiệp
+          </div>
+          <p id="noFaceItemDesc" class="text-xs sm:text-[13px] text-stone-700 leading-relaxed">
+            Mỗi lần bấm, Vô Diện sẽ dâng tặng <span class="font-bold text-amber-700">10 – 1.000 lượng vàng may mắn</span> kèm 1 bức trướng lời khen chân thành gửi tới cô gái kiên cường leo núi!
+          </p>
+          <div id="noFaceBonusTag" class="mt-2 hidden text-[10px] mono font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300 self-center">
+            +888 LƯỢNG VÀNG ĐẠI CÁT
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button id="btnDrawNoFace" type="button" class="gacha-btn w-full py-2.5 px-4 rounded-full text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5">
+          <span>🪙</span>
+          <span id="btnNoFaceLabel">Nhận Vàng &amp; Lời Khen</span>
+        </button>
+      </article>
+
+      <!-- ==================== CARD 3: MINIONS & BÁNH CUDO ==================== -->
+      <article id="cardMinions" class="fairy-card rounded-[28px] p-5 flex flex-col justify-between items-center text-center min-h-[415px]">
+        <!-- Top Rarity & Combo Pill -->
+        <div class="w-full flex items-center justify-between text-[11px] font-bold mb-1">
+          <span id="minionRarityBadge" class="px-2.5 py-0.5 rounded-full bg-yellow-500/25 text-yellow-900 border border-yellow-600/35 mono">
+            BELLO! • CUDO COMBO
+          </span>
+          <span id="minionComboText" class="text-rose-600 font-extrabold mono">Combo: x0</span>
+        </div>
+
+        <!-- Custom Animated SVG Icon: peeled Golden Banana & Sesame Bánh Cudo -->
+        <div id="minionIconWrapper" class="icon-float my-2 cursor-pointer" title="Nhấp để tung chuối & đập kẹo Bánh Cudo giòn rụm!">
+          <svg viewBox="0 0 120 100" class="w-24 h-20 overflow-visible drop-shadow-md">
+            <ellipse cx="60" cy="54" rx="42" ry="30" fill="rgba(250, 204, 21, 0.25)" />
+            <!-- Crispy Round Bánh Cudo with Peanuts & Sesame Behind Banana -->
+            <circle cx="44" cy="54" r="24" fill="#d97706" stroke="#451a03" stroke-width="2.5" />
+            <circle cx="44" cy="54" r="20" fill="#f59e0b" />
+            <!-- Peanuts & White Sesame Seeds on Cudo -->
+            <ellipse cx="37" cy="46" rx="4" ry="2.8" fill="#78350f" />
+            <ellipse cx="49" cy="44" rx="4.2" ry="2.8" fill="#92400e" />
+            <ellipse cx="38" cy="60" rx="4.5" ry="3" fill="#78350f" />
+            <ellipse cx="50" cy="58" rx="3.8" ry="2.5" fill="#92400e" />
+            <circle cx="44" cy="52" r="1.3" fill="#fef3c7" />
+            <circle cx="34" cy="53" r="1.3" fill="#fef3c7" />
+            <circle cx="45" cy="64" r="1.3" fill="#fef3c7" />
+
+            <!-- Iconic Peeled Golden Banana (Matching Screenshot Icon + Extra Detail) -->
+            <g transform="translate(46, 18)">
+              <!-- Cream Inner Banana Fruit -->
+              <path d="M 18,38 C 14,22 20,8 30,4 C 36,2 38,10 34,24 C 31,34 25,42 18,38 Z" fill="#fef9c3" stroke="#1e293b" stroke-width="2.8" stroke-linejoin="round" />
+              <!-- Golden Banana Body & Peeled Flaps -->
+              <path d="M 14,36 C 12,48 24,62 46,60 C 56,59 60,52 54,48 C 40,48 28,42 24,32 Z" fill="#facc15" stroke="#1e293b" stroke-width="2.8" stroke-linejoin="round" />
+              <path d="M 16,36 C 4,34 0,44 8,52 C 14,56 22,46 20,36 Z" fill="#eab308" stroke="#1e293b" stroke-width="2.8" stroke-linejoin="round" />
+              <path d="M 28,34 C 36,30 48,32 52,40 C 44,44 34,42 26,36 Z" fill="#eab308" stroke="#1e293b" stroke-width="2.8" stroke-linejoin="round" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- Title -->
+        <h2 class="serif-title text-xl sm:text-[22px] font-extrabold text-rose-500 leading-snug mb-2">
+          Minions &amp; Bánh<br />Cudo
+        </h2>
+
+        <!-- Dynamic Randomized Outcome Box -->
+        <div id="minionResultBox" class="w-full bg-white/80 border border-rose-200 rounded-2xl p-3 mb-3 flex-1 flex flex-col justify-center shadow-inner">
+          <div id="minionItemName" class="text-xs font-extrabold text-orange-600 uppercase tracking-wide mb-1">
+            🍌 1 Ngàn 1 Miếng Cudo • 2 Ngàn 2 Miếng!
+          </div>
+          <p id="minionItemDesc" class="text-xs sm:text-[13px] text-stone-700 leading-relaxed">
+            Bấm liên tiếp để tích điểm <span class="font-bold text-orange-600">Combo Năng Lượng Leo Núi</span>, mở khóa 8 lời chúc lầy lội của Biệt đội Minions mừng Nữ hoàng Tây Bắc!
+          </p>
+          <div id="minionVoiceTag" class="mt-2 hidden text-[10px] mono font-bold px-2 py-0.5 rounded bg-yellow-100 text-yellow-900 border border-yellow-400 self-center">
+            🔊 "BELLO! TULALILOO TI AMO!"
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button id="btnDrawMinions" type="button" class="gacha-btn w-full py-2.5 px-4 rounded-full text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5">
+          <span>🍌</span>
+          <span id="btnMinionLabel">Tung Chuối &amp; Đập Cudo</span>
+        </button>
+      </article>
+
+      <!-- ==================== CARD 4: ỐNG XĂM QUẺ BÓI ==================== -->
+      <article id="cardFortune" class="fairy-card rounded-[28px] p-5 flex flex-col justify-between items-center text-center min-h-[415px]">
+        <!-- Top Rarity & Stick Number Pill -->
+        <div class="w-full flex items-center justify-between text-[11px] font-bold mb-1">
+          <span id="fortuneRarityBadge" class="px-2.5 py-0.5 rounded-full bg-emerald-600/15 text-emerald-900 border border-emerald-600/30 mono">
+            THƯỢNG THƯỢNG CÁT
+          </span>
+          <span id="fortuneStickNum" class="text-rose-600 font-extrabold mono">Quẻ: Chưa rút</span>
+        </div>
+
+        <!-- Custom Animated SVG Icon: Traditional Bamboo Fortune Stick & Red Ribbon -->
+        <div id="fortuneIconWrapper" class="icon-float my-2 cursor-pointer" title="Nhấp để lắc ống xăm 3D và bật nhạc Quẻ Bói!">
+          <svg viewBox="0 0 120 100" class="w-24 h-20 overflow-visible drop-shadow-md">
+            <ellipse cx="60" cy="54" rx="42" ry="30" fill="rgba(16, 185, 129, 0.2)" />
+            <!-- Rising Fortune Stick with Red Tip -->
+            <rect id="risingFortuneStick" x="55" y="6" width="10" height="42" rx="3" fill="#fde68a" stroke="#1e293b" stroke-width="2.2" />
+            <rect x="55" y="6" width="10" height="10" rx="2" fill="#e11d48" stroke="#1e293b" stroke-width="1.8" />
+            <!-- Green Segmented Bamboo Stalk & Leaves (Matching Screenshot Icon + Festive Ribbon) -->
+            <rect x="52" y="28" width="16" height="62" rx="3" fill="#16a34a" stroke="#1e293b" stroke-width="2.8" />
+            <line x1="50" y1="46" x2="70" y2="46" stroke="#1e293b" stroke-width="3.2" stroke-linecap="round" />
+            <line x1="50" y1="68" x2="70" y2="68" stroke="#1e293b" stroke-width="3.2" stroke-linecap="round" />
+            <!-- Left Bamboo Leaf -->
+            <path d="M 52,42 C 36,38 30,26 38,20 C 46,24 52,34 52,42 Z" fill="#22c55e" stroke="#1e293b" stroke-width="2.4" stroke-linejoin="round" />
+            <!-- Auspicious Red Lucky Tag Hanging on Right -->
+            <path d="M 68,46 Q 82,52 78,64 L 70,60 L 66,68 C 62,58 64,50 68,46 Z" fill="#ef4444" stroke="#1e293b" stroke-width="2.2" stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <!-- Title -->
+        <h2 class="serif-title text-xl sm:text-[22px] font-extrabold text-rose-500 leading-snug mb-2">
+          Ống Xăm Quẻ Bói
+        </h2>
+
+        <!-- Dynamic Randomized Outcome Box -->
+        <div id="fortuneResultBox" class="w-full bg-white/80 border border-rose-200 rounded-2xl p-3 mb-3 flex-1 flex flex-col justify-center shadow-inner">
+          <div id="fortuneItemName" class="text-xs font-extrabold text-emerald-800 uppercase tracking-wide mb-1">
+            🎋 Lắc Xăm Thơ Cổ &amp; Giải Quẻ 20/10
+          </div>
+          <p id="fortuneItemDesc" class="text-xs sm:text-[13px] text-stone-700 leading-relaxed">
+            Lắc ống xăm rút ngẫu nhiên <span class="font-bold text-emerald-700">8 Quẻ Thượng Thượng Cát</span> (gồm thơ 4 câu + lời giải quẻ hóm hỉnh: vạn dặm bình an, ăn ngon không béo, luôn được cưng chiều).
+          </p>
+          <div id="fortuneAdviceTag" class="mt-2 hidden text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-300">
+            🌟 Lời bàn: Đại Cát Đại Lợi!
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button id="btnDrawFortune" type="button" class="gacha-btn w-full py-2.5 px-3 rounded-full text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5">
+          <span>🎋</span>
+          <span id="btnFortuneLabel">Lắc Ống Xăm &amp; Bật Nhạc</span>
+        </button>
+      </article>
+
+    </section>
+
+    <!-- ==================== SPOTLIGHT FORTUNE / VOUCHER DETAIL BANNER (UPDATES LIVE ON ANY CLICK) ==================== -->
+    <section id="liveSpotlightBanner" class="w-full max-w-4xl glass-nav rounded-3xl p-4 sm:p-5 mb-6 border border-amber-400/40 shadow-2xl transition-all duration-300">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3.5 text-left">
+          <div id="spotlightEmoji" class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400/30 to-rose-500/30 border border-amber-300/50 flex items-center justify-center text-3xl shadow-inner shrink-0">
+            ✨
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="spotlightCategory" class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-400 text-stone-950">
+                TRẠM PHÉP THUẬT TƯƠNG TÁC
+              </span>
+              <span id="spotlightSerial" class="text-xs mono text-pink-300 font-semibold">
+                #QUYNH-2010-2026
+              </span>
+            </div>
+            <h3 id="spotlightTitle" class="text-base sm:text-lg font-extrabold text-white mt-1">
+              Bấm vào bất kỳ thẻ nào bên trên để khui hộp mù (Blind Box) 20/10 dành riêng cho Quỳnh!
+            </h3>
+            <p id="spotlightBody" class="text-xs sm:text-sm text-stone-300 mt-0.5 leading-relaxed">
+              Mỗi lần bấm là một bất ngờ mới (không bị lặp lại nhàm chán): từ Phiếu Đặc Quyền đi Tam Đảo săn đồ ăn, Hũ vàng Vô Diện 999 lượng, Combo Bánh Cudo cho đến Thơ giải quẻ Thượng Thượng Cát.
+            </p>
+          </div>
+        </div>
+
+        <button id="btnSaveCurrentVoucher" type="button" class="shrink-0 px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/20 border border-amber-300/40 text-amber-200 text-xs font-bold transition flex items-center gap-1.5">
+          <span>📌</span>
+          <span>Chụp / Lưu Quẻ Này</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== BOTTOM CTA BUTTON (EXACT MATCH TO SCREENSHOT) ==================== -->
+    <button id="btnGoStation5" type="button" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-[#2b1238] via-[#3d1647] to-[#2b1238] hover:from-rose-600 hover:to-amber-600 border-2 border-pink-500/60 text-white font-bold text-sm sm:text-base shadow-xl shadow-pink-950/60 transition transform hover:scale-105 flex items-center gap-2.5">
+      <span>🚌</span>
+      <span>Lên Xe Đến Bến Số 5: Trạm Dừng Chân Hoạt Hình</span>
+      <span>➜</span>
+    </button>
+
+  </main>
+
+  <!-- ==================== BOTTOM BAR & FLOATING VINYL PLAYER (MATCHING SCREENSHOT) ==================== -->
+  <footer class="fixed bottom-0 inset-x-0 z-30 pointer-events-none px-4 py-3 flex flex-wrap items-end justify-between gap-3">
+    <!-- Left Hint -->
+    <div class="glass-nav px-3.5 py-1.5 rounded-full text-[11px] text-stone-300 italic pointer-events-auto hidden md:flex items-center gap-1.5">
+      <span>💡</span>
+      <span>Dùng phím mũi tên ← / → hoặc bấm "Quay Ngẫu Nhiên Cả 4 Góc" để khám phá hết 32 bất ngờ</span>
+    </div>
+
+    <!-- Right Floating Vinyl Player ("Quẻ Bói - Cover Tông Cao Là Gào") -->
+    <div id="vinylPlayerCard" class="glass-nav rounded-2xl px-4 py-2.5 border border-stone-600/60 shadow-2xl pointer-events-auto flex items-center gap-3.5 ml-auto">
+      <div id="vinylDisc" class="w-10 h-10 rounded-full bg-stone-900 border-2 border-stone-600 flex items-center justify-center shadow-inner relative cursor-pointer" title="Bấm để Bật / Tắt giai điệu Quẻ Bói">
+        <div class="w-3.5 h-3.5 rounded-full bg-rose-500 border border-stone-950"></div>
+      </div>
+      <div class="text-left pr-1">
+        <div class="text-xs font-extrabold text-white flex items-center gap-1.5">
+          <span>Quẻ Bói (Cover Tông Cao Là Gào)</span>
+          <span id="musicEqualizerBadge" class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 mono hidden">ĐANG PHÁT</span>
+        </div>
+        <div id="musicSubStatus" class="text-[11px] text-stone-400 flex items-center gap-1">
+          <span>🎋</span>
+          <span>Nhạc Xứ Sở Diệu Kỳ &amp; Lắc Ống Xăm</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button id="btnToggleMusic" type="button" class="w-8 h-8 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold flex items-center justify-center shadow transition" title="Phát / Tạm dừng nhạc nền Quẻ Bói">
+          ▶
+        </button>
+        <a href="https://www.youtube.com/watch?v=5gZ1sq1Xpy4" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-rose-600/80 hover:bg-rose-500 text-white text-xs font-bold flex items-center justify-center shadow transition" title="Mở bài gốc Quẻ Bói (Tông Cao Là Gào) trên YouTube">
+          🎵
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL 1: COLLECTED VOUCHERS & FORTUNES INVENTORY ==================== -->
+  <div id="inventoryModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="glass-nav rounded-3xl max-w-2xl w-full p-5 sm:p-6 border border-pink-400/40 shadow-2xl flex flex-col gap-4 max-h-[85vh]">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+            <span>🎒</span> Túi Quà Phép Thuật &amp; Quẻ May Mắn Quỳnh Đã Thu Thập
+          </h3>
+          <p class="text-xs text-stone-300">
+            Mỗi bảo bối, lời khen của Vô Diện, bánh Cudo và quẻ xăm Quỳnh rút được đều lưu tại đây!
+          </p>
+        </div>
+        <button id="btnCloseInventory" type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-sm">
+          ✕
+        </button>
+      </div>
+
+      <div id="inventoryListContainer" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-2.5 pr-1">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
+        <span class="text-amber-300 font-semibold">✨ Chúc Trần Lệ Quỳnh một ngày 20/10 ngập tràn niềm vui bất ngờ!</span>
+        <button id="btnCloseInventoryBottom" type="button" class="px-4 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold">
+          Đóng Túi Quà
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: COPY DROP-IN CODE & PROMPT FOR BẾN SỐ 4 ==================== -->
+  <div id="codeModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="glass-nav rounded-3xl max-w-3xl w-full p-5 sm:p-6 border border-emerald-400/40 shadow-2xl flex flex-col gap-4 max-h-[90vh]">
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <h3 class="text-base sm:text-lg font-extrabold text-emerald-200 flex items-center gap-2">
+            <span>📋</span> Lấy Code &amp; Prompt Nâng Cấp Bến Số 4 ("Khu Vườn Cổ Tích Của Quỳnh")
+          </h3>
+          <p class="text-xs text-stone-300">
+            Biến 4 thẻ tĩnh trong ảnh chụp màn hình thành 4 Góc Gacha Ngẫu Nhiên 32 Kết Quả (Deck Shuffle không lặp lại)
+          </p>
+        </div>
+        <button id="btnCloseCodeModal" type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-sm">
+          ✕
+        </button>
+      </div>
+
+      <div class="flex gap-2 border-b border-white/10 pb-2">
+        <button id="tabPromptBtn" type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-stone-950">
+          1. Prompt Giao Cho AI Viết Lại Bến Số 4
+        </button>
+        <button id="tabSnippetBtn" type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/10 text-stone-200 hover:bg-white/20">
+          2. Code HTML + JS Drop-in Cho 4 Thẻ Gacha
+        </button>
+      </div>
+
+      <textarea id="copyTextarea" readonly class="w-full flex-1 min-h-[250px] bg-stone-950/90 border border-white/15 rounded-2xl p-4 text-xs mono text-amber-200 focus:outline-none resize-none"></textarea>
+
+      <div class="flex items-center justify-between gap-3">
+        <span id="copyStatusToast" class="text-xs font-bold text-emerald-400 opacity-0 transition-opacity">
+          ✅ Đã sao chép thành công! Bạn có thể dán ngay vào dự án.
+        </span>
+        <button id="btnCopyNow" type="button" class="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-stone-950 font-extrabold text-xs sm:text-sm shadow-lg transition">
+          📋 Sao Chép Ngay
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== 32 NON-REPEATING RANDOMIZED OUTCOMES (8 PER CARD) ====================
+
+    // 1. DORAEMON'S 4D POCKET (8 Secret Gadgets + 20/10 VIP Vouchers)
+    const DORAEMON_POOL = [
+      {
+        id: 'dora-1',
+        rarity: 'SSR • BẢO BỐI HUYỀN THOẠI',
+        emoji: '🚪',
+        name: 'Cánh Cửa Thần Kỳ Đi Săn Đồ Ăn Tam Đảo',
+        desc: '“Người ta lên Tam Đảo săn mây, còn Quỳnh mở cửa là tới thẳng bàn đồ nướng & lẩu ấm nóng!” — Tặng 1 Phiếu Đặc Quyền bao trọn 100% chầu ăn ngon!',
+        code: 'MÃ VÉ: #DORA-TAMDAO-01'
+      },
+      {
+        id: 'dora-2',
+        rarity: 'SSR • ĐẶC QUYỀN ẤM ÁP',
+        emoji: '☕',
+        name: 'Bình Trà Gừng Phu Sa Phìn 4h Sáng Bất Tử',
+        desc: 'Bảo bối giữ nhiệt vĩnh cửu! Dù leo núi 2.868m giữa rừng già lạnh buốt hay ngồi làm việc khuya, Quỳnh chỉ cần vỗ nhẹ là có ngay cốc trà gừng thơm lừng.',
+        code: 'MÃ VÉ: #DORA-TRAGUNG-02'
+      },
+      {
+        id: 'dora-3',
+        rarity: 'SR • SIÊU CÔNG NGHỆ',
+        emoji: '🔦',
+        name: 'Đèn Pin Thu Nhỏ Mọi Deadline & Bug',
+        desc: 'Chiếu một tia sáng là mọi dòng code khó nhằn tự động thu nhỏ bằng hạt đậu, chạy mượt một phát ăn ngay để Quỳnh thảnh thơi đi chơi 20/10!',
+        code: 'MÃ VÉ: #DORA-CLEANBUG-03'
+      },
+      {
+        id: 'dora-4',
+        rarity: 'SSR • NỮ HOÀNG TREKKING',
+        emoji: '🚁',
+        name: 'Chong Chóng Tre Vượt Đỉnh Núi Thứ 6',
+        desc: 'Sau Kỳ Quan San, Phu Sa Phìn, Nam Kang Ho Tao, Ngũ Chỉ Sơn và Pu Ta Leng — bảo bối này nhân đôi thể lực cho đỉnh núi tiếp theo Quỳnh đặt chân tới!',
+        code: 'MÃ VÉ: #DORA-TREKKING-04'
+      },
+      {
+        id: 'dora-5',
+        rarity: 'SR • HỘI YÊU MÈO',
+        emoji: '🍞',
+        name: 'Bánh Mì Chuyển Ngữ Tiếng Mèo Cưng',
+        desc: 'Ăn 1 lát bánh mì thần kỳ là dịch chuẩn 100% tiếng “Meow” của hoàng thượng ở nhà: biết ngay lúc nào mèo đòi pate hay đang nịnh cô chủ Sư Tử ♌!',
+        code: 'MÃ VÉ: #DORA-MEOW-05'
+      },
+      {
+        id: 'dora-6',
+        rarity: 'LIMITED • ĐỘC QUYỀN 20/10',
+        emoji: '🧣',
+        name: 'Khăn Trùm Thời Gian Giữ Nụ Cười Tuổi 27',
+        desc: 'Bảo bối giữ mãi nụ cười răng khểnh tỏa nắng, trái tim tự do và nguồn năng lượng rạng rỡ của cô gái sinh ngày 21/08!',
+        code: 'MÃ VÉ: #DORA-SMILE27-06'
+      },
+      {
+        id: 'dora-7',
+        rarity: 'SR • VÉ HẸN TÙY CHỌN',
+        emoji: '🎟️',
+        name: 'Thẻ Quẹt Miễn Phí Mọi Quán Cà Phê Chill',
+        desc: 'Đặc quyền chọn bất kỳ quán cà phê ngắm phố hoặc cà phê mèo nào khi Quỳnh thấy thoải mái — không giới hạn thời gian, hiệu lực vô thời hạn!',
+        code: 'MÃ VÉ: #DORA-COFFEE-07'
+      },
+      {
+        id: 'dora-8',
+        rarity: 'SR • NGHỆ THUẬT & TỰ DO',
+        emoji: '⛸️',
+        name: 'Đôi Giày Trượt Băng & Cọ Vẽ Thần Kỳ',
+        desc: 'Giúp Quỳnh lướt trên sân băng nhẹ tựa mây trời Tây Bắc và vẽ thêm thật nhiều bức tranh chibi đáng yêu như Nezuko!',
+        code: 'MÃ VÉ: #DORA-SKATE-08'
+      }
+    ];
+
+    // 2. VÔ DIỆN SPIRITED AWAY (8 Gold Offerings & Heartfelt Compliment Scrolls)
+    const NOFACE_POOL = [
+      {
+        id: 'nf-1',
+        rarity: 'JACKPOT • HŨ VÀNG ĐỘC ĐẮC',
+        emoji: '👑',
+        gold: 999,
+        name: 'Vô Diện Bái Phục Nữ Hiệp Pu Ta Leng 3.049m',
+        desc: '“Ah... Ah...” Vô Diện dâng 999 lượng vàng vì quá nể cô gái chinh phục đỉnh 3.049m hiểm trở mà vẫn cười tươi bảo: “Pu dễ lắm, newbie đi được nha!”',
+        tag: '+999 LƯỢNG VÀNG KIÊN CƯỜNG'
+      },
+      {
+        id: 'nf-2',
+        rarity: 'SSR • HÀO QUANG SƯ TỬ ♌',
+        emoji: '☀️',
+        gold: 520,
+        name: 'Vàng Ròng Cho Nụ Cười Răng Khểnh Tỏa Nắng',
+        desc: 'Kho vàng trong nhà tắm của Yubaba cũng không lấp lánh bằng nụ cười rạng rỡ của Quỳnh trên những cung đường mây Tây Bắc!',
+        tag: '+520 LƯỢNG VÀNG RẠNG RỠ'
+      },
+      {
+        id: 'nf-3',
+        rarity: 'SSR • TRÍ TUỆ & BẢN LĨNH',
+        emoji: '💻',
+        gold: 888,
+        name: 'Thỏi Vàng Tinh Hoa Công Nghệ & Tự Do',
+        desc: 'Vô Diện gửi lời khen chân thành tới cô gái vừa đam mê nghiên cứu những dòng code, vừa có đôi chân không mỏi khám phá thiên nhiên kỳ vĩ.',
+        tag: '+888 LƯỢNG VÀNG HANH THÔNG'
+      },
+      {
+        id: 'nf-4',
+        rarity: 'SR • TRÁI TIM ẤM ÁP',
+        emoji: '🐱',
+        gold: 365,
+        name: 'Hũ Vàng Bình Yên Bên Boss Mèo & Tách Trà',
+        desc: 'Đằng sau một cô gái mạnh mẽ vượt 5 đỉnh núi cao là một tâm hồn cực kỳ dịu dàng, yêu động vật và trân trọng từng khoảnh khắc nhỏ bé.',
+        tag: '+365 LƯỢNG VÀNG BÌNH YÊN'
+      },
+      {
+        id: 'nf-5',
+        rarity: 'SR • PHÚ QUÝ ĐẠI CÁT',
+        emoji: '🪙',
+        gold: 686,
+        name: 'Lộc Vàng 20/10 Rủng Rỉnh Đi Muôn Nơi',
+        desc: 'Vô Diện chúc Quỳnh dịp 20/10 tài lộc dồi dào như thác nước rừng già, tha hồ đặt vé đi du lịch và thưởng thức mọi món ngon thế gian!',
+        tag: '+686 LƯỢNG VÀNG TÀI LỘC'
+      },
+      {
+        id: 'nf-6',
+        rarity: 'SSR • BÍ KÍP LÀNG LÁ',
+        emoji: '🥷',
+        gold: 777,
+        name: 'Thỏi Vàng Danh Dự Thành Viên Akatsuki',
+        desc: 'Tặng riêng cho nữ nhẫn giả khoác áo mây đỏ Akatsuki trên đỉnh núi cao: Chúc Quỳnh luôn giữ trọn nhiệt huyết tuổi trẻ và những người bạn tuyệt vời!',
+        tag: '+777 LƯỢNG VÀNG ĐỒNG ĐỘI'
+      },
+      {
+        id: 'nf-7',
+        rarity: 'SR • CHÂN CỨNG ĐÁ MỀM',
+        emoji: '🏔️',
+        gold: 450,
+        name: 'Vàng May Mắn Vượt Vách Đá Cổng Trời',
+        desc: 'Từ Bạch Mộc Lương Tử 3.046m đến Cổng Trời Ngũ Chỉ Sơn 2.858m, mỗi bước chân kiên trì của Quỳnh đều xứng đáng được nhận ngàn đóa hoa và vàng may mắn!',
+        tag: '+450 LƯỢNG VÀNG BẢN LĨNH'
+      },
+      {
+        id: 'nf-8',
+        rarity: 'ULTIMATE • NỔ HŨ 20/10',
+        emoji: '💎',
+        gold: 1000,
+        name: 'Đại Hũ Vàng Vô Diện 1.000 Lượng!',
+        desc: '“Ah!! Ah!!” Vô Diện dốc toàn bộ túi thần trao tặng Quỳnh 1.000 lượng vàng: Chúc tuổi 27 của Quỳnh vạn sự như ý, luôn được yêu thương và trân trọng!',
+        tag: '+1.000 LƯỢNG VÀNG ĐỘC ĐẮC'
+      }
+    ];
+
+    // 3. MINIONS & BÁNH CUDO (8 Hilarious Banana & Cudo Energy Drops)
+    const MINIONS_POOL = [
+      {
+        id: 'mn-1',
+        rarity: 'CRITICAL CUDO! • X2 NĂNG LƯỢNG',
+        emoji: '🥜',
+        cudoAdd: 2,
+        name: '“1 Ngàn 1 Miếng Cudo, 2 Ngàn 2 Miếng Cudo!”',
+        desc: 'Tiếng rao huyền thoại vang khắp núi rừng! Tung ngay 2 miếng kẹo Cudo giòn rụm, thơm lừng mật mía & gừng tươi chúc mừng Nữ hoàng leo núi!',
+        voice: '🔊 “1 ngàn 1 miếng Cudo, 2 ngàn 2 miếng Cudo 1 ngàn!”'
+      },
+      {
+        id: 'mn-2',
+        rarity: 'SSR • ĐẶC SẢN THƯỢNG HẠNG',
+        emoji: '🍌',
+        cudoAdd: 3,
+        name: 'Combo Chuối Vàng & Bánh Cudo Không Béo',
+        desc: 'Phép thuật của Biệt đội Minions: Dịp 20/10 này Quỳnh ăn bao nhiêu bánh Cudo, đồ nướng, trà sữa cũng chỉ chuyển hóa thành năng lượng xinh đẹp!',
+        voice: '🔊 “Bello! Banana & Cudo Power 1000%!”'
+      },
+      {
+        id: 'mn-3',
+        rarity: 'SR • NẠP PIN LEO NÚI',
+        emoji: '⚡',
+        cudoAdd: 2,
+        name: 'Trạm Tiếp Sức Cudo Trên Đỉnh Nam Kang Ho Tao',
+        desc: 'Đường leo Nam Kang Ho Tao (2.881m) dốc đứng cỡ nào cũng chỉ cần nhấm nháp miếng Cudo đậu phộng bùi bùi là chân lại chạy băng băng!',
+        voice: '🔊 “Tulaliloo ti amo! Cố lên Nữ hoàng Tây Bắc!”'
+      },
+      {
+        id: 'mn-4',
+        rarity: 'SSR • ĐẠI TIỆC ĂN MỪNG',
+        emoji: '🎉',
+        cudoAdd: 5,
+        name: 'Mưa Chuối Vàng & 5 Miếng Cudo Hoàng Gia!',
+        desc: 'Kevin, Stuart và Bob nổ pháo giấy tung liền 5 miếng Cudo hạng nhất mừng ngày 20/10 của cô gái hài hước, lầy lội và đáng yêu nhất hệ mặt trời!',
+        voice: '🔊 “Bello Quỳnh! Chúc mừng 20/10 rực rỡ nha!”'
+      },
+      {
+        id: 'mn-5',
+        rarity: 'SR • BÍ MẬT TAM ĐẢO',
+        emoji: '🍢',
+        cudoAdd: 2,
+        name: 'Biệt Đội Săn Đồ Ăn Cùng Quỳnh',
+        desc: 'Minions đã ghi sổ câu nói bất hủ của Quỳnh: “Người ta lên Tam Đảo săn mây, còn t lên đây săn đồ ăn” — tặng ngay vé ăn vặt thả ga!',
+        voice: '🔊 “Tank yu! Đồ ăn ngon là chân ái!”'
+      },
+      {
+        id: 'mn-6',
+        rarity: 'SR • HỘI ĐỒNG ĐỘI LẦY LỘI',
+        emoji: '📸',
+        cudoAdd: 3,
+        name: 'Khoảnh Khắc Nhí Nhố Trên Đỉnh Mây',
+        desc: 'Chúc Quỳnh luôn có những người bạn đồng hành vui tính để cùng quay треnd, chụp ảnh dìm hàng và cười nghiêng ngả trên mọi hành trình!',
+        voice: '🔊 “Muak Muak! Cười tươi lên nào!”'
+      },
+      {
+        id: 'mn-7',
+        rarity: 'SSR • VƯƠNG MIỆN NỮ HOÀNG',
+        emoji: '👑',
+        cudoAdd: 4,
+        name: 'Vương Miện Chuối Vàng Cung Sư Tử ♌',
+        desc: 'Phong tặng Trần Lệ Quỳnh huân chương “Chiến Thần Vượt Ngàn & Đại Sứ Bánh Cudo” — luôn rực rỡ, tự tin và tỏa sáng theo cách riêng của mình!',
+        voice: '🔊 “Poopaye mọi mệt mỏi! Quỳnh là số 1!”'
+      },
+      {
+        id: 'mn-8',
+        rarity: 'JACKPOT • KHO BÁU CUDO',
+        emoji: '🎁',
+        cudoAdd: 6,
+        name: 'Nổ Hũ Kho Báu Bánh Cudo & Trà Gừng Ấm!',
+        desc: 'Sự kết hợp hoàn hảo nhất: Một miếng bánh Cudo ngọt bùi nhâm nhi cùng ngụm trà gừng ấm nóng — chúc Quỳnh ngày 20/10 ngọt ngào trọn vẹn!',
+        voice: '🔊 “BEE-DO BEE-DO! Độc đắc Cudo 20/10!”'
+      }
+    ];
+
+    // 4. ỐNG XĂM QUẺ BÓI (8 Poetic Fortune Sticks + Modern 20/10 Interpretations)
+    const FORTUNE_POOL = [
+      {
+        id: 'ft-1',
+        stickNo: 'QUẺ SỐ #01 • THƯỢNG THƯỢNG CÁT',
+        rarity: 'ĐẠI CÁT • VẠN DẶM BÌNH AN',
+        emoji: '🎋',
+        title: 'Quẻ Số #01: Chân Cứng Đá Mềm • Vạn Dặm Bình An',
+        poem: '“Trà gừng ấm áp giữa sương mù,\nĐỉnh cao ba ngàn bước ung dung.\nHai mươi tháng mười hoa nở rộ,\nBình an vạn dặm, dạ thung dung.”',
+        advice: '🌟 Giải quẻ: Mọi chuyến đi sắp tới của Quỳnh đều gặp nắng đẹp, biển mây cuồn cuộn, sức khỏe dồi dào!'
+      },
+      {
+        id: 'ft-2',
+        stickNo: 'QUẺ SỐ #02 • THƯỢNG THƯỢNG CÁT',
+        rarity: 'THỰC THẦN • ĂN NGON KHÔNG BÉO',
+        emoji: '🍡',
+        title: 'Quẻ Số #02: Lộc Ăn Tới Tấp • Dáng Vẫn Chuẩn Xinh',
+        poem: '“Tam Đảo sương giăng bàn lẩu nóng,\nCudo giòn ngọt thấm vị gừng.\nDẫu ăn trăm món eo vẫn chuẩn,\nNụ cười tỏa nắng đẹp vô cùng.”',
+        advice: '🌟 Giải quẻ: Sắp tới có lộc ăn uống và những buổi cà phê cực chill, ăn ngon mà chẳng bao giờ lo tăng cân!'
+      },
+      {
+        id: 'ft-3',
+        stickNo: 'QUẺ SỐ #03 • ĐẠI CÁT ĐẠI LỢI',
+        rarity: 'KIM QUỸ • CÔNG NGHỆ THĂNG HOA',
+        emoji: '💻',
+        title: 'Quẻ Số #03: Code Mượt Như Mây • Lộc Về Đầy Túi',
+        poem: '“Dòng code trơn tru không một lỗi,\nDự án hanh thông, ý tưởng bay.\nTúi tiền rủng rỉnh thêm khởi sắc,\nNiềm vui gõ cửa suốt cả ngày.”',
+        advice: '🌟 Giải quẻ: Công việc và đam mê công nghệ của Quỳnh cực kỳ thuận lợi, tài chính rực rỡ!'
+      },
+      {
+        id: 'ft-4',
+        stickNo: 'QUẺ SỐ #04 • THƯỢNG THƯỢNG CÁT',
+        rarity: 'HỒNG LOAN • LUÔN ĐƯỢC CƯNG CHIỀU',
+        emoji: '🌸',
+        title: 'Quẻ Số #04: Tông Cao Là Gào • Luôn Được Cưng Chiều',
+        poem: '“Bắc thang lên hỏi ông trời,\nQuẻ bói linh ứng trả lời hôm nay:\nCô gái Sư Tử tháng Tám này,\nĐi đâu cũng gặp điều may, người chiều!”',
+        advice: '🌟 Giải quẻ: Quỳnh luôn được mọi người xung quanh yêu mến, trân trọng và dành tặng những điều tốt đẹp nhất.'
+      },
+      {
+        id: 'ft-5',
+        stickNo: 'QUẺ SỐ #05 • THƯỢNG CÁT',
+        rarity: 'PHONG VÂN • CHINH PHỤC ĐỈNH MỚI',
+        emoji: '🏔️',
+        title: 'Quẻ Số #05: Năm Đỉnh Ghi Tên • Mở Chân Trời Mới',
+        poem: '“Năm đỉnh Tây Bắc đã ghi tên,\nÁo mây đỏ thắm rạng rỡ thêm.\nChân trời mới mở chờ chân bước,\nTự do kiêu hãnh tựa cánh chim.”',
+        advice: '🌟 Giải quẻ: Sắp có một hành trình khám phá mới đầy cảm hứng cùng những người bạn đồng hành tuyệt vời!'
+      },
+      {
+        id: 'ft-6',
+        stickNo: 'QUẺ SỐ #06 • ĐẠI CÁT AN NHIÊN',
+        rarity: 'THANH TÂM • MÈO NGOAN TRÀ ẤM',
+        emoji: '🐾',
+        title: 'Quẻ Số #06: Trạm Mưa Đêm Ấm • Tâm Cảnh An Nhiên',
+        poem: '“Ngoài kia mưa gió mặc kệ đời,\nTrạm chờ xe mèo sáng rực nơi.\nÔm mèo nhấp ngụm trà thơm ấm,\nAn nhiên tận hưởng tuổi đôi mươi.”',
+        advice: '🌟 Giải quẻ: Tâm hồn luôn thư thái, mèo cưng ngoan ngoãn quấn quýt, mỗi ngày đều nhẹ nhàng như phim Ghibli.'
+      },
+      {
+        id: 'ft-7',
+        stickNo: 'QUẺ SỐ #07 • THƯỢNG THƯỢNG CÁT',
+        rarity: 'KỲ NGỘ • CÀ PHÊ NGÀY NẮNG ĐẸP',
+        emoji: '💌',
+        title: 'Quẻ Số #07: Duyên Lành Hội Ngộ • Chuyện Trò Thật Vui',
+        poem: '“Gió thu man mác phố lên đèn,\nMột tách cà phê gửi lời khen.\nKể chuyện núi rừng, cười rạng rỡ,\nThêm người bạn tốt, quý thân quen.”',
+        advice: '🌟 Giải quẻ: Những cuộc trò chuyện ấm áp, chân thành và không chút áp lực đang chờ đón Quỳnh phía trước!'
+      },
+      {
+        id: 'ft-8',
+        stickNo: 'QUẺ SỐ #08 • ĐẶC BIỆT 20/10',
+        rarity: 'CỬU THIÊN • VẠN SỰ NHƯ Ý',
+        emoji: '👑',
+        title: 'Quẻ Số #08: Tuổi 27 Tỏa Sáng • Vạn Điều May Mắn',
+        poem: '“Hai mốt tháng Tám ánh sao ngời,\nVừa đủ kiên cường giữa biển khơi.\nVừa đủ dịu dàng tan băng giá,\nChúc Quỳnh hạnh phúc trọn niềm vui!”',
+        advice: '🌟 Giải quẻ: Quẻ Độc Đắc dịp 20/10! Chúc Trần Lệ Quỳnh luôn giữ mãi ngọn lửa đam mê và nụ cười hạnh phúc.'
+      }
+    ];
+
+    // ==================== NON-REPEATING SHUFFLE DECK STATE ====================
+    function createShuffledIndices(length) {
+      const arr = Array.from({ length }, (_, i) => i);
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      return arr;
+    }
+
+    let doraDeck = createShuffledIndices(DORAEMON_POOL.length);
+    let noFaceDeck = createShuffledIndices(NOFACE_POOL.length);
+    let minionDeck = createShuffledIndices(MINIONS_POOL.length);
+    let fortuneDeck = createShuffledIndices(FORTUNE_POOL.length);
+
+    let doraSeenSet = new Set();
+    let totalGoldAmount = 0;
+    let totalCudoCombo = 0;
+    let collectedItems = [];
+    let isMusicPlaying = false;
+    let musicLoopTimer = null;
+    let activeTab = 'prompt';
+
+    // ==================== WEB AUDIO API SYNTHESIZER (SOUND EFFECTS + FESTIVE "QUẺ BÓI" PENTATONIC MELODY) ====================
+    let audioCtx = null;
+    function ensureAudio() {
+      if (!audioCtx) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) audioCtx = new AudioCtx();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playGachaSound(type) {
+      try {
+        ensureAudio();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+
+        if (type === 'doraemon') {
+          // Magical futuristic chime (Tadaaa!)
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((freq, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.065);
+            gain.gain.setValueAtTime(0.08, now + idx * 0.065);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.065 + 0.25);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.065);
+            osc.stop(now + idx * 0.065 + 0.26);
+          });
+        } else if (type === 'gold') {
+          // Shimmering gold coins clinking
+          const freqs = [1174.66, 1567.98, 2093.0];
+          freqs.forEach((f, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + idx * 0.05);
+            gain.gain.setValueAtTime(0.09, now + idx * 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.05 + 0.22);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.05);
+            osc.stop(now + idx * 0.05 + 0.24);
+          });
+        } else if (type === 'minion') {
+          // Bouncy comical boing + cheer
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(680, now + 0.14);
+          osc.frequency.exponentialRampToValueAtTime(480, now + 0.24);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.27);
+        } else if (type === 'fortune') {
+          // Bamboo sticks clattering ("Lắc cắc... lắc cắc...") + bell reveal
+          for (let i = 0; i < 5; i++) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(240 + (i % 2) * 90, now + i * 0.07);
+            gain.gain.setValueAtTime(0.04, now + i * 0.07);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.05);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + i * 0.07);
+            osc.stop(now + i * 0.07 + 0.055);
+          }
+        }
+      } catch (e) {
+        // Ignore audio context restrictions
+      }
+    }
+
+    // Play a cheerful Guzheng/Flute-inspired pentatonic loop for "Quẻ Bói" when user toggles music
+    const QUE_BOI_MELODY = [
+      587.33, 659.25, 783.99, 880.0, 783.99, 659.25, 587.33, 523.25,
+      440.0, 523.25, 587.33, 659.25, 587.33, 523.25, 440.0, 392.0
+    ];
+    let melodyStep = 0;
+
+    function toggleQueBoiMusic(forceStart) {
+      if (forceStart === true && isMusicPlaying) return;
+      isMusicPlaying = forceStart !== undefined ? forceStart : !isMusicPlaying;
+
+      const disc = document.getElementById('vinylDisc');
+      const btn = document.getElementById('btnToggleMusic');
+      const badge = document.getElementById('musicEqualizerBadge');
+      const sub = document.getElementById('musicSubStatus');
+
+      if (isMusicPlaying) {
+        disc.classList.add('vinyl-spinning');
+        btn.textContent = '⏸';
+        badge.classList.remove('hidden');
+        sub.innerHTML = '<span>🎶</span><span class="text-pink-300 font-semibold">Đang phát giai điệu Quẻ Bói...</span>';
+        ensureAudio();
+        if (musicLoopTimer) clearInterval(musicLoopTimer);
+        musicLoopTimer = setInterval(() => {
+          if (!isMusicPlaying || !audioCtx) return;
+          const now = audioCtx.currentTime;
+          const freq = QUE_BOI_MELODY[melodyStep % QUE_BOI_MELODY.length];
+          melodyStep++;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.035, now);
+          gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.28);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        }, 310);
+      } else {
+        disc.classList.remove('vinyl-spinning');
+        btn.textContent = '▶';
+        badge.classList.add('hidden');
+        sub.innerHTML = '<span>🎋</span><span>Nhạc Xứ Sở Diệu Kỳ &amp; Lắc Ống Xăm</span>';
+        if (musicLoopTimer) {
+          clearInterval(musicLoopTimer);
+          musicLoopTimer = null;
+        }
+      }
+    }
+
+    // ==================== PARTICLE BURST EFFECT ON ANY CLICK ====================
+    function spawnParticleBurst(element, symbols) {
+      if (!element) return;
+      const rect = element.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 3;
+
+      for (let i = 0; i < 12; i++) {
+        const p = document.createElement('div');
+        p.className = 'burst-particle text-lg sm:text-xl';
+        p.textContent = symbols[i % symbols.length];
+        const angle = (Math.PI * 2 * i) / 12 + (Math.random() - 0.5) * 0.4;
+        const dist = 55 + Math.random() * 85;
+        p.style.left = cx + 'px';
+        p.style.top = cy + 'px';
+        p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--ty', Math.sin(angle) * dist - 30 + 'px');
+        p.style.setProperty('--rot', (Math.random() * 90 - 45).toFixed(0) + 'deg');
+        document.body.appendChild(p);
+        setTimeout(() => {
+          if (p.parentNode) p.parentNode.removeChild(p);
+        }, 1200);
+      }
+    }
+
+    // ==================== RECORD ITEM TO INVENTORY & UPDATE SPOTLIGHT ====================
+    function addToInventoryAndSpotlight(itemObj) {
+      if (!collectedItems.some((x) => x.id === itemObj.id)) {
+        collectedItems.unshift(itemObj);
+        document.getElementById('collectedCountBadge').textContent = collectedItems.length + ' / 32';
+      }
+
+      document.getElementById('spotlightEmoji').textContent = itemObj.emoji;
+      document.getElementById('spotlightCategory').textContent = itemObj.category;
+      document.getElementById('spotlightSerial').textContent = itemObj.serial;
+      document.getElementById('spotlightTitle').textContent = itemObj.title;
+      document.getElementById('spotlightBody').textContent = itemObj.body;
+
+      const banner = document.getElementById('liveSpotlightBanner');
+      banner.classList.remove('result-pop');
+      void banner.offsetWidth;
+      banner.classList.add('result-pop');
+    }
+
+    function triggerCardShimmer(cardId, resultBoxId, iconWrapperId, animClass) {
+      const card = document.getElementById(cardId);
+      const box = document.getElementById(resultBoxId);
+      const icon = document.getElementById(iconWrapperId);
+
+      if (card) {
+        card.classList.remove('shimmer-active');
+        void card.offsetWidth;
+        card.classList.add('shimmer-active');
+      }
+      if (box) {
+        box.classList.remove('result-pop');
+        void box.offsetWidth;
+        box.classList.add('result-pop');
+      }
+      if (icon && animClass) {
+        icon.classList.remove(animClass);
+        void icon.offsetWidth;
+        icon.classList.add(animClass);
+        setTimeout(() => icon.classList.remove(animClass), 720);
+      }
+    }
+
+    // ==================== HANDLER 1: DRAW DORAEMON GADGET ====================
+    function handleDrawDoraemon() {
+      if (doraDeck.length === 0) doraDeck = createShuffledIndices(DORAEMON_POOL.length);
+      const idx = doraDeck.pop();
+      const item = DORAEMON_POOL[idx];
+      doraSeenSet.add(item.id);
+
+      playGachaSound('doraemon');
+      triggerCardShimmer('cardDoraemon', 'doraResultBox', 'doraIconWrapper', 'anim-pocket');
+      spawnParticleBurst(document.getElementById('cardDoraemon'), ['🚪', '🚁', '✨', '🔔', '🎁']);
+
+      document.getElementById('doraRarityBadge').textContent = item.rarity;
+      document.getElementById('doraDrawCounter').textContent = 'Đã mở: ' + doraSeenSet.size + '/8';
+      document.getElementById('doraItemName').textContent = item.emoji + ' ' + item.name;
+      document.getElementById('doraItemDesc').textContent = item.desc;
+
+      const codeEl = document.getElementById('doraTicketCode');
+      codeEl.textContent = item.code;
+      codeEl.classList.remove('hidden');
+      document.getElementById('btnDoraLabel').textContent = 'Rút Bảo Bối Khác (' + doraSeenSet.size + '/8)';
+
+      addToInventoryAndSpotlight({
+        id: item.id,
+        emoji: item.emoji,
+        category: 'TÚI THẦN KỲ DORAEMON • ' + item.rarity,
+        serial: item.code,
+        title: item.name,
+        body: item.desc
+      });
+    }
+
+    // ==================== HANDLER 2: DRAW NO-FACE GOLD & COMPLIMENT ====================
+    function handleDrawNoFace() {
+      if (noFaceDeck.length === 0) noFaceDeck = createShuffledIndices(NOFACE_POOL.length);
+      const idx = noFaceDeck.pop();
+      const item = NOFACE_POOL[idx];
+
+      totalGoldAmount += item.gold;
+      playGachaSound('gold');
+      triggerCardShimmer('cardNoFace', 'noFaceResultBox', 'noFaceIconWrapper', 'anim-noface');
+      spawnParticleBurst(document.getElementById('cardNoFace'), ['🪙', '✨', '💛', '👑', '💎']);
+
+      document.getElementById('noFaceRarityBadge').textContent = item.rarity;
+      document.getElementById('noFaceGoldCount').textContent = '🪙 ' + totalGoldAmount.toLocaleString('vi-VN') + ' Lượng';
+      document.getElementById('goldTotalBadge').textContent = totalGoldAmount.toLocaleString('vi-VN') + ' Lượng';
+      document.getElementById('noFaceItemName').textContent = item.emoji + ' ' + item.name;
+      document.getElementById('noFaceItemDesc').textContent = item.desc;
+
+      const tagEl = document.getElementById('noFaceBonusTag');
+      tagEl.textContent = item.tag;
+      tagEl.classList.remove('hidden');
+      document.getElementById('btnNoFaceLabel').textContent = 'Nhận Thêm Vàng May Mắn';
+
+      addToInventoryAndSpotlight({
+        id: item.id,
+        emoji: item.emoji,
+        category: 'VÔ DIỆN SPIRITED AWAY • ' + item.rarity,
+        serial: item.tag,
+        title: item.name,
+        body: item.desc
+      });
+    }
+
+    // ==================== HANDLER 3: TOSS MINIONS BANANA & CUDO ====================
+    function handleDrawMinions() {
+      if (minionDeck.length === 0) minionDeck = createShuffledIndices(MINIONS_POOL.length);
+      const idx = minionDeck.pop();
+      const item = MINIONS_POOL[idx];
+
+      totalCudoCombo += item.cudoAdd;
+      playGachaSound('minion');
+      triggerCardShimmer('cardMinions', 'minionResultBox', 'minionIconWrapper', 'anim-pocket');
+      spawnParticleBurst(document.getElementById('cardMinions'), ['🍌', '🥜', '🎉', '👑', '✨']);
+
+      document.getElementById('minionRarityBadge').textContent = item.rarity;
+      document.getElementById('minionComboText').textContent = 'Combo: x' + totalCudoCombo;
+      document.getElementById('cudoComboBadge').textContent = 'x' + totalCudoCombo + ' Miếng';
+      document.getElementById('minionItemName').textContent = item.emoji + ' ' + item.name;
+      document.getElementById('minionItemDesc').textContent = item.desc;
+
+      const voiceEl = document.getElementById('minionVoiceTag');
+      voiceEl.textContent = item.voice;
+      voiceEl.classList.remove('hidden');
+      document.getElementById('btnMinionLabel').textContent = 'Tung Chuối Tiếp (Combo x' + totalCudoCombo + ')';
+
+      addToInventoryAndSpotlight({
+        id: item.id,
+        emoji: item.emoji,
+        category: 'MINIONS & BÁNH CUDO • ' + item.rarity,
+        serial: 'COMBO CUDO X' + totalCudoCombo,
+        title: item.name,
+        body: item.desc + ' (' + item.voice + ')'
+      });
+    }
+
+    // ==================== HANDLER 4: SHAKE BAMBOO FORTUNE & PLAY MUSIC ====================
+    function handleDrawFortune() {
+      if (fortuneDeck.length === 0) fortuneDeck = createShuffledIndices(FORTUNE_POOL.length);
+      const idx = fortuneDeck.pop();
+      const item = FORTUNE_POOL[idx];
+
+      playGachaSound('fortune');
+      toggleQueBoiMusic(true);
+      triggerCardShimmer('cardFortune', 'fortuneResultBox', 'fortuneIconWrapper', 'anim-shake');
+      spawnParticleBurst(document.getElementById('cardFortune'), ['🎋', '🌸', '✨', '🏮', '🎶']);
+
+      document.getElementById('fortuneRarityBadge').textContent = item.rarity;
+      document.getElementById('fortuneStickNum').textContent = item.stickNo.split('•')[0].trim();
+      document.getElementById('fortuneItemName').textContent = item.emoji + ' ' + item.title;
+      document.getElementById('fortuneItemDesc').innerText = item.poem;
+
+      const advEl = document.getElementById('fortuneAdviceTag');
+      advEl.textContent = item.advice;
+      advEl.classList.remove('hidden');
+      document.getElementById('btnFortuneLabel').textContent = 'Xin Thêm Quẻ Cát Tường Khác';
+
+      addToInventoryAndSpotlight({
+        id: item.id,
+        emoji: item.emoji,
+        category: item.stickNo + ' • ' + item.rarity,
+        serial: 'NHẠC: QUẺ BÓI (TÔNG CAO LÀ GÀO)',
+        title: item.title,
+        body: item.poem.replace(/\n/g, ' / ') + ' — ' + item.advice
+      });
+    }
+
+    // ==================== RENDER INVENTORY MODAL ====================
+    function renderInventoryModal() {
+      const container = document.getElementById('inventoryListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (collectedItems.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-2 text-center py-10 text-stone-400 text-xs sm:text-sm">
+            🎒 Túi quà đang trống! Hãy bấm vào 4 góc phép thuật hoặc nút <b>"🎲 Quay Ngẫu Nhiên Cả 4 Góc"</b> để thu thập Bảo bối, Vàng Vô Diện, Bánh Cudo và Quẻ Cát Tường nhé!
+          </div>
+        `;
+        return;
+      }
+
+      collectedItems.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white/10 border border-white/15 rounded-2xl p-3.5 flex flex-col justify-between gap-1.5 text-left';
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 mono">${item.serial}</span>
+            <span class="text-lg">${item.emoji}</span>
+          </div>
+          <div class="text-xs font-extrabold text-pink-300">${item.title}</div>
+          <p class="text-[11px] text-stone-300 leading-relaxed">${item.body}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // ==================== AMBIENT FIREFLIES & FALLING PETALS CANVAS ====================
+    function initMagicGardenCanvas() {
+      const canvas = document.getElementById('magicGardenCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = Array.from({ length: 45 }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: 1.2 + Math.random() * 2.5,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: -0.25 - Math.random() * 0.45,
+          alpha: Math.random() * Math.PI * 2,
+          isPink: Math.random() > 0.45
+        }));
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha += 0.025;
+          if (p.y < -10) p.y = canvas.height + 10;
+          if (p.x < -10) p.x = canvas.width + 10;
+          if (p.x > canvas.width + 10) p.x = -10;
+
+          const opacity = ((Math.sin(p.alpha) + 1) / 2) * 0.55 + 0.12;
+          ctx.fillStyle = p.isPink
+            ? `rgba(244, 114, 182, ${opacity.toFixed(2)})`
+            : `rgba(253, 224, 71, ${opacity.toFixed(2)})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(render);
+      }
+      render();
+    }
+
+    // ==================== EXPORT PROMPT & CODE FOR USER'S REPO ====================
+    function getRewritePromptText() {
+      return `Hãy nâng cấp toàn diện khu vực "Khu Vườn Cổ Tích Của Quỳnh" (Bến Số 4 • Xứ Sở Diệu Kỳ Doraemon & Ghibli) để không còn là 4 thẻ văn bản tĩnh cố định, mà biến thành 4 Góc Trò Chơi Gacha Ngẫu Nhiên Đa Tầng (32 kết quả không lặp lại liên tiếp bằng thuật toán Deck Shuffle) kèm "Túi Quà Phép Thuật 20/10":
+
+1. Góc 1 - Túi Không Gian 4 Chiều Doraemon (8 Bảo Bối & Phiếu Đặc Quyền VIP 20/10):
+   - Khi bấm "Rút Bảo Bối Ngẫu Nhiên", chiếc túi 4D lắc lư phát sáng và rút ra ngẫu nhiên 1 trong 8 bảo bối cá nhân hóa cho Quỳnh kèm Mã Vé Đặc Quyền (SSR/SR/LIMITED):
+     + Cánh Cửa Thần Kỳ Đi Tam Đảo Săn Đồ Ăn ("Người ta lên Tam Đảo săn mây, còn Quỳnh mở cửa là tới thẳng bàn đồ nướng!")
+     + Bình Trà Gừng Phu Sa Phìn 4h Sáng Bất Tử
+     + Đèn Pin Thu Nhỏ Mọi Deadline & Bug
+     + Chong Chóng Tre Vượt Đỉnh Núi Thứ 6
+     + Bánh Mì Chuyển Ngữ Tiếng Mèo Cưng
+     + Khăn Trùm Thời Gian Giữ Nụ Cười Răng Khểnh Tuổi 27
+     + Thẻ Quẹt Miễn Phí Mọi Quán Cà Phê Chill
+     + Đôi Giày Trượt Băng & Cọ Vẽ Thần Kỳ
+
+2. Góc 2 - Vô Diện Spirited Away (Tích Lũy Hũ Vàng May Mắn & 8 Bức Trướng Lời Khen):
+   - Mỗi lần bấm "Nhận Vàng & Lời Khen", Vô Diện cúi chào tung mưa vàng từ +365 đến +1.000 lượng cộng dồn vào "Hũ Vàng Của Quỳnh", đồng thời mở ngẫu nhiên 1 bức trướng khen ngợi sự kiên cường chinh phục đỉnh Pu Ta Leng 3.049m ("Pu dễ lắm, newbie đi được nha!"), nụ cười tỏa nắng 21/08 và tâm hồn yêu mèo.
+
+3. Góc 3 - Biệt Đội Minions & Bánh Cudo (Đập Kẹo Cudo Combo & Tiếng Cười Minions):
+   - Bấm liên tiếp để tăng bộ đếm "Combo Bánh Cudo (x1, x2, x5...)" kèm câu rao huyền thoại "1 ngàn 1 miếng Cudo, 2 ngàn 2 miếng Cudo 1 ngàn!", phát tiếng reo Minionese ("Bello!", "Tulaliloo ti amo!") và 8 lời chúc hài hước nạp năng lượng cho Nữ hoàng leo núi.
+
+4. Góc 4 - Ống Xăm Quẻ Bói Cổ Phong (Lắc Xăm Vật Lý 3D & 8 Quẻ Thơ Thượng Thượng Cát):
+   - Khi bấm "Lắc Ống Xăm & Bật Nhạc", ống tre lắc 3D kèm âm thanh thẻ tre va chạm, nảy lên 1 thẻ xăm đánh số (#01 đến #08) hiển thị 4 câu thơ cổ phong + lời giải quẻ hóm hỉnh (Vạn dặm bình an, Ăn ngon không béo, Code mượt lộc đầy, Luôn được cưng chiều) và tự động quay đĩa than phát nhạc "Quẻ Bói (Cover Tông Cao Là Gào)".
+
+5. Thanh "🎒 Túi Quà 20/10 Đã Mở (0/32)" & Nút "🎲 Quay Ngẫu Nhiên Cả 4 Góc!":
+   - Cho phép Quỳnh quay cùng lúc cả 4 góc phép thuật và lưu lại mọi Phiếu Đặc Quyền / Quẻ Xăm đã rút để xem lại bất cứ lúc nào.`;
+    }
+
+    function getDropInCodeSnippet() {
+      return `<!-- COPY TOÀN BỘ FILE khu_vuon_co_tich_quynh_20_10.html HOẶC DÙNG MẢNG DỮ LIỆU GACHA 32 KẾT QUẢ DƯỚI ĐÂY -->
+<script>
+  const DORAEMON_POOL = ${JSON.stringify(DORAEMON_POOL, null, 2)};
+  const NOFACE_POOL = ${JSON.stringify(NOFACE_POOL, null, 2)};
+  const MINIONS_POOL = ${JSON.stringify(MINIONS_POOL, null, 2)};
+  const FORTUNE_POOL = ${JSON.stringify(FORTUNE_POOL, null, 2)};
+<\/script>`;
+    }
+
+    // ==================== INITIALIZE ALL EVENT LISTENERS ====================
+    window.onload = function () {
+      initMagicGardenCanvas();
+
+      // Card Buttons & Icons
+      document.getElementById('btnDrawDoraemon').addEventListener('click', handleDrawDoraemon);
+      document.getElementById('doraIconWrapper').addEventListener('click', handleDrawDoraemon);
+
+      document.getElementById('btnDrawNoFace').addEventListener('click', handleDrawNoFace);
+      document.getElementById('noFaceIconWrapper').addEventListener('click', handleDrawNoFace);
+
+      document.getElementById('btnDrawMinions').addEventListener('click', handleDrawMinions);
+      document.getElementById('minionIconWrapper').addEventListener('click', handleDrawMinions);
+
+      document.getElementById('btnDrawFortune').addEventListener('click', handleDrawFortune);
+      document.getElementById('fortuneIconWrapper').addEventListener('click', handleDrawFortune);
+
+      // Spin All 4 Simultaneously!
+      document.getElementById('btnSpinAllFour').addEventListener('click', () => {
+        handleDrawDoraemon();
+        setTimeout(handleDrawNoFace, 140);
+        setTimeout(handleDrawMinions, 280);
+        setTimeout(handleDrawFortune, 420);
+      });
+
+      // Music Toggle
+      document.getElementById('btnToggleMusic').addEventListener('click', () => toggleQueBoiMusic());
+      document.getElementById('vinylDisc').addEventListener('click', () => toggleQueBoiMusic());
+
+      // Inventory Modal
+      const invModal = document.getElementById('inventoryModal');
+      const openInventory = () => {
+        renderInventoryModal();
+        invModal.classList.remove('hidden');
+        invModal.classList.add('flex');
+      };
+      const closeInventory = () => {
+        invModal.classList.add('hidden');
+        invModal.classList.remove('flex');
+      };
+
+      document.getElementById('btnViewInventory').addEventListener('click', openInventory);
+      document.getElementById('btnSaveCurrentVoucher').addEventListener('click', openInventory);
+      document.getElementById('btnCloseInventory').addEventListener('click', closeInventory);
+      document.getElementById('btnCloseInventoryBottom').addEventListener('click', closeInventory);
+
+      // Navigation Buttons Toast Feedback
+      const navButtons = ['btnPrevStation', 'btnNextStationTop', 'btnGoStation5'];
+      navButtons.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('click', () => {
+            handleDrawFortune();
+          });
+        }
+      });
+
+      // Copy Code & Prompt Modal
+      const codeModal = document.getElementById('codeModal');
+      const textarea = document.getElementById('copyTextarea');
+      const tabPromptBtn = document.getElementById('tabPromptBtn');
+      const tabSnippetBtn = document.getElementById('tabSnippetBtn');
+
+      function updateModalContent() {
+        textarea.value = activeTab === 'prompt' ? getRewritePromptText() : getDropInCodeSnippet();
+      }
+
+      document.getElementById('btnOpenCodeModal').addEventListener('click', () => {
+        updateModalContent();
+        codeModal.classList.remove('hidden');
+        codeModal.classList.add('flex');
+      });
+
+      document.getElementById('btnCloseCodeModal').addEventListener('click', () => {
+        codeModal.classList.add('hidden');
+        codeModal.classList.remove('flex');
+      });
+
+      tabPromptBtn.addEventListener('click', () => {
+        activeTab = 'prompt';
+        tabPromptBtn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-stone-950';
+        tabSnippetBtn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/10 text-stone-200 hover:bg-white/20';
+        updateModalContent();
+      });
+
+      tabSnippetBtn.addEventListener('click', () => {
+        activeTab = 'snippet';
+        tabSnippetBtn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-400 text-stone-950';
+        tabPromptBtn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/10 text-stone-200 hover:bg-white/20';
+        updateModalContent();
+      });
+
+      document.getElementById('btnCopyNow').addEventListener('click', () => {
+        textarea.select();
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textarea.value);
+          } else {
+            document.execCommand('copy');
+          }
+        } catch (err) {
+          document.execCommand('copy');
+        }
+        const toast = document.getElementById('copyStatusToast');
+        toast.classList.remove('opacity-0');
+        toast.classList.add('opacity-100');
+        setTimeout(() => {
+          toast.classList.remove('opacity-100');
+          toast.classList.add('opacity-0');
+        }, 2500);
+      });
+    };
+  </script>
+</body>
+</html>
