@@ -1504,6 +1504,21 @@
       animation: floatBreath 3s ease-in-out infinite;
     }
 
+    /* Custom SVG Akatsuki Red Cloud Pin for Pu Ta Leng (Fixing broken box icon) */
+    .peak-pin.akatsuki-pin {
+      border-color: #ef4444;
+      box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+      background: radial-gradient(circle, #fef2f2 0%, #fee2e2 100%);
+    }
+
+    [data-theme="night"] .peak-pin.akatsuki-pin {
+      background: radial-gradient(circle, #450a0a 0%, #1e1b4b 100%);
+    }
+
+    .akatsuki-cloud-svg {
+      animation: floatBreath 2.8s ease-in-out infinite;
+    }
+
     /* Nature Badge Pack: Chuẩn hóa hiển thị 🪵🌿🍃 tránh lỗi  */
     .nature-badge-pack {
       display: inline-flex;
@@ -6177,28 +6192,31 @@
         <div class="glass-card trail-map-container">
           <div class="elevation-timeline">
             <!-- Đỉnh 1: Phu Sa Phìn -->
-            <div class="peak-node" data-peak="1">
+            <div class="peak-node" data-peak="1" onclick="openMountainGallery('phu_sa_phin', 0)">
               <div class="peak-thumb-frame">
-                <img src="leonui_clean/2_phu_sa_phin/checkin.jpg" alt="Phu Sa Phìn" class="peak-thumb-img" onerror="this.src='image/08/quynh_03.jpg'">
+                <img src="leonui_clean/2_phu_sa_phin/checkin.jpg" alt="Phu Sa Phìn" class="peak-thumb-img" onerror="this.src='leonui_clean/2_phu_sa_phin/tra_gung_4h_sang.jpg'">
               </div>
               <div class="peak-pin">☕</div>
               <div class="peak-elev-tag">2.868m</div>
               <div class="peak-name">Đỉnh Phu Sa Phìn</div>
               <div class="peak-date">Sơn La • 21/12/2025</div>
               <div class="peak-status-bubble">
-                "4h sáng lạnh chớt mất thoi, pha một cốc trà gừng ấm nóng..."
+                "4h sáng lạnh chớt mất thoi, pha một cốc trà gừng ấm nóng... ☕❄️"
               </div>
               <div class="peak-media-actions">
-                <button class="btn-peak-media" onclick="openMountainVideo('Phu Sa Phìn (2.868m)', 'leonui_clean/2_phu_sa_phin/tra_gung_4h_sang.mp4', 'Khoảnh khắc pha cốc trà gừng 4h sáng lạnh giá giữa rừng già nguyên sinh Sơn La!')">
-                  🎬 Xem Video Trà Gừng
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainGallery('phu_sa_phin', 0)">
+                  📸 Bộ Ảnh (3 ảnh)
+                </button>
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainVideo('Phu Sa Phìn (2.868m)', 'leonui_clean/2_phu_sa_phin/tra_gung_4h_sang.mp4', 'Khoảnh khắc pha cốc trà gừng 4h sáng lạnh giá giữa rừng già nguyên sinh Sơn La!')">
+                  🎬 Video Trà Gừng
                 </button>
               </div>
             </div>
 
             <!-- Đỉnh 2: Nam Kang Ho Tao (Fix icon 🪵🌿🍃 hiển thị chuẩn tuyệt đối bằng SVG) -->
-            <div class="peak-node" data-peak="2">
+            <div class="peak-node" data-peak="2" onclick="openMountainGallery('nam_kang_ho_tao', 0)">
               <div class="peak-thumb-frame">
-                <img src="image/21/634043913_122162823902614221_6810225309830878103_n.jpg" alt="Nam Kang Ho Tao" class="peak-thumb-img" onerror="this.src='image/08/quynh_01.jpg'">
+                <img src="leonui_clean/3_nam_kang_ho_tao/luong_sang_thien_than.jpg" alt="Nam Kang Ho Tao" class="peak-thumb-img" onerror="this.src='leonui_clean/3_nam_kang_ho_tao/checkinhehe.jpg'">
               </div>
               <div class="peak-pin wood-pin" title="Nam Kang Ho Tao - Rừng già đại ngàn">
                 <svg class="wood-svg-icon" viewBox="0 0 28 28" width="26" height="26" fill="none">
@@ -6212,19 +6230,19 @@
               <div class="peak-name">Nam Kang Ho Tao</div>
               <div class="peak-date">Lào Cai • 19/01/2026</div>
               <div class="peak-status-bubble">
-                "Khoảnh khắc tớ ngồi xuống sau một chặng trekking dài <span class="nature-badge-pack" title="Khúc gỗ và nhành lá đại ngàn"><svg class="wood-mini-svg" viewBox="0 0 24 24" width="14" height="14" fill="none"><rect x="3" y="10" width="18" height="9" rx="4.5" fill="#a16207" stroke="#713f12" stroke-width="1.5"/><ellipse cx="6" cy="14.5" rx="2" ry="3.5" fill="#ca8a04" stroke="#713f12" stroke-width="1"/><path d="M12 10V5C12 3.5 13.5 2 15 2C15 3.5 14.5 5 13.5 6" fill="#22c55e" stroke="#15803d" stroke-width="1.2"/><path d="M11 6C9.5 5.5 8.5 4 8.5 2.5C10 2.5 11.5 3.5 12 5" fill="#4ade80" stroke="#16a34a" stroke-width="1.2"/></svg> <span class="leaf-anim">🌿🍃</span></span>"
+                "Khoảnh khắc tớ ngồi xuống sau một chặng trekking dài... Luồng sáng thiên thần rọi đỉnh núi 🪵🌿🍃"
               </div>
               <div class="peak-media-actions">
-                <button class="btn-peak-media" onclick="openLightbox(1)">
-                  📸 Xem Luồng Sáng Thiên Thần
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainGallery('nam_kang_ho_tao', 0)">
+                  📸 Bộ Ảnh & Luồng Sáng (4 ảnh)
                 </button>
               </div>
             </div>
 
-            <!-- Đỉnh 3: Kỳ Quan San -->
-            <div class="peak-node" data-peak="3">
+            <!-- Đỉnh 3: Kỳ Quan San (Bạch Mộc Lương Tử) -->
+            <div class="peak-node" data-peak="3" onclick="openMountainGallery('ky_quan_san', 0)">
               <div class="peak-thumb-frame">
-                <img src="leonui_clean/1_ky_quan_san/sayhi.jpg" alt="Kỳ Quan San" class="peak-thumb-img" onerror="this.src='image/21/631139917_122162824274614221_7265948174707119677_n.jpg'">
+                <img src="leonui_clean/1_ky_quan_san/sayhi.jpg" alt="Kỳ Quan San" class="peak-thumb-img" onerror="this.src='leonui_clean/1_ky_quan_san/checkin1.jpg'">
               </div>
               <div class="peak-pin">🔥</div>
               <div class="peak-elev-tag">3.046m</div>
@@ -6234,16 +6252,19 @@
                 "Nơi nào có những khát khao, nơi đó sẽ luôn có ngọn lửa rực cháy 🔥"
               </div>
               <div class="peak-media-actions">
-                <button class="btn-peak-media" onclick="openMountainVideo('Bạch Mộc Lương Tử (3.046m)', 'leonui_clean/1_ky_quan_san/sayhikiki.mp4', 'Check-in biển mây bồng bềnh chạm đến tận ranh giới đất trời!')">
-                  🎬 Xem Video Biển Mây
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainGallery('ky_quan_san', 0)">
+                  📸 Bộ Ảnh (7 ảnh)
+                </button>
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainVideo('Bạch Mộc Lương Tử (3.046m)', 'leonui_clean/1_ky_quan_san/sayhikiki.mp4', 'Check-in biển mây bồng bềnh chạm đến tận ranh giới đất trời!')">
+                  🎬 Video Biển Mây
                 </button>
               </div>
             </div>
 
             <!-- Đỉnh 4: Ngũ Chỉ Sơn -->
-            <div class="peak-node" data-peak="4">
+            <div class="peak-node" data-peak="4" onclick="openMountainGallery('ngu_chi_son', 0)">
               <div class="peak-thumb-frame">
-                <img src="leonui_clean/4_ngu_chi_son/634001008_122162823380614221_8368849887738611392_n.jpg" alt="Ngũ Chỉ Sơn" class="peak-thumb-img" onerror="this.src='image/08/quynh_05.jpg'">
+                <img src="leonui_clean/4_ngu_chi_son/634001008_122162823380614221_8368849887738611392_n.jpg" alt="Ngũ Chỉ Sơn" class="peak-thumb-img" onerror="this.src='leonui_clean/4_ngu_chi_son/checkin_vach_da.jpg'">
               </div>
               <div class="peak-pin">🧗‍♀️</div>
               <div class="peak-elev-tag">2.858m</div>
@@ -6253,27 +6274,38 @@
                 "Đỉnh núi số 4 mà tớ đã chinh phục zzzzz. Đứng giữa hai vách đá dựng đứng!"
               </div>
               <div class="peak-media-actions">
-                <button class="btn-peak-media" onclick="openMountainVideo('Cổng Trời Ngũ Chỉ Sơn', 'leonui_clean/4_ngu_chi_son/cong_troi.mp4', 'Vách đá Cổng Trời sừng sững giữa sương mù Tây Bắc!')">
-                  🎬 Xem Video Cổng Trời
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainGallery('ngu_chi_son', 0)">
+                  📸 Bộ Ảnh (3 ảnh)
+                </button>
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainVideo('Cổng Trời Ngũ Chỉ Sơn', 'leonui_clean/4_ngu_chi_son/cong_troi.mp4', 'Vách đá Cổng Trời sừng sững giữa sương mù Tây Bắc!')">
+                  🎬 Video Cổng Trời
                 </button>
               </div>
             </div>
 
             <!-- Đỉnh 5: Pu Ta Leng -->
-            <div class="peak-node" data-peak="5">
+            <div class="peak-node" data-peak="5" onclick="openMountainGallery('putaleng', 0)">
               <div class="peak-thumb-frame">
-                <img src="image/anime/naruto-akatsuki.jpg" alt="Pu Ta Leng" class="peak-thumb-img" onerror="this.src='image/08/quynh_08.jpg'">
+                <img src="leonui_clean/5_putaleng/chinh_phuc_putaleng.jpg" alt="Pu Ta Leng" class="peak-thumb-img" onerror="this.src='leonui_clean/5_putaleng/akatsuki_putaleng.jpg'">
               </div>
-              <div class="peak-pin">🥷</div>
+              <div class="peak-pin akatsuki-pin" title="Pu Ta Leng - Áo mây Akatsuki trên nóc nhà Lai Châu">
+                <svg class="akatsuki-cloud-svg" viewBox="0 0 32 32" width="28" height="28" fill="none">
+                  <path d="M8 20C5.8 20 4 18.2 4 16C4 14.1 5.4 12.5 7.2 12.1C7.8 8.7 10.7 6 14.3 6C17.2 6 19.7 7.7 20.8 10.3C21.4 10.1 22.1 10 22.8 10C25.7 10 28 12.3 28 15.2C28 15.5 28 15.7 27.9 16C29.2 16.8 30 18.3 30 20C30 22.8 27.8 25 25 25H9C6.8 25 5 23.2 5 21" fill="#dc2626" stroke="#991b1b" stroke-width="1.8"/>
+                  <path d="M9 22C7.3 22 6 20.7 6 19" stroke="#fecaca" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+              </div>
               <div class="peak-elev-tag">3.049m</div>
               <div class="peak-name">Đỉnh Pu Ta Leng</div>
               <div class="peak-date">Lai Châu • 19/03/2026</div>
               <div class="peak-status-bubble">
-                "Akatsuki xin chào Putaleng! Pu dễ lắm newbie đi được nha!"
+                "Akatsuki xin chào Putaleng! Pu dễ lắm newbie đi được nha! 🏔️✨"
               </div>
               <div class="peak-media-actions">
-                <button class="btn-peak-media" onclick="openMountainVideo('Đỉnh Pu Ta Leng (3.049m)', 'leonui_clean/5_putaleng/akatsuki_putaleng.mp4', 'Akatsuki xin chào Putaleng! Video thực tế của nhóm bạn trên nóc nhà Lai Châu!')">
-                  🎬 Xem Video Akatsuki
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainGallery('putaleng', 0)">
+                  📸 Bộ Ảnh (3 ảnh)
+                </button>
+                <button class="btn-peak-media" onclick="event.stopPropagation(); openMountainVideo('Đỉnh Pu Ta Leng (3.049m)', 'leonui_clean/5_putaleng/akatsuki_putaleng.mp4', 'Akatsuki xin chào Putaleng! Video thực tế của nhóm bạn trên nóc nhà Lai Châu!')">
+                  🎬 Video Akatsuki
                 </button>
               </div>
             </div>
@@ -6509,10 +6541,7 @@
                 <span class="puzzle-ref-label">🖼️ Tranh Mẫu</span>
               </div>
             </div>
-            <div class="puzzle-hint-banner" id="puzzleHintBanner">
-            ✨ <strong>GỢI Ý 1 BƯỚC TỪ CHUYẾN XE MÈO:</strong> 14 mảnh ghép đã về đúng vị trí! Bạn chỉ cần nhấp đổi chỗ <strong>2 mảnh đang phát sáng vàng</strong> ở góc dưới để hoàn thành bức tranh nhé! 🐱💖
-          </div>
-          <div class="puzzle-grid" id="puzzle-grid">
+            <div class="puzzle-grid" id="puzzle-grid">
               <!-- 16 tiles sẽ được sinh động bằng JavaScript -->
             </div>
           </div>
@@ -6529,8 +6558,7 @@
           </div>
 
           <div class="puzzle-actions">
-            <button class="btn-puzzle-control" id="btn-shuffle-puzzle">🔄 Xáo Trộn Lại</button>
-            <button class="btn-puzzle-control" id="btn-solve-puzzle" style="border-color: var(--accent-gold); color: var(--accent-gold);">✨ Gợi Ý (Còn 1 Bước Nữa)</button>
+            <button class="btn-puzzle-control" id="btn-shuffle-puzzle">🔄 Xáo Trộn Lại Mảnh Ghép</button>
           </div>
 
           <!-- Manh mối 5 đỉnh núi sau khi ghép tranh xong -->
@@ -6545,22 +6573,22 @@
               <span style="font-size: 0.82rem; color: var(--text-muted); font-style: italic;">(Bấm chọn từng đỉnh núi bên dưới theo thứ tự từ 1 đến 5...)</span>
             </div>
 
-            <!-- 5 Nút Lựa Chọn Đỉnh Núi -->
+            <!-- 5 Nút Lựa Chọn Đỉnh Núi (ĐÃ XÁO TRỘN THỨ TỰ) -->
             <div class="peak-badges-pick">
+              <button class="btn-peak-pick" data-peak-name="Ngũ Chỉ Sơn" data-peak-num="4">
+                🧗‍♀️ Ngũ Chỉ Sơn (2.858m)
+              </button>
               <button class="btn-peak-pick" data-peak-name="Kỳ Quan San" data-peak-num="1">
                 🏔️ Kỳ Quan San (3.046m)
+              </button>
+              <button class="btn-peak-pick" data-peak-name="Pu Ta Leng" data-peak-num="5">
+                ☁️ Pu Ta Leng (3.049m)
               </button>
               <button class="btn-peak-pick" data-peak-name="Phu Sa Phìn" data-peak-num="2">
                 ☕ Phu Sa Phìn (2.868m)
               </button>
               <button class="btn-peak-pick" data-peak-name="Nam Kang Ho Tao" data-peak-num="3">
                 🌿 Nam Kang Ho Tao (2.881m)
-              </button>
-              <button class="btn-peak-pick" data-peak-name="Ngũ Chỉ Sơn" data-peak-num="4">
-                🧗‍♀️ Ngũ Chỉ Sơn (2.858m)
-              </button>
-              <button class="btn-peak-pick" data-peak-name="Pu Ta Leng" data-peak-num="5">
-                🥷 Pu Ta Leng (3.049m)
               </button>
             </div>
 
@@ -7416,12 +7444,192 @@
     const btnLbPrev = document.getElementById('btn-lb-prev');
     const btnLbNext = document.getElementById('btn-lb-next');
 
+    /* ==========================================================================
+       BỘ SƯU TẬP ẢNH RIÊNG BIỆT DÀNH CHO 5 ĐỈNH NÚI TÂY BẮC (LEONUI_CLEAN)
+       Khi người dùng lướt ảnh ở đỉnh nào, CHỈ xem các ảnh của đúng đỉnh đó!
+       ========================================================================== */
+    const MOUNTAIN_GALLERIES = {
+      phu_sa_phin: {
+        name: "Đỉnh Phu Sa Phìn (2.868m)",
+        location: "📍 Sơn La • 21/12/2025",
+        badge: "Đỉnh 1 • Trà Gừng 4h Sáng",
+        photos: [
+          {
+            img: "leonui_clean/2_phu_sa_phin/checkin.jpg",
+            title: "Check-in Giữa Rừng Già Nguyên Sinh Phu Sa Phìn",
+            desc: "Khoảnh khắc cả đoàn sải bước trong sương mai buốt lạnh, chạm tay vào rêu phong đại ngàn Sơn La. ☕❄️",
+            likes: 38
+          },
+          {
+            img: "leonui_clean/2_phu_sa_phin/tra_gung_4h_sang.jpg",
+            title: "Cốc Trà Gừng Ấm Nóng Lúc 4h Sáng",
+            desc: "4h sáng mn oi ... lạnh chớt mất thoi, pha một cốc trà gừng ... Đỉnh núi thứ 2 chinh phục được t kkk #thenkiutatcamoinguoi ☕❄️🌲",
+            likes: 46
+          },
+          {
+            img: "leonui_clean/2_phu_sa_phin/634020951_122162823446614221_4004459681043877777_n.jpg",
+            title: "Hành Trình Vượt Ngàn Phu Sa Phìn",
+            desc: "Những bước chân kiên cường của Quỳnh qua từng vách đá và thảm cỏ xanh mướt.",
+            likes: 42
+          }
+        ]
+      },
+      nam_kang_ho_tao: {
+        name: "Nam Kang Ho Tao (2.881m)",
+        location: "📍 Lào Cai • 19/01/2026",
+        badge: "Đỉnh 2 • Rừng Già & Luồng Sáng Thiên Thần",
+        photos: [
+          {
+            img: "leonui_clean/3_nam_kang_ho_tao/luong_sang_thien_than.jpg",
+            title: "Luồng Ánh Sáng Thiên Thần Rọi Đỉnh Núi",
+            desc: "Đây là 1 khoảnh khắc tớ ngồi xuống sau 1 chặng đường trekking dài ơi là dài. Xem lại mà nhớ khung cảnh này quá 🪵🌿🍃",
+            likes: 54
+          },
+          {
+            img: "leonui_clean/3_nam_kang_ho_tao/checkinhehe.jpg",
+            title: "Nụ Cười Rạng Rỡ Trên Đỉnh Nam Kang",
+            desc: "Chiến thắng thử thách khắc nghiệt nhất Tây Bắc với nụ cười toả nắng khoe răng khểnh.",
+            likes: 48
+          },
+          {
+            img: "leonui_clean/3_nam_kang_ho_tao/ecc3.jpg",
+            title: "Vượt Suối Băng Rừng Đại Ngàn",
+            desc: "Những con dốc hiểm trở và dòng suối mát lành nơi ranh giới Lào Cai - Lai Châu.",
+            likes: 41
+          },
+          {
+            img: "leonui_clean/3_nam_kang_ho_tao/eec2.jpg",
+            title: "Khoảnh Khắc Dừng Chân Thư Thái",
+            desc: "Góc an yên giữa đại ngàn bao la, nơi trái tim tìm về với bình yên.",
+            likes: 45
+          }
+        ]
+      },
+      ky_quan_san: {
+        name: "Bạch Mộc Lương Tử - Kỳ Quan San (3.046m)",
+        location: "📍 Lào Cai • 23/02/2026",
+        badge: "Đỉnh 3 • Mỏm Đá Sống Ảo & Biển Mây",
+        photos: [
+          {
+            img: "leonui_clean/1_ky_quan_san/sayhi.jpg",
+            title: "Say Hi Trên Mỏm Đá Biển Mây Kỳ Quan San",
+            desc: "Nơi nào có những khát khao, nơi đó sẽ luôn có ngọn lửa rực cháy 🔥 Biển mây bồng bềnh dưới chân!",
+            likes: 68
+          },
+          {
+            img: "leonui_clean/1_ky_quan_san/checkin1.jpg",
+            title: "Chạm Cột Mốc 3.046m Bạch Mộc Lương Tử",
+            desc: "Khoảnh khắc tự hào chạm tay vào chóp kim loại trên đỉnh núi cao thứ 4 Việt Nam.",
+            likes: 62
+          },
+          {
+            img: "leonui_clean/1_ky_quan_san/checkin2.jpg",
+            title: "Bình Minh Đỏ Rực Thắp Sáng Biển Mây",
+            desc: "Ánh mặt trời đầu ngày bừng sáng, nhuộm hồng cả biển mây Tây Bắc.",
+            likes: 59
+          },
+          {
+            img: "leonui_clean/1_ky_quan_san/checkin3.jpg",
+            title: "Bước Chân Vững Chãi Trên Sống Lưng Khủng Long",
+            desc: "Đường mòn cheo leo giữa hai bên vực thẳm và gió ngàn lồng lộng.",
+            likes: 53
+          },
+          {
+            img: "leonui_clean/1_ky_quan_san/checkin4.jpg",
+            title: "Niềm Vui Chinh Phục Cùng Đồng Đội",
+            desc: "Những cái ôm, nụ cười rạng rỡ mừng chiến thắng sau hàng chục km đường đèo.",
+            likes: 56
+          },
+          {
+            img: "leonui_clean/1_ky_quan_san/huy_hieu_ky_quan_san.jpg",
+            title: "Huy Hiệu Chinh Phục Kỳ Quan San",
+            desc: "Tấm huy hiệu danh dự ghi dấu bản lĩnh kiên cường của cô gái nhỏ.",
+            likes: 64
+          },
+          {
+            img: "leonui_clean/1_ky_quan_san/trom_via.png",
+            title: "Trộm Vía Trời Đẹp Tuyệt Vời",
+            desc: "Khoảnh khắc thời tiết chiều lòng người, mây trong xanh ngắt một màu.",
+            likes: 51
+          }
+        ]
+      },
+      ngu_chi_son: {
+        name: "Đỉnh Ngũ Chỉ Sơn (2.858m)",
+        location: "📍 Lào Cai • 09/02/2026",
+        badge: "Đỉnh 4 • Vách Đá Cổng Trời",
+        photos: [
+          {
+            img: "leonui_clean/4_ngu_chi_son/634001008_122162823380614221_8368849887738611392_n.jpg",
+            title: "Đỉnh Số 4 Mà Tớ Đã Chinh Phục",
+            desc: "Ngũ Chỉ Sơn - đỉnh núi số 4 mà tớ đã chinh phục zzzzz. Đứng giữa hai vách đá dựng đứng!",
+            likes: 52
+          },
+          {
+            img: "leonui_clean/4_ngu_chi_son/checkin_vach_da.jpg",
+            title: "Check-in Vách Đá Dựng Đứng Cổng Trời",
+            desc: "Độ dốc nghẹt thở và tầm nhìn mở ra thung lũng sương mù hùng vĩ.",
+            likes: 49
+          },
+          {
+            img: "leonui_clean/4_ngu_chi_son/ngu_chi_son_summit.jpg",
+            title: "Đón Gió Ngàn Trên Đỉnh Ngũ Chỉ Sơn",
+            desc: "Ngũ Chỉ Sơn 5 ngón tay sừng sững chọc thẳng lên trời xanh.",
+            likes: 47
+          }
+        ]
+      },
+      putaleng: {
+        name: "Đỉnh Pu Ta Leng (3.049m)",
+        location: "📍 Lai Châu • 19/03/2026",
+        badge: "Đỉnh 5 • Nóc Nhà Thứ 2 Đông Dương & Akatsuki",
+        photos: [
+          {
+            img: "leonui_clean/5_putaleng/chinh_phuc_putaleng.jpg",
+            title: "Bản Lĩnh Đỉnh Cao 3.049m Pu Ta Leng",
+            desc: "Vượt qua rừng hoa đỗ quyên cổ thụ và suối Thầu để chạm mốc đỉnh cao huyền thoại.",
+            likes: 67
+          },
+          {
+            img: "leonui_clean/5_putaleng/akatsuki_putaleng.jpg",
+            title: "Akatsuki Xin Chào Putaleng!",
+            desc: "Khoác áo mây Akatsuki đứng trên nóc nhà thứ 2 Đông Dương: 'Pu dễ lắm, newbie đi được nha!' ☁️🏔️",
+            likes: 218
+          },
+          {
+            img: "leonui_clean/5_putaleng/trekking_putaleng.jpg",
+            title: "Cô Gái Nhỏ Vượt Ngàn Trùng Sương Gió",
+            desc: "Từng bước chân bền bỉ chứng minh ý chí kiên định phi thường của Quỳnh.",
+            likes: 58
+          }
+        ]
+      }
+    };
+
     let currentFeedIndex = 0;
     let filteredList = SANCTUARY_DATA.feedMoments;
+    let isMountainGalleryOpen = false;
+
+    window.openMountainGallery = function(key, initialIdx = 0) {
+      if (!MOUNTAIN_GALLERIES[key]) return;
+      isMountainGalleryOpen = true;
+      const g = MOUNTAIN_GALLERIES[key];
+      // Thiết lập filteredList CHỈ chứa các ảnh của ngọn núi này
+      filteredList = g.photos.map((p, i) => ({
+        id: i,
+        img: p.img,
+        location: g.location,
+        catName: `${g.badge} (${i + 1}/${g.photos.length})`,
+        status: `<strong>${p.title}</strong><br>${p.desc}`,
+        likes: p.likes
+      }));
+      openLightbox(initialIdx);
+    };
 
     function openLightbox(index) {
       currentFeedIndex = index;
       const item = filteredList[currentFeedIndex];
+      if (!item) return;
       lbMainImg.src = item.img;
       lbLocText.textContent = item.location;
       lbQuoteText.innerHTML = formatStatus(item.status);
@@ -7449,6 +7657,7 @@
 
     function renderFeed(cat) {
       photoFeedGrid.innerHTML = '';
+      isMountainGalleryOpen = false;
       filteredList = cat === 'all' 
         ? SANCTUARY_DATA.feedMoments 
         : SANCTUARY_DATA.feedMoments.filter(m => m.category === cat);
@@ -7508,19 +7717,22 @@
       });
     });
 
-    // 5 Đỉnh Núi click
+    // 5 Đỉnh Núi click: Mở bộ ảnh riêng biệt của ngọn núi đó
+    const PEAK_KEY_MAP = {
+      1: 'phu_sa_phin',
+      2: 'nam_kang_ho_tao',
+      3: 'ky_quan_san',
+      4: 'ngu_chi_son',
+      5: 'putaleng'
+    };
+
     document.querySelectorAll('.peak-node').forEach(node => {
       node.addEventListener('click', (e) => {
         if (e.target.closest('.btn-peak-media')) return;
         const peakId = parseInt(node.getAttribute('data-peak'));
-        const target = SANCTUARY_DATA.feedMoments.find(m => m.id === peakId);
-        if (target) {
-          const idx = filteredList.indexOf(target);
-          if (idx !== -1) openLightbox(idx);
-          else {
-            filteredList = SANCTUARY_DATA.feedMoments;
-            openLightbox(SANCTUARY_DATA.feedMoments.indexOf(target));
-          }
+        const key = PEAK_KEY_MAP[peakId];
+        if (key && typeof openMountainGallery === 'function') {
+          openMountainGallery(key, 0);
         }
       });
     });
@@ -7609,7 +7821,6 @@
     const puzzleProgressCount = document.getElementById('puzzle-progress-count');
     const puzzleProgressFill = document.getElementById('puzzle-progress-fill');
     const btnShufflePuzzle = document.getElementById('btn-shuffle-puzzle');
-    const btnSolvePuzzle = document.getElementById('btn-solve-puzzle');
     const riddleMountainsBox = document.getElementById('riddle-mountains-box');
     const chosenSequenceTray = document.getElementById('chosen-sequence-tray');
     const specialTicketCard = document.getElementById('special-ticket-card');
@@ -7846,31 +8057,70 @@
        - Khi bất kỳ video nào phát (Instagram, 5 Đỉnh núi, YouTube), nhạc nền tự dừng
        - Khi video tạm dừng, kết thúc, hoặc đóng modal, nhạc nền tự phát lại đúng vị trí đó
        ========================================================================== */
+    /* ==========================================================================
+       RULE 1: ĐIỀU PHỐI ÂM THANH TOÀN CỤC (EXCLUSIVE AUDIO & VIDEO RULE)
+       - Không được để âm thanh 2 video phát cùng lúc cũng như nhạc nền trang web
+       - Khi 1 video phát: Các video khác và nhạc nền lập tức tạm dừng (lưu currentTime)
+       - Khi video tạm dừng / kết thúc: Nhạc nền tự tiếp tục phát tiếp từ đúng chỗ dở
+       - Khi bấm chuyển ga: Video tự dừng, đóng modal, nhạc nền tiếp tục phát tiếp chỗ dở
+       ========================================================================== */
     let wasBgAudioPlayingBeforeVideo = false;
     let savedBgAudioTime = 0;
 
+    function pauseAllVideos() {
+      document.querySelectorAll('video').forEach(v => {
+        if (!v.paused) {
+          v.pause();
+        }
+      });
+      const mountainVideoModal = document.getElementById('mountain-video-modal');
+      if (mountainVideoModal && mountainVideoModal.classList.contains('active')) {
+        mountainVideoModal.classList.remove('active');
+        const mountainVideoPlayer = document.getElementById('mountain-video-player');
+        if (mountainVideoPlayer) mountainVideoPlayer.src = "";
+      }
+    }
+
+    function resumeBgMusicIfNeeded() {
+      if (wasBgAudioPlayingBeforeVideo && audioPlayer && audioPlayer.src) {
+        audioPlayer.currentTime = savedBgAudioTime;
+        audioPlayer.play().then(() => {
+          isAudioPlaying = true;
+          if (vinylDiscToggle) vinylDiscToggle.classList.add('playing');
+        }).catch(() => {});
+        wasBgAudioPlayingBeforeVideo = false;
+      }
+    }
+
     function handleVideoPlay(e) {
       if (e && e.target && e.target.closest && e.target.closest('.bg-video-wrapper')) return;
+
+      // 1. Dừng ngay tất cả các video khác trên trang web (không để 2 video cùng phát)
+      document.querySelectorAll('video').forEach(v => {
+        if (v !== e.target && !v.paused) {
+          v.pause();
+        }
+      });
+
+      // 2. Tạm dừng nhạc nền và lưu lại vị trí currentTime hiện tại
       if (audioPlayer && !audioPlayer.paused) {
         wasBgAudioPlayingBeforeVideo = true;
         savedBgAudioTime = audioPlayer.currentTime;
         audioPlayer.pause();
         isAudioPlaying = false;
         if (vinylDiscToggle) vinylDiscToggle.classList.remove('playing');
-        console.log("Audio ducking: Tạm dừng nhạc nền tại giây", savedBgAudioTime.toFixed(1));
+        console.log("Audio Coordinator: Tạm dừng nhạc nền tại giây", savedBgAudioTime.toFixed(1));
       }
     }
 
     function handleVideoStop(e) {
-      if (wasBgAudioPlayingBeforeVideo && audioPlayer) {
-        audioPlayer.currentTime = savedBgAudioTime;
-        audioPlayer.play().then(() => {
-          isAudioPlaying = true;
-          if (vinylDiscToggle) vinylDiscToggle.classList.add('playing');
-          console.log("Audio ducking: Tiếp tục phát nhạc từ giây", savedBgAudioTime.toFixed(1));
-        }).catch(() => {});
-        wasBgAudioPlayingBeforeVideo = false;
-      }
+      // Chỉ kích hoạt phục hồi nhạc nền nếu không còn video nào khác đang phát
+      setTimeout(() => {
+        const anyVideoPlaying = Array.from(document.querySelectorAll('video')).some(v => !v.paused);
+        if (!anyVideoPlaying && wasBgAudioPlayingBeforeVideo && audioPlayer) {
+          resumeBgMusicIfNeeded();
+        }
+      }, 100);
     }
 
     // Gắn listener cho toàn bộ video trên trang
@@ -7882,17 +8132,18 @@
     });
 
     if (btnCloseMountainVideo) {
-      btnCloseMountainVideo.addEventListener('click', handleVideoStop);
+      btnCloseMountainVideo.addEventListener('click', () => {
+        pauseAllVideos();
+        resumeBgMusicIfNeeded();
+      });
     }
     if (mountainVideoModal) {
       mountainVideoModal.addEventListener('click', (e) => {
-        if (e.target === mountainVideoModal) handleVideoStop();
+        if (e.target === mountainVideoModal) {
+          pauseAllVideos();
+          resumeBgMusicIfNeeded();
+        }
       });
-    }
-
-    const btnRewardYt = document.getElementById('btn-final-reward-yt');
-    if (btnRewardYt) {
-      btnRewardYt.addEventListener('click', handleVideoPlay);
     }
 
     /* ==========================================================================
@@ -7912,50 +8163,18 @@
     function syncStationSoundtrack(targetStationIdx) {
       const desiredTrack = getTrackIndexForStation(targetStationIdx);
       if (currentTrackIdx !== desiredTrack) {
+        // Đổi sang bài hát mới phù hợp với ga mới
         playAudioTrack(desiredTrack);
-      } else if (!isAudioPlaying && !wasBgAudioPlayingBeforeVideo) {
-        playAudioTrack(desiredTrack);
+      } else {
+        // Cùng bài hát: TUYỆT ĐỐI KHÔNG PHÁT LẠI TỪ ĐẦU, tiếp tục phát từ đúng chỗ đang dở!
+        if (!isAudioPlaying && audioPlayer && audioPlayer.src) {
+          audioPlayer.play().then(() => {
+            isAudioPlaying = true;
+            if (vinylDiscToggle) vinylDiscToggle.classList.add('playing');
+          }).catch(() => {});
+        }
       }
     }
-
-    /* ==========================================================================
-       3. GỢI Ý GHÉP TRANH: CHỈ 1 BƯỚC ĐỔI CHỖ 2 MẢNH GHÉP ĐỂ HOÀN THÀNH
-       - Xếp 14 mảnh vào đúng vị trí tuyệt đối (0..13)
-       - Chỉ để lại đúng 2 mảnh (14 & 15) tráo đổi nhau
-       - Đánh dấu viền vàng phát sáng lấp lánh và hiện banner hướng dẫn
-       - Đổi chỗ 2 mảnh này sẽ hoàn thành bức tranh ngay lập tức!
-       ========================================================================== */
-    let isHint1StepActive = false;
-    const puzzleHintBanner = document.getElementById('puzzleHintBanner');
-
-    btnSolvePuzzle.addEventListener('click', () => {
-      puzzleTiles = Array.from({length: 16}, (_, i) => i);
-      const swapA = 14;
-      const swapB = 15;
-      // Hoán đổi đúng 2 mảnh 14 & 15
-      [puzzleTiles[swapA], puzzleTiles[swapB]] = [puzzleTiles[swapB], puzzleTiles[swapA]];
-
-      puzzleCompleted = false;
-      isHint1StepActive = true;
-      renderPuzzle();
-      checkPuzzleProgress(false);
-
-      // Đánh dấu viền vàng phát sáng cho 2 mảnh
-      const tiles = puzzleGrid.querySelectorAll('.puzzle-tile');
-      if (tiles[swapA]) tiles[swapA].classList.add('hint-swap-pair');
-      if (tiles[swapB]) tiles[swapB].classList.add('hint-swap-pair');
-
-      if (puzzleHintBanner) puzzleHintBanner.classList.add('active');
-
-      playChime(660, 0.25);
-      setTimeout(() => playChime(880, 0.35), 150);
-    });
-
-    // Khi người dùng bấm Shuffle, ẩn banner gợi ý
-    btnShufflePuzzle.addEventListener('click', () => {
-      isHint1StepActive = false;
-      if (puzzleHintBanner) puzzleHintBanner.classList.remove('active');
-    });
 
     /* ==========================================================================
        4. CHẾ ĐỘ TỰ KHÁM PHÁ & CHẾ ĐỘ TỰ ĐỘNG TRÌNH CHIẾU HÀNH TRÌNH (AUTO-TOUR)
@@ -8339,6 +8558,8 @@
        ========================================================================== */
     function updateStageNavigatorUI(targetIdx) {
       if (!targetIdx || isNaN(targetIdx)) targetIdx = 1;
+      pauseAllVideos();
+      resumeBgMusicIfNeeded();
       const idx = ((targetIdx - 1) % GHIBLI_STATIONS.length + GHIBLI_STATIONS.length) % GHIBLI_STATIONS.length;
       currentGhibliStationIdx = idx;
       const curr = GHIBLI_STATIONS[idx];
@@ -8734,6 +8955,8 @@
     function triggerCatbusStationTransition(stationIdx) {
       if (isCatbusTransitioning) return;
       isCatbusTransitioning = true;
+      pauseAllVideos();
+      resumeBgMusicIfNeeded();
       const targetIdx = Math.max(1, Math.min(7, parseInt(stationIdx, 10) || 1));
       const targetStationData = GHIBLI_STATIONS[(targetIdx - 1) % GHIBLI_STATIONS.length];
 
