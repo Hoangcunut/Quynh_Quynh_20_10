@@ -3799,6 +3799,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      margin-bottom: 20px !important;
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.88));
       border: 1px solid rgba(251, 191, 36, 0.4);
       border-radius: var(--radius-md);
@@ -3879,7 +3880,18 @@
 
     .stage-center-badge {
       text-align: center;
-      flex: 1;
+      flex: 2;
+      min-width: 240px;
+    }
+
+    .nav-btn-main {
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      max-width: 170px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .stage-counter-pill {
