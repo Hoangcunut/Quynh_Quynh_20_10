@@ -11,10 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
   
   <!-- Canvas Confetti CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js">
-    
-
-  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
     // KHỞI TẠO SỰ KIỆN CHO BỘ ĐIỀU KHIỂN CHUYỂN BẾN KỂ CHUYỆN
     function initStageNavigatorEvents() {
       const btnPrev = document.getElementById('btnNavPrevStation');
@@ -86,8 +84,30 @@
         }
       }, { passive: true });
 
+      // Sự kiện nhấp chọn trực tiếp từng chấm tiến trình 1-7
+      document.querySelectorAll('.katawaredoki-step-dots .step-dot').forEach((dot) => {
+        dot.onclick = function() {
+          const step = parseInt(dot.getAttribute('data-step'), 10);
+          if (step && !isNaN(step)) {
+            window.rideCatbusToStation(step);
+          }
+        };
+      });
+
+      // Sự kiện nhấp chọn trực tiếp từng nút trên thanh Apple Dock
+      document.querySelectorAll('.apple-dock .station-btn').forEach((btn) => {
+        btn.onclick = function() {
+          const st = parseInt(btn.getAttribute('data-station'), 10);
+          if (!isNaN(st)) {
+            window.rideCatbusToStation(st + 1);
+          }
+        };
+      });
+
       // Khởi tạo hiển thị Ga 1 ban đầu
-      updateStageNavigatorUI(1);
+      if (typeof updateStageNavigatorUI === 'function') {
+        updateStageNavigatorUI(1);
+      }
     }
 
     if (document.readyState === 'loading') {
@@ -4132,27 +4152,540 @@
       }
     }
 
-    .story-stage-active .apple-journey-dock-wrapper {
-      position: relative !important;
-      z-index: 10 !important;
-      margin-top: 8px !important;
+    /* ==========================================================================
+       BỐ CỤC ĐIỆN ẢNH SPLIT-STAGE 100VH: GHIBLI XE MÈO & THẺ KÍNH KATAWAREDOKI
+       ========================================================================== */
+    .main-container {
+      max-width: 100% !important;
+      padding: 10px 16px 20px !important;
+      margin: 0 auto !important;
     }
 
-    .story-stage-active .catbus-stage-navigator-box {
-      position: relative !important;
-      z-index: 10 !important;
-      margin-top: 6px !important;
+    .split-stage-container {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      max-width: 1860px;
+      margin: 0 auto;
+      min-height: calc(100vh - 85px);
+      align-items: stretch;
+      box-sizing: border-box;
     }
 
-    /* VÙNG CHỨA CÁC GA: HIỂN THỊ NGAY BÊN DƯỚI XE MÈO, TUẦN TỰ HOÀN TOÀN */
+    /* ==================== CỘT TRÁI: ĐIỆN ẢNH GHIBLI XE MÈO 12 CHÂN ==================== */
+    .split-cinema-left {
+      flex: 0 0 46%;
+      max-width: 46%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: sticky;
+      top: 75px;
+      height: calc(100vh - 95px);
+      max-height: 900px;
+      justify-content: flex-start;
+    }
+
+    .grand-hero-intro-compact {
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    .bus-stop-sign-hero {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      color: #fde047;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.25);
+    }
+
+    .grand-hero-title-compact {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 14px rgba(244, 114, 182, 0.6);
+      margin: 0;
+      line-height: 1.25;
+    }
+
+    /* KHUNG VIEWPORT ĐIỆN ẢNH XE BUÝT MÈO */
+    .cinema-viewport-frame {
+      position: relative;
+      width: 100%;
+      flex: 1 1 380px;
+      min-height: 360px;
+      max-height: 440px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.25);
+      background: radial-gradient(circle at 50% 30%, #151b2e 0%, #060912 100%);
+    }
+
+    #rainForestCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #sceneDestinationCard, .scene-dest-card {
+      display: none !important;
+    }
+
+    .dest-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .scene-badge-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.22);
+      color: #fde047;
+    }
+
+    .speed-indicator-text {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: #34d399;
+      font-weight: 600;
+    }
+
+    .scene-title-text {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .scene-desc-text {
+      font-size: 0.72rem;
+      color: #cbd5e1;
+      margin-top: 3px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    #totoroSpeechBubble, .totoro-speech-bubble {
+      position: absolute;
+      top: 48px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      z-index: 30;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(251, 191, 36, 0.6);
+      color: #fef08a;
+      padding: 8px 16px;
+      border-radius: 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s ease;
+      white-space: nowrap;
+    }
+
+    #totoroSpeechBubble.active, .totoro-speech-bubble.active {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #svgStageWrapper, .svg-stage-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    #totoroSceneSvg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .catbus-wipe-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 40;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .catbus-flash-beam {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(253, 224, 71, 0.8) 50%, transparent 100%);
+      transform: translateX(-100%);
+    }
+
+    /* THANH NÚT TƯƠNG TÁC NHANH TRÊN XE MÈO */
+    .catbus-action-hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      padding: 6px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .catbus-action-hud .btn-stage-action {
+      flex: 1 1 auto;
+      padding: 6px 8px;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .catbus-action-hud .btn-stage-action:hover {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: #f59e0b;
+      color: #fef08a;
+      transform: translateY(-1px);
+    }
+
+    /* APPLE DOCK 7 BẾN ĐỖ TRÊN CỘT TRÁI */
+    .apple-journey-dock-compact {
+      width: 100%;
+    }
+
+    .apple-dock {
+      display: flex;
+      gap: 5px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(14px);
+      padding: 6px 8px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow-x: auto;
+    }
+
+    .apple-dock::-webkit-scrollbar { display: none; }
+
+    .apple-dock .station-btn {
+      flex: 1 1 0;
+      min-width: 60px;
+      padding: 5px 6px;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
+      text-align: left;
+    }
+
+    .apple-dock .station-btn:hover {
+      background: rgba(51, 65, 85, 0.85);
+      border-color: rgba(244, 114, 182, 0.5);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .apple-dock .station-btn.active {
+      background: linear-gradient(135deg, rgba(244, 114, 182, 0.4), rgba(192, 132, 252, 0.4));
+      border-color: #f472b6;
+      color: #fff;
+      box-shadow: 0 0 14px rgba(244, 114, 182, 0.4);
+    }
+
+    .station-idx-tag {
+      font-size: 0.6rem;
+      opacity: 0.75;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .station-name-text {
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    /* ==================== CỘT PHẢI: THẺ KÍNH KỂ CHUYỆN HOÀNG HÔN KATAWAREDOKI ==================== */
+    .split-story-right {
+      flex: 1 1 54%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .katawaredoki-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(35, 18, 56, 0.86) 0%, rgba(76, 26, 68, 0.80) 50%, rgba(28, 14, 42, 0.92) 100%);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1.5px solid rgba(244, 114, 182, 0.4);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 45px rgba(236, 72, 153, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      border-radius: 26px;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 95px);
+      max-height: 900px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* HEADER THẺ KÍNH: TIẾN TRÌNH & NÚT LẬT SÁCH 2 MÉP */
+    .katawaredoki-header {
+      padding: 12px 18px;
+      background: rgba(18, 10, 30, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .flipper-arrow-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 0.82rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      flex-shrink: 0;
+    }
+
+    .flipper-arrow-btn:hover {
+      background: linear-gradient(135deg, rgba(244, 114, 182, 0.35), rgba(192, 132, 252, 0.35));
+      border-color: #f472b6;
+      box-shadow: 0 0 15px rgba(244, 114, 182, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .flipper-arrow-btn.next.highlight-glow {
+      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      border-color: #fbbf24;
+      color: #fff;
+      box-shadow: 0 0 18px rgba(245, 158, 11, 0.45);
+    }
+
+    .flipper-arrow-btn.next.highlight-glow:hover {
+      background: linear-gradient(135deg, #fbbf24, #f43f5e);
+      box-shadow: 0 0 25px rgba(251, 191, 36, 0.7);
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .arrow-icon {
+      font-size: 0.85rem;
+    }
+
+    .arrow-label {
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .katawaredoki-progress-wrap {
+      flex: 1 1 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .katawaredoki-step-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .katawaredoki-step-dots .step-dot {
+      width: 20px;
+      height: 5px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.15);
+      transition: all 0.35s ease;
+      cursor: pointer;
+    }
+
+    .katawaredoki-step-dots .step-dot:hover {
+      background: rgba(244, 114, 182, 0.5);
+    }
+
+    .katawaredoki-step-dots .step-dot.active {
+      width: 34px;
+      background: linear-gradient(90deg, #fbbf24, #f472b6);
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.6);
+    }
+
+    .katawaredoki-station-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .current-badge-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: rgba(244, 114, 182, 0.22);
+      border: 1px solid rgba(244, 114, 182, 0.45);
+      color: #f472b6;
+      white-space: nowrap;
+    }
+
+    .current-station-heading {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 280px;
+    }
+
+    /* BODY THẺ KÍNH: CUỘN MƯỢT BÊN TRONG */
+    .katawaredoki-body {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px 24px 32px;
+      scroll-behavior: smooth;
+    }
+
+    .katawaredoki-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .katawaredoki-body::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+    }
+    .katawaredoki-body::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #f472b6, #fbbf24);
+      border-radius: 10px;
+    }
+
+    /* FOOTER THẺ KÍNH */
+    .katawaredoki-footer {
+      padding: 8px 18px;
+      background: rgba(14, 8, 24, 0.6);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .footer-hint {
+      color: #cbd5e1;
+      opacity: 0.85;
+    }
+
+    .footer-view-modes {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .view-mode-pill-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .view-mode-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .view-mode-pill-btn.active {
+      background: linear-gradient(135deg, #f472b6, #c084fc);
+      border-color: #f472b6;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(244, 114, 182, 0.4);
+    }
+
+    /* VÙNG CHỨA CÁC GA TRONG THẺ KÍNH */
     .story-stage-active .journey-station,
     .story-stage-active .letter-envelope-section,
     .story-stage-active .final-puzzle-section {
       display: none !important;
       opacity: 0;
       position: relative !important;
-      z-index: 10 !important;
-      margin-top: 8px !important;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
     }
 
     .story-stage-active .journey-station.active-stage,
@@ -4160,7 +4693,45 @@
     .story-stage-active .final-puzzle-section.active-stage {
       display: block !important;
       opacity: 1 !important;
-      animation: stageFadeInSmooth 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: stageFadeInSmooth 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* KHI Ở CHẾ ĐỘ CUỘN TOÀN BỘ TRONG THẺ KÍNH */
+    body:not(.story-stage-active) .journey-station,
+    body:not(.story-stage-active) .letter-envelope-section,
+    body:not(.story-stage-active) .final-puzzle-section {
+      display: block !important;
+      opacity: 1 !important;
+      margin-bottom: 30px;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .split-stage-container {
+        flex-direction: column;
+        min-height: auto;
+        gap: 14px;
+        padding: 8px 10px 20px !important;
+      }
+      .split-cinema-left {
+        flex: none;
+        max-width: 100%;
+        position: static;
+        height: auto;
+        max-height: none;
+      }
+      .cinema-viewport-frame {
+        height: 320px;
+        min-height: 280px;
+      }
+      .split-story-right {
+        flex: none;
+        width: 100%;
+      }
+      .katawaredoki-card {
+        height: 75vh;
+        max-height: none;
+      }
     }
 
   </style>
@@ -4222,16 +4793,16 @@
            GRAND CINEMA HERO: HOẠT CẢNH ĐIỆN ẢNH CHUYẾN XE MÈO 12 CHÂN GHIBLI
            TRUNG TÂM DẪN DẮT TOÀN BỘ HÀNH TRÌNH 7 BẾN ĐỖ QUÀ TẶNG TRẦN LỆ QUỲNH 20/10/2026
            ========================================================================== -->
-      <div class="grand-catbus-hero" id="grandCatbusHero">
-        <div class="grand-hero-intro">
-          <div class="bus-stop-sign-hero">🚏 CHUYẾN XE BUÝT MÈO 12 CHÂN • TUYẾN KỂ CHUYỆN 7 BẾN ĐỖ ĐẶC BIỆT 20/10</div>
-          <h1 class="grand-hero-title">Hành Trình Diệu Kỳ Của Trần Lệ Quỳnh</h1>
-          <p class="grand-hero-desc">
-            Cùng Totoro, Satsuki & Mei đón Chuyến Xe Buýt Mèo 12 chân xuyên qua 7 trạm ký ức rực rỡ, những đỉnh núi mây ngàn và thế giới hoạt hình diệu kỳ mừng ngày 20/10/2026!
-          </p>
-        </div>
+      <div class="split-stage-container" id="splitStageContainer">
 
-        <div id="cinemaViewport" class="relative w-full rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-[#090d14]" style="min-height: 465px;">
+        <!-- CỘT TRÁI: ĐIỆN ẢNH GHIBLI XE MÈO 12 CHÂN -->
+        <div class="split-cinema-left" id="splitCinemaLeft">
+          <div class="grand-hero-intro-compact">
+            <div class="bus-stop-sign-hero">🚏 CHUYẾN XE BUÝT MÈO 12 CHÂN • 7 BẾN ĐỖ ĐẶC BIỆT 20/10</div>
+            <h1 class="grand-hero-title-compact">Hành Trình Diệu Kỳ Của Trần Lệ Quỳnh</h1>
+          </div>
+
+          <div id="cinemaViewport" class="cinema-viewport-frame">
 
       <!-- LAYER 1: BACKDROP ATMOSPHERE & RAIN / PARALLAX TREES CANVAS -->
       <canvas id="rainForestCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
@@ -4254,8 +4825,8 @@
       </div>
 
       <!-- LAYER 3: MAIN SVG SCENE (100% FAITHFUL TO GHIBLI MOVIE FRAME) -->
-      <div id="svgStageWrapper" class="relative z-10 w-full h-[465px] flex items-end justify-center overflow-hidden cursor-pointer">
-        <svg id="totoroSceneSvg" viewBox="0 0 900 480" preserveAspectRatio="xMidYMax slice" class="w-full h-full">
+      <div id="svgStageWrapper" class="svg-stage-wrapper">
+        <svg id="totoroSceneSvg" viewBox="0 0 900 480" preserveAspectRatio="xMidYMax slice">
           <defs>
             <!-- Catbus Warm Striped Fur Gradients -->
             <linearGradient id="catbusBodyGrad" x1="0" y1="0" x2="0" y2="1">
@@ -4785,104 +5356,100 @@
       </div>
 
       <!-- LAYER 4: FULL-SCREEN HIGH-SPEED CATBUS TRANSITION WIPE OVERLAY -->
-      <div id="catbusWipeOverlay" class="absolute inset-0 pointer-events-none z-40 opacity-0 transition-opacity duration-200 flex items-center justify-center overflow-hidden">
-        <div id="catbusFlashBeam" class="absolute inset-0 bg-gradient-to-r from-transparent via-amber-300/80 to-transparent transform -translate-x-full"></div>
+      <div id="catbusWipeOverlay" class="catbus-wipe-overlay">
+        <div id="catbusFlashBeam" class="catbus-flash-beam"></div>
       </div>
+    </div>
+    <!-- END #cinemaViewport -->
+
+    <!-- THANH NÚT TƯƠNG TÁC NHANH TRÊN XE MÈO -->
+    <div class="catbus-action-hud">
+      <button id="btnCallCatbusDash" type="button" class="btn-stage-action">
+        <span>⚡ Phóng Vút Qua</span>
+      </button>
+      <button id="btnTotoroJump" type="button" class="btn-stage-action">
+        <span>☔ Totoro Nhảy</span>
+      </button>
+      <button id="btnToggleHighBeam" type="button" class="btn-stage-action">
+        <span>🔦 Đá Đèn Pha</span>
+      </button>
+      <button id="btnToggleSound" type="button" class="btn-stage-action btn-ghibli-sound-toggle">
+        <span id="soundIcon">🔊</span> <span id="soundLabel">Âm Thanh: BẬT</span>
+      </button>
+    </div>
+
+    <!-- APPLE JOURNEY DOCK: 7 BẾN ĐỖ TRÊN CỘT TRÁI -->
+    <div class="apple-journey-dock-compact">
+      <div class="apple-dock">
+        <button type="button" data-station="0" class="station-btn active">
+          <span class="station-idx-tag">GA 01</span>
+          <span class="station-name-text">🚌 Khởi Hành</span>
+        </button>
+        <button type="button" data-station="1" class="station-btn">
+          <span class="station-idx-tag">GA 02</span>
+          <span class="station-name-text">♌ Thế Giới Quỳnh</span>
+        </button>
+        <button type="button" data-station="2" class="station-btn">
+          <span class="station-idx-tag">GA 03</span>
+          <span class="station-name-text">🧗‍♀️ 5 Đỉnh Núi</span>
+        </button>
+        <button type="button" data-station="3" class="station-btn">
+          <span class="station-idx-tag">GA 04</span>
+          <span class="station-name-text">🌸 Xứ Sở Ghibli</span>
+        </button>
+        <button type="button" data-station="4" class="station-btn">
+          <span class="station-idx-tag">GA 05</span>
+          <span class="station-name-text">🌅 21 Khoảnh Khắc</span>
+        </button>
+        <button type="button" data-station="5" class="station-btn">
+          <span class="station-idx-tag">GA 06</span>
+          <span class="station-name-text">💌 Vé Cà Phê</span>
+        </button>
+        <button type="button" data-station="6" class="station-btn">
+          <span class="station-idx-tag">GA 07</span>
+          <span class="station-name-text">🧩 The Puzzle</span>
+        </button>
       </div>
-      <!-- END #cinemaViewport -->
+    </div>
 
-        <!-- Apple Journey Dock: 7 Bến Đỗ & Nút Hành Động Nhanh -->
-        <div class="apple-journey-dock-wrapper mt-3">
-          <div class="apple-dock rounded-2xl p-2.5 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 items-center">
-            <button type="button" data-station="0" class="station-btn active px-2.5 py-2 rounded-xl text-xs border border-stone-700 bg-stone-900/80 hover:bg-stone-800 text-stone-200 transition flex flex-col items-start gap-0.5 text-left">
-              <span class="text-[10px] opacity-75 mono">GA 01</span>
-              <span class="font-bold truncate w-full">🚌 Ga Khởi Hành</span>
-            </button>
-            <button type="button" data-station="1" class="station-btn px-2.5 py-2 rounded-xl text-xs border border-stone-700 bg-stone-900/80 hover:bg-stone-800 text-stone-200 transition flex flex-col items-start gap-0.5 text-left">
-              <span class="text-[10px] opacity-75 mono">GA 02</span>
-              <span class="font-bold truncate w-full">♌ Thế Giới Quỳnh</span>
-            </button>
-            <button type="button" data-station="2" class="station-btn px-2.5 py-2 rounded-xl text-xs border border-stone-700 bg-stone-900/80 hover:bg-stone-800 text-stone-200 transition flex flex-col items-start gap-0.5 text-left">
-              <span class="text-[10px] opacity-75 mono">GA 03</span>
-              <span class="font-bold truncate w-full">🧗‍♀️ 5 Đỉnh Núi</span>
-            </button>
-            <button type="button" data-station="3" class="station-btn px-2.5 py-2 rounded-xl text-xs border border-stone-700 bg-stone-900/80 hover:bg-stone-800 text-stone-200 transition flex flex-col items-start gap-0.5 text-left">
-              <span class="text-[10px] opacity-75 mono">GA 04</span>
-              <span class="font-bold truncate w-full">🌸 Xứ Sở Ghibli</span>
-            </button>
-            <button type="button" data-station="4" class="station-btn px-2.5 py-2 rounded-xl text-xs border border-stone-700 bg-stone-900/80 hover:bg-stone-800 text-stone-200 transition flex flex-col items-start gap-0.5 text-left">
-              <span class="text-[10px] opacity-75 mono">GA 05</span>
-              <span class="font-bold truncate w-full">🌅 21 Khoảnh Khắc</span>
-            </button>
-            <button type="button" data-station="5" class="station-btn px-2.5 py-2 rounded-xl text-xs border border-stone-700 bg-stone-900/80 hover:bg-stone-800 text-stone-200 transition flex flex-col items-start gap-0.5 text-left">
-              <span class="text-[10px] opacity-75 mono">GA 06</span>
-              <span class="font-bold truncate w-full">💌 Vé Cà Phê</span>
-            </button>
-            <button type="button" data-station="6" class="station-btn col-span-2 sm:col-span-1 px-2.5 py-2 rounded-xl text-xs border border-amber-500/40 bg-stone-900/90 hover:bg-stone-800 text-amber-200 transition flex flex-col items-start gap-0.5 text-left">
-              <span class="text-[10px] opacity-80 mono">GA CUỐI 07</span>
-              <span class="font-bold truncate w-full">🧩 The Last Puzzle</span>
-            </button>
+  </div>
+  <!-- END .split-cinema-left -->
+
+  <!-- ==================== CỘT PHẢI: THẺ KÍNH KỂ CHUYỆN HOÀNG HÔN KATAWAREDOKI ==================== -->
+  <div class="split-story-right" id="splitStoryRight">
+    <div class="katawaredoki-card" id="katawaredokiCard">
+
+      <!-- HEADER THẺ KÍNH: TIẾN TRÌNH & NÚT LẬT SÁCH 2 MÉP -->
+      <div class="katawaredoki-header">
+        <button type="button" class="flipper-arrow-btn prev" id="btnNavPrevStation" title="Quay lại bến trước (Phím ←)">
+          <span class="arrow-icon">◀</span>
+          <span class="arrow-label" id="navPrevStationName">The Last Puzzle</span>
+        </button>
+
+        <div class="katawaredoki-progress-wrap">
+          <div class="katawaredoki-step-dots" id="katawaredokiDots">
+            <span class="step-dot active" data-step="1" title="Bến 1: Ga Khởi Hành"></span>
+            <span class="step-dot" data-step="2" title="Bến 2: Thế Giới Của Quỳnh"></span>
+            <span class="step-dot" data-step="3" title="Bến 3: Chinh Phục 5 Đỉnh Núi"></span>
+            <span class="step-dot" data-step="4" title="Bến 4: Xứ Sở Diệu Kỳ Ghibli"></span>
+            <span class="step-dot" data-step="5" title="Bến 5: 21 Khoảnh Khắc"></span>
+            <span class="step-dot" data-step="6" title="Bến 6: Vé Cà Phê & Hẹn Hò"></span>
+            <span class="step-dot" data-step="7" title="Bến 7: Ga Cuối • The Last Puzzle"></span>
           </div>
-
-          <!-- Action Triggers Bar -->
-          <div class="ghibli-hud rounded-2xl p-2.5 mt-2 flex flex-wrap items-center justify-between gap-2 border border-amber-500/20">
-            <span id="catbusPosLabel" class="text-xs text-amber-300 font-medium px-2">
-              🚌 Xe Buýt Mèo 12 Chân • Đèn Pha Quét Sáng Theo Chuột 60FPS • Nhấn Space để chuyển ga
-            </span>
-            <div class="flex items-center gap-2 flex-wrap">
-              <button id="btnCallCatbusDash" type="button" class="btn-stage-action">
-                <span>⚡ Phóng Vút Qua</span>
-              </button>
-              <button id="btnTotoroJump" type="button" class="btn-stage-action">
-                <span>☔ Totoro Nhảy</span>
-              </button>
-              <button id="btnToggleHighBeam" type="button" class="btn-stage-action">
-                <span>🔦 Đá Đèn Pha</span>
-              </button>
-              <button id="btnToggleSound" type="button" class="btn-stage-action btn-ghibli-sound-toggle">
-                <span id="soundIcon">🔊</span> <span id="soundLabel">Âm Thanh Ghibli: BẬT</span>
-              </button>
-            </div>
-          </div>
-
-        <!-- CATBUS STAGE NAVIGATOR: BỘ ĐIỀU KHIỂN CHUYỂN BẾN KỂ CHUYỆN GỌN ĐẸP -->
-        <div class="catbus-stage-navigator-box" id="catbusStageNavBox">
-          <button type="button" class="stage-nav-arrow-btn prev" id="btnNavPrevStation" title="Quay lại bến trước (Phím ←)">
-            <span class="arrow-symbol">◀</span>
-            <div class="nav-btn-text">
-              <span class="nav-btn-sub">BẾN TRƯỚC</span>
-              <span class="nav-btn-main" id="navPrevStationName">The Last Puzzle</span>
-            </div>
-          </button>
-
-          <div class="stage-center-badge">
-            <div class="stage-counter-pill" id="navStagePill">BẾN 1 / 7</div>
-            <div class="stage-active-title" id="navActiveStationTitle">Ga Khởi Hành 20/10</div>
-            <div class="stage-hint-text">
-              <span>Nhấn <strong>← / →</strong> hoặc vuốt màn hình để chuyển bến</span>
-            </div>
-          </div>
-
-          <button type="button" class="stage-nav-arrow-btn next highlight-glow" id="btnNavNextStation" title="Đến bến tiếp theo (Phím → hoặc Space)">
-            <div class="nav-btn-text text-right">
-              <span class="nav-btn-sub">BẾN TIẾP THEO</span>
-              <span class="nav-btn-main" id="navNextStationName">Thế Giới Của Quỳnh</span>
-            </div>
-            <span class="arrow-symbol">▶</span>
-          </button>
-
-          <div class="stage-view-toggle-wrap">
-            <button type="button" class="view-mode-pill-btn active" id="btnViewStage" title="Xem từng bến gọn nhẹ, xe mèo dẫn chuyện, không cần lăn chuột">
-              <span>🧭 Từng Ga</span>
-            </button>
-            <button type="button" class="view-mode-pill-btn" id="btnViewFull" title="Xem tất cả các ga trên cùng một trang cuộn dài">
-              <span>📜 Cuộn Dài</span>
-            </button>
+          <div class="katawaredoki-station-title-bar">
+            <span class="current-badge-pill" id="navStagePill">BẾN 1 / 7</span>
+            <span class="current-station-heading" id="navActiveStationTitle">Ga Khởi Hành 20/10 • Tấm Vé Danh Dự</span>
           </div>
         </div>
 
-        </div>
+        <button type="button" class="flipper-arrow-btn next highlight-glow" id="btnNavNextStation" title="Đến bến tiếp theo (Phím → hoặc Space)">
+          <span class="arrow-label" id="navNextStationName">Thế Giới Của Quỳnh</span>
+          <span class="arrow-icon">▶</span>
+        </button>
       </div>
+
+      <!-- BODY THẺ KÍNH: NỘI DUNG 7 GA CUỘN ÊM ÁI BÊN TRONG -->
+      <div class="katawaredoki-body" id="katawaredokiBody">
 <!-- ==========================================================================
            TRẠM 1: GA KHỞI HÀNH 20/10 (NHẠC MỞ ĐẦU: BẮC THANG LÊN HỎI ÔNG TRỜI)
            ========================================================================== -->
@@ -5683,6 +6250,28 @@
           </div>
         </div>
       </section>
+
+      </div>
+      <!-- END .katawaredoki-body -->
+
+      <!-- FOOTER THẺ KÍNH: HƯỚNG DẪN & CHUYỂN CHẾ ĐỘ -->
+      <div class="katawaredoki-footer">
+        <div class="footer-hint">
+          <span>💡 <em>Dùng phím mũi tên <strong>← / →</strong> hoặc vuốt màn hình để chuyển bến</em></span>
+        </div>
+        <div class="footer-view-modes">
+          <button type="button" class="view-mode-pill-btn active" id="btnViewStage" title="Xem từng bến gọn nhẹ trong thẻ kính">🧭 Từng Ga</button>
+          <button type="button" class="view-mode-pill-btn" id="btnViewFull" title="Xem toàn bộ các ga cuộn liên tục">📜 Cuộn Toàn Bộ</button>
+        </div>
+      </div>
+
+    </div>
+    <!-- END .katawaredoki-card -->
+  </div>
+  <!-- END .split-story-right -->
+
+</div>
+<!-- END .split-stage-container -->
 
       <!-- Modal Xem Video Leo Núi Thực Tế -->
       <div class="mountain-video-modal" id="mountain-video-modal">
@@ -7428,6 +8017,15 @@
         }
       });
 
+      // Cập nhật trạng thái Active trên dải 7 chấm tiến trình Katawaredoki
+      document.querySelectorAll('.katawaredoki-step-dots .step-dot').forEach((dot, i) => {
+        if (i === idx) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+
       // Nếu đang ở chế độ Kể Chuyện Từng Ga (Story Stage Mode)
       const isStageMode = document.body.classList.contains('story-stage-active');
       if (isStageMode) {
@@ -7445,13 +8043,10 @@
           activeEl.style.display = 'block';
         }
 
-        // Cuộn trang nhẹ nhàng đến thanh điều khiển để góc nhìn luôn vừa mắt
-        const navBox = document.getElementById('catbusStageNavBox');
-        if (navBox) {
-          const rect = navBox.getBoundingClientRect();
-          if (rect.top < 30 || rect.top > 320) {
-            navBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
+        // Cuộn êm ái thẻ kính kể chuyện về đầu trang
+        const storyBody = document.getElementById('katawaredokiBody');
+        if (storyBody) {
+          storyBody.scrollTo({ top: 0, behavior: 'smooth' });
         }
       } else {
         // Chế độ cuộn dài: hiện tất cả các ga và cuộn đến ga mục tiêu
@@ -7579,14 +8174,19 @@
         ctx.fillStyle = skyGrad;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Cây rừng phía sau
-        ctx.fillStyle = 'rgba(8, 12, 16, 0.55)';
+        // Cây rừng Ghibli mờ ảo phía xa
+        ctx.fillStyle = 'rgba(14, 20, 32, 0.3)';
         bgTrees.forEach((t) => {
-          if (catWindMultiplier > 1.5 || Math.abs(catbusTargetX - catbusX) > 0.5) {
+          if (catWindMultiplier > 1.5 || Math.abs(catWindMultiplier - 1) > 0.1) {
             t.x -= t.speed * catWindMultiplier;
             if (t.x + t.w < 0) t.x = canvas.width + t.w;
           }
-          ctx.fillRect(t.x, canvas.height - t.h, t.w, t.h);
+          ctx.beginPath();
+          ctx.moveTo(t.x + t.w / 2, canvas.height - t.h * 0.65);
+          ctx.lineTo(t.x + t.w, canvas.height);
+          ctx.lineTo(t.x, canvas.height);
+          ctx.closePath();
+          ctx.fill();
         });
 
         // Mưa / cánh hoa / đom đóm
