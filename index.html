@@ -4356,41 +4356,120 @@
       transform: translateX(-100%);
     }
 
-    /* THANH NÚT TƯƠNG TÁC NHANH TRÊN XE MÈO */
-    .catbus-action-hud {
+    /* NÚT LOA NHỎ GỌN TRÊN KHUNG ẢNH (MẶC ĐỊNH TẮT) */
+    .cinema-mini-sound-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 35;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      color: #fde047;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(12px);
-      padding: 6px 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(245, 158, 11, 0.2);
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+    .cinema-mini-sound-btn:hover {
+      background: rgba(245, 158, 11, 0.35);
+      border-color: #f59e0b;
+      transform: scale(1.1);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
     }
 
-    .catbus-action-hud .btn-stage-action {
-      flex: 1 1 auto;
-      padding: 6px 8px;
-      font-size: 0.75rem;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      color: #e2e8f0;
-      font-weight: 600;
+    /* RUNG CABIN RẤT NHẸ KHI LƯỚT TÀU (1.2s - 3.6s) */
+    @keyframes cabinTrainRumble {
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      25% { transform: translate(-1px, 0.8px) rotate(-0.08deg); }
+      50% { transform: translate(0.8px, -0.6px) rotate(0.08deg); }
+      75% { transform: translate(-0.6px, -0.8px) rotate(0.06deg); }
+      100% { transform: translate(0.6px, 0.6px) rotate(-0.06deg); }
+    }
+
+    .cinema-viewport-frame.train-rumble {
+      animation: cabinTrainRumble 0.1s infinite alternate ease-in-out;
+    }
+
+    /* VỆT TỐC ĐỘ VÀ ÁNH SÁNG KHI LƯỚT TÀU */
+    .catbus-speed-streaks-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      overflow: hidden;
+      background: radial-gradient(circle at center, transparent 35%, rgba(245, 158, 11, 0.08) 100%);
+    }
+
+    .catbus-speed-streaks-overlay.active {
+      opacity: 1;
+    }
+
+    .speed-line-streak {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(254, 240, 138, 0.85) 50%, transparent 100%);
+      border-radius: 9999px;
+      filter: blur(0.5px);
+      animation: speedLineShoot 0.42s linear infinite;
+    }
+
+    @keyframes speedLineShoot {
+      0% { transform: translateX(500px) scaleX(0.3); opacity: 0; }
+      25% { opacity: 0.95; }
+      100% { transform: translateX(-500px) scaleX(2.5); opacity: 0; }
+    }
+
+    .catbus-motion-blur {
+      filter: blur(2px);
+      transition: filter 0.3s ease;
+    }
+
+    .story-card-transit-blur {
+      filter: blur(2px);
+      opacity: 0.78;
+      transform: translateX(8px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* THANH NÚT ĐIỀU KHIỂN GỌN GÀNG: CHỈ GIỮ LẠI PHÓNG VÚT QUA */
+    .catbus-compact-control-bar {
+      display: flex;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .btn-catbus-dash-pill {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(236, 72, 153, 0.22));
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      color: #fef08a;
+      padding: 7px 22px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 4px;
-      white-space: nowrap;
+      gap: 6px;
     }
 
-    .catbus-action-hud .btn-stage-action:hover {
-      background: rgba(245, 158, 11, 0.2);
-      border-color: #f59e0b;
-      color: #fef08a;
+    .btn-catbus-dash-pill:hover {
+      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
       transform: translateY(-1px);
     }
 
@@ -4803,6 +4882,20 @@
           </div>
 
           <div id="cinemaViewport" class="cinema-viewport-frame">
+
+            <!-- NÚT ÂM THANH NHỎ GỌN TRÊN KHUNG ẢNH (MẶC ĐỊNH TẮT) -->
+            <button id="btnToggleSoundMini" class="cinema-mini-sound-btn" type="button" title="Âm thanh Ghibli SFX (Mặc định: TẮT)">
+              <span id="soundIconMini">🔇</span>
+            </button>
+
+            <!-- VỆT TỐC ĐỘ VÀ ÁNH SÁNG KHI LƯỚT NHƯ NGỒI TRÊN TÀU -->
+            <div id="catbusSpeedStreaks" class="catbus-speed-streaks-overlay">
+              <div class="speed-line-streak" style="top: 18%; width: 140px; animation-delay: 0s;"></div>
+              <div class="speed-line-streak" style="top: 35%; width: 220px; animation-delay: 0.15s;"></div>
+              <div class="speed-line-streak" style="top: 52%; width: 180px; animation-delay: 0.08s;"></div>
+              <div class="speed-line-streak" style="top: 70%; width: 250px; animation-delay: 0.22s;"></div>
+              <div class="speed-line-streak" style="top: 85%; width: 160px; animation-delay: 0.12s;"></div>
+            </div>
 
       <!-- LAYER 1: BACKDROP ATMOSPHERE & RAIN / PARALLAX TREES CANVAS -->
       <canvas id="rainForestCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
@@ -5362,19 +5455,10 @@
     </div>
     <!-- END #cinemaViewport -->
 
-    <!-- THANH NÚT TƯƠNG TÁC NHANH TRÊN XE MÈO -->
-    <div class="catbus-action-hud">
-      <button id="btnCallCatbusDash" type="button" class="btn-stage-action">
-        <span>⚡ Phóng Vút Qua</span>
-      </button>
-      <button id="btnTotoroJump" type="button" class="btn-stage-action">
-        <span>☔ Totoro Nhảy</span>
-      </button>
-      <button id="btnToggleHighBeam" type="button" class="btn-stage-action">
-        <span>🔦 Đá Đèn Pha</span>
-      </button>
-      <button id="btnToggleSound" type="button" class="btn-stage-action btn-ghibli-sound-toggle">
-        <span id="soundIcon">🔊</span> <span id="soundLabel">Âm Thanh: BẬT</span>
+    <!-- THANH ĐIỀU KHIỂN GỌN GÀNG: CHỈ GIỮ NÚT PHÓNG VÚT QUA -->
+    <div class="catbus-compact-control-bar">
+      <button id="btnCallCatbusDash" type="button" class="btn-catbus-dash-pill" title="Kích hoạt chuyến xe mèo lướt đi điện ảnh">
+        <span>⚡ Xe Mèo Phóng Vút Qua</span>
       </button>
     </div>
 
@@ -7449,105 +7533,19 @@
     
     /* ==========================================================================
        HỆ THỐNG ĐIỀU HƯỚNG CHUYẾN XE MÈO (RIDE CATBUS TO STATION)
-       Kết nối mượt mà 7 bến đỗ & Tự động đổi nhạc 2 Ga 1 Bài
+       Kích hoạt timeline chuyển bến điện ảnh 5.0s & tự động đổi bến, đổi nhạc đồng bộ
        ========================================================================== */
     window.rideCatbusToStation = function(targetIdx) {
-      const stationMap = {
-        1: 'station-1',
-        2: 'station-2',
-        3: 'station-3',
-        4: 'station-4',
-        5: 'station-5',
-        6: 'station-6',
-        7: 'station-puzzle'
-      };
-      const targetId = stationMap[targetIdx] || `station-${targetIdx}`;
-      const targetEl = document.getElementById(targetId);
-      if (targetEl) {
-        if (!document.body.classList.contains('story-stage-active')) {
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (typeof triggerCatbusStationTransition === 'function') {
+        triggerCatbusStationTransition(targetIdx);
+      } else {
+        if (typeof updateStageNavigatorUI === 'function') {
+          updateStageNavigatorUI(targetIdx);
         }
-
-        // Cập nhật bảng hiệu trên trán Xe Mèo Totoro nếu có
-        const catSign = document.getElementById('catbusSignText');
-        const stationNames = {
-          1: 'GA KHỞI HÀNH',
-          2: 'THẾ GIỚI QUỲNH',
-          3: '5 ĐỈNH NÚI',
-          4: 'GHIBLI MƯA',
-          5: '21 KHOẢNH KHẮC',
-          6: 'BỨC TÂM THƯ',
-          7: 'GA CUỐI BÍ MẬT'
-        };
-        if (catSign && stationNames[targetIdx]) {
-          catSign.textContent = stationNames[targetIdx];
+        if (typeof syncStationSoundtrack === 'function') {
+          syncStationSoundtrack(targetIdx);
         }
-
-        // Âm thanh chuông xe mèo & pháo hoa chúc mừng
-        playChime(587, 0.18);
-        setTimeout(() => playChime(880, 0.25), 110);
-        confetti({
-          particleCount: 30,
-          spread: 60,
-          origin: { y: 0.65 },
-          colors: ['#fbbf24', '#f59e0b', '#f472b6']
-        });
       }
-
-      // 2 Ga 1 Bài: Tự động đổi bài hát phù hợp với từng bến đỗ
-      syncStationSoundtrack(targetIdx);
-    };
-
-    
-    /* ==========================================================================
-       HỆ THỐNG ĐIỀU HƯỚNG CHUYẾN XE MÈO (RIDE CATBUS TO STATION)
-       Kết nối mượt mà 7 bến đỗ & Tự động đổi nhạc 2 Ga 1 Bài
-       ========================================================================== */
-    window.rideCatbusToStation = function(targetIdx) {
-      const stationMap = {
-        1: 'station-1',
-        2: 'station-2',
-        3: 'station-3',
-        4: 'station-4',
-        5: 'station-5',
-        6: 'station-6',
-        7: 'station-puzzle'
-      };
-      const targetId = stationMap[targetIdx] || `station-${targetIdx}`;
-      const targetEl = document.getElementById(targetId);
-      if (targetEl) {
-        if (!document.body.classList.contains('story-stage-active')) {
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // Cập nhật bảng hiệu trên trán Xe Mèo Totoro nếu có
-        const catSign = document.getElementById('catbusSignText');
-        const stationNames = {
-          1: 'GA KHỞI HÀNH',
-          2: 'THẾ GIỚI QUỲNH',
-          3: '5 ĐỈNH NÚI',
-          4: 'GHIBLI MƯA',
-          5: '21 KHOẢNH KHẮC',
-          6: 'BỨC TÂM THƯ',
-          7: 'GA CUỐI BÍ MẬT'
-        };
-        if (catSign && stationNames[targetIdx]) {
-          catSign.textContent = stationNames[targetIdx];
-        }
-
-        // Âm thanh chuông xe mèo & pháo hoa chúc mừng
-        playChime(587, 0.18);
-        setTimeout(() => playChime(880, 0.25), 110);
-        confetti({
-          particleCount: 30,
-          spread: 60,
-          origin: { y: 0.65 },
-          colors: ['#fbbf24', '#f59e0b', '#f472b6']
-        });
-      }
-
-      // 2 Ga 1 Bài: Tự động đổi bài hát phù hợp với từng bến đỗ
-      syncStationSoundtrack(targetIdx);
     };
 
     /* ==========================================================================
@@ -7736,67 +7734,122 @@
         tourStationName.textContent = stationTitles[step] || `Bến Số ${step}`;
       }
 
-      // Chuyển ga bằng xe mèo & đổi nhạc 2 ga 1 bài
+      // Kích hoạt chuyến xe mèo lướt điện ảnh 5.0s
       rideCatbusToStation(step);
 
       // Xử lý các điểm trình chiếu ảnh & video tự động theo từng trạm
       if (step === 1) {
         // Trạm 1: Ngắm Robot Wall-E xoay Rubik
         autoTourTimer = setTimeout(() => {
-          if (!isAutoTourPaused) executeTourStep(2);
-        }, 7000);
+          if (!isAutoTourPaused && isAutoTourActive) executeTourStep(2);
+        }, 8000);
       } else if (step === 2) {
-        // Trạm 2: Tự động chiếu video Instagram Story 6.5 giây
+        // Trạm 2: Tự động chiếu video Instagram Story, ĐỢI PHÁT HẾT VIDEO mới chuyển tiếp
         setTimeout(() => {
           const igVideo = document.getElementById('ig-story-video');
           if (igVideo) {
             igVideo.currentTime = 0;
             igVideo.play().catch(() => {});
-          }
-        }, 1600);
 
-        autoTourTimer = setTimeout(() => {
-          const igVideo = document.getElementById('ig-story-video');
-          if (igVideo) igVideo.pause();
-          if (!isAutoTourPaused) executeTourStep(3);
-        }, 8500);
+            const handleIgEnded = () => {
+              igVideo.removeEventListener('ended', handleIgEnded);
+              if (!isAutoTourPaused && isAutoTourActive) {
+                executeTourStep(3);
+              }
+            };
+            igVideo.addEventListener('ended', handleIgEnded);
+
+            // Dự phòng an toàn nếu video không thể tự kết thúc (35s)
+            clearTimeout(autoTourTimer);
+            autoTourTimer = setTimeout(() => {
+              igVideo.removeEventListener('ended', handleIgEnded);
+              if (!isAutoTourPaused && isAutoTourActive) executeTourStep(3);
+            }, 35000);
+          } else {
+            autoTourTimer = setTimeout(() => {
+              if (!isAutoTourPaused && isAutoTourActive) executeTourStep(3);
+            }, 8500);
+          }
+        }, 5200); // Đợi xe mèo hoàn tất cập bến ở mốc 5.0s
       } else if (step === 3) {
-        // Trạm 3: Tự động mở xem video leo núi Phu Sa Phìn 6.5 giây
+        // Trạm 3: Mở xem video leo núi Phu Sa Phìn, ĐỢI PHÁT HẾT VIDEO mới đóng modal và chuyển tiếp
         setTimeout(() => {
           openMountainVideo('Phu Sa Phìn (2.868m)', 'leonui_clean/2_phu_sa_phin/tra_gung_4h_sang.mp4', 'Thước phim Flycam pha cốc trà gừng 4h sáng giữa rừng già nguyên sinh Sơn La!');
-        }, 1800);
+          
+          if (mountainVideoPlayer) {
+            const handleMountainEnded = () => {
+              mountainVideoPlayer.removeEventListener('ended', handleMountainEnded);
+              if (mountainVideoModal) {
+                mountainVideoModal.classList.remove('active');
+              }
+              if (!isAutoTourPaused && isAutoTourActive) {
+                executeTourStep(4);
+              }
+            };
+            mountainVideoPlayer.addEventListener('ended', handleMountainEnded);
 
-        autoTourTimer = setTimeout(() => {
-          if (mountainVideoModal) {
-            mountainVideoModal.classList.remove('active');
-            mountainVideoPlayer.pause();
+            // Dự phòng an toàn (45s)
+            clearTimeout(autoTourTimer);
+            autoTourTimer = setTimeout(() => {
+              mountainVideoPlayer.removeEventListener('ended', handleMountainEnded);
+              if (mountainVideoModal) {
+                mountainVideoModal.classList.remove('active');
+                mountainVideoPlayer.pause();
+              }
+              if (!isAutoTourPaused && isAutoTourActive) executeTourStep(4);
+            }, 45000);
           }
-          if (!isAutoTourPaused) executeTourStep(4);
-        }, 9000);
+        }, 5200);
       } else if (step === 4) {
-        // Trạm 4: Tự động kích hoạt Totoro bật nhảy rung rinh mưa rào lá cây
+        // Trạm 4: Totoro & Xứ sở Ghibli
         setTimeout(() => {
           const btnJump = document.getElementById('btn-trigger-totoro-jump');
           if (btnJump) btnJump.click();
-        }, 1800);
+        }, 5200);
 
         autoTourTimer = setTimeout(() => {
-          if (!isAutoTourPaused) executeTourStep(5);
-        }, 8000);
+          if (!isAutoTourPaused && isAutoTourActive) executeTourStep(5);
+        }, 11000);
       } else if (step === 5) {
-        // Trạm 5: Trình chiếu thư viện 21 ảnh kỷ niệm
+        // Trạm 5: Trình chiếu thư viện 21 ảnh kỷ niệm - DELAY TẦM 3.6S MỖI ẢNH, KHÔNG CHUYỂN QUÁ NHANH
         setTimeout(() => {
           confetti({ particleCount: 40, spread: 80 });
-        }, 1600);
 
-        autoTourTimer = setTimeout(() => {
-          if (!isAutoTourPaused) executeTourStep(6);
-        }, 8000);
+          // Lướt qua 4 ảnh tiêu biểu trong photo-feed-grid, mỗi ảnh ngắm đúng 3.6s
+          const photoCards = document.querySelectorAll('#photo-feed-grid .photo-feed-card');
+          const sampleCount = Math.min(4, photoCards.length);
+          let currentPhotoIdx = 0;
+
+          function showcaseNextPhoto() {
+            if (!isAutoTourActive || isAutoTourPaused) return;
+            if (currentPhotoIdx < sampleCount) {
+              const card = photoCards[currentPhotoIdx];
+              if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.style.outline = '3px solid #fbbf24';
+                card.style.boxShadow = '0 0 24px rgba(251, 191, 36, 0.7)';
+                setTimeout(() => {
+                  card.style.outline = '';
+                  card.style.boxShadow = '';
+                }, 3400);
+              }
+              currentPhotoIdx++;
+              autoTourTimer = setTimeout(showcaseNextPhoto, 3600); // Đúng 3.6s một ảnh theo yêu cầu
+            } else {
+              // Sau khi duyệt xong 4 ảnh -> Tiếp tục chuyển sang Ga 6
+              if (!isAutoTourPaused && isAutoTourActive) {
+                executeTourStep(6);
+              }
+            }
+          }
+
+          showcaseNextPhoto();
+        }, 5200);
       } else if (step === 6) {
         // Trạm 6: Dừng chân ngắm bức tâm thư và chiếc vé cà phê bạn bè
         autoTourTimer = setTimeout(() => {
-          if (!isAutoTourPaused) executeTourStep(7);
-        }, 7500);
+          if (!isAutoTourPaused && isAutoTourActive) executeTourStep(7);
+        }, 10000);
       } else if (step === 7) {
         // Ga Cuối: DỪNG TỰ ĐỘNG - MỜI QUỲNH TỰ TAY GIẢI ĐỐ
         if (tourStationName) {
@@ -8064,7 +8117,7 @@
 
     let currentGhibliStationIdx = 0;
     let isCatbusTransitioning = false;
-    let ghibliSoundEnabled = true;
+    let ghibliSoundEnabled = false; // Mặc định: TẮT âm thanh SFX
     let catbusHighBeamActive = true;
 
     // Physics 60fps cho hướng quét đèn pha mắt mèo & vị trí xe
@@ -8326,29 +8379,8 @@
     function triggerCatbusStationTransition(stationIdx) {
       if (isCatbusTransitioning) return;
       isCatbusTransitioning = true;
-      currentGhibliStationIdx = (stationIdx - 1) % GHIBLI_STATIONS.length;
-      const st = GHIBLI_STATIONS[currentGhibliStationIdx];
-      updateStageNavigatorUI(stationIdx);
-
-      // Cập nhật trạng thái Active trên Apple Journey Dock
-      document.querySelectorAll('.apple-dock .station-btn').forEach((btn, i) => {
-        if (i === currentGhibliStationIdx) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-
-      // Đồng bộ nhạc nền 2 ga 1 bài
-      if (typeof syncStationSoundtrack === 'function') {
-        syncStationSoundtrack(currentGhibliStationIdx + 1);
-      }
-
-      // Cập nhật sân khấu kể chuyện gọn đẹp (không cần lăn chuột)
-      if (typeof updateStageNavigatorUI === 'function') {
-        updateStageNavigatorUI(currentGhibliStationIdx + 1);
-      }
-
+      const targetIdx = Math.max(1, Math.min(7, parseInt(stationIdx, 10) || 1));
+      const targetStationData = GHIBLI_STATIONS[(targetIdx - 1) % GHIBLI_STATIONS.length];
 
       const catbusGroup = document.getElementById('catbusMasterGroup');
       const legsGroup = document.getElementById('catbusLegsGroup');
@@ -8358,131 +8390,263 @@
       const posLabel = document.getElementById('catbusPosLabel');
       const wipeOverlay = document.getElementById('catbusWipeOverlay');
       const flashBeam = document.getElementById('catbusFlashBeam');
+      const cinemaViewport = document.getElementById('cinemaViewport');
+      const speedStreaks = document.getElementById('catbusSpeedStreaks');
+      const storyCard = document.getElementById('katawaredokiCard');
 
-      playGhibliSfx('catbusRoar');
+      // ==========================================
+      // GIAI ĐOẠN 1: 0 - 1.2s: CAT BUS RỜI GA, TĂNG TỐC
+      // (Nhạc giữ nguyên bài đang phát, không đổi ngay)
+      // ==========================================
+      if (ghibliSoundEnabled) {
+        playGhibliSfx('catbusRoar');
+      }
       if (legsGroup) legsGroup.classList.add('running-legs');
       if (rollerGroup) rollerGroup.classList.add('sign-flipping');
       if (speedInd) {
-        speedInd.textContent = '⚡ 12 Chân Đang Phóng...';
+        speedInd.textContent = '⚡ Rời ga & Tăng tốc...';
         speedInd.className = 'text-[11px] mono text-amber-300 font-bold animate-pulse';
       }
-      if (posLabel) posLabel.textContent = '🚌 Xe Mèo 12 chân đang phi nước đại đến: ' + st.badge;
-      catWindMultiplier = 6.5;
+      if (posLabel) {
+        posLabel.textContent = '🚌 Cat Bus rời ga, tăng tốc hướng tới: ' + targetStationData.badge;
+      }
+      catWindMultiplier = 4.0;
 
-      // Hạt nước bắn khi phóng qua
+      // Bắn các giọt nước khi xe dướn tới
       const canvas = document.getElementById('rainForestCanvas');
       if (canvas) {
-        for (let i = 0; i < 36; i++) {
+        for (let i = 0; i < 24; i++) {
           catSplashDrops.push({
             x: Math.random() * canvas.width,
             y: canvas.height - 25 - Math.random() * 20,
-            vx: -4 - Math.random() * 5,
-            vy: -3 - Math.random() * 4,
-            r: 2 + Math.random() * 2.5,
-            alpha: 0.9
+            vx: -3 - Math.random() * 4,
+            vy: -2 - Math.random() * 3,
+            r: 2 + Math.random() * 2,
+            alpha: 0.85
           });
         }
       }
 
-      setTimeout(() => {
-        if (signText) signText.textContent = st.signVN;
-      }, 210);
-
+      // Thân xe dướn tới tăng tốc lướt sang phải
       if (catbusGroup) {
-        catbusGroup.style.transition = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
-        catbusGroup.style.transform = 'translate(920px, -18px) scale(1.06)';
+        catbusGroup.style.transition = 'transform 1.2s cubic-bezier(0.55, 0.05, 0.67, 0.19)';
+        catbusGroup.style.transform = 'translate(750px, -15px) scale(1.05)';
       }
 
-      if (wipeOverlay && flashBeam) {
-        wipeOverlay.style.opacity = '1';
-        flashBeam.style.transition = 'transform 0.65s ease-in-out';
-        flashBeam.style.transform = 'translateX(100%)';
+      // Thẻ kính bên phải mờ dần chuẩn bị chuyển bến
+      if (storyCard) {
+        storyCard.classList.add('story-card-transit-blur');
       }
 
+      // ==========================================
+      // GIAI ĐOẠN 2: 1.2s - 3.6s: CẢM GIÁC LƯỚT ĐI NHƯ NGỒI TRÊN TÀU
+      // (vệt cảnh chạy ngang, rung cabin rất nhẹ, motion blur, ánh sáng tốc độ)
+      // ==========================================
       setTimeout(() => {
-        const badge = document.getElementById('sceneBadge');
-        const title = document.getElementById('sceneTitle');
-        const desc = document.getElementById('sceneDesc');
-        if (badge) badge.textContent = st.badge;
-        if (title) title.textContent = st.title;
-        if (desc) desc.textContent = st.desc;
+        if (!isCatbusTransitioning) return;
 
+        // Rung cabin rất nhẹ ±0.8px
+        if (cinemaViewport) {
+          cinemaViewport.classList.add('train-rumble');
+        }
+
+        // Vệt tốc độ & ánh sáng quét ngang
+        if (speedStreaks) {
+          speedStreaks.classList.add('active');
+        }
+
+        // Motion blur
+        if (catbusGroup) {
+          catbusGroup.classList.add('catbus-motion-blur');
+        }
+
+        // Gió & cảnh mưa lướt cực nhanh
+        catWindMultiplier = 9.0;
+
+        // Dải sáng tốc độ quét qua
+        if (wipeOverlay && flashBeam) {
+          wipeOverlay.style.opacity = '0.9';
+          flashBeam.style.transition = 'transform 2.0s ease-in-out';
+          flashBeam.style.transform = 'translateX(100%)';
+        }
+
+        if (speedInd) {
+          speedInd.textContent = '🚅 Đang lướt êm như ngồi trên tàu...';
+          speedInd.className = 'text-[11px] mono text-amber-200 font-bold animate-pulse';
+        }
+      }, 1200);
+
+      // Điểm giữa hành trình (~2.4s): Bảng hiệu đổi sang bến mới & xe mèo chuẩn bị vào ga từ bên trái
+      setTimeout(() => {
+        if (!isCatbusTransitioning) return;
+        if (signText) {
+          signText.textContent = targetStationData.signVN;
+        }
         if (catbusGroup) {
           catbusGroup.style.transition = 'none';
-          catbusGroup.style.transform = 'translate(-780px, 10px)';
-          void catbusGroup.offsetWidth;
-          catbusGroup.style.transition = 'transform 0.72s cubic-bezier(0.16, 1, 0.3, 1)';
+          catbusGroup.style.transform = 'translate(-760px, 8px)';
+          void catbusGroup.offsetWidth; // ép reflow
+        }
+      }, 2400);
+
+      // ==========================================
+      // GIAI ĐOẠN 3: ~3.6s: BẮT ĐẦU GIẢM TỐC & ĐỔI NHẠC
+      // (Nhạc đổi khi gần tới ga → tự nhiên hơn)
+      // ==========================================
+      setTimeout(() => {
+        if (!isCatbusTransitioning) return;
+
+        // Tắt rung cabin và motion blur
+        if (cinemaViewport) {
+          cinemaViewport.classList.remove('train-rumble');
+        }
+        if (catbusGroup) {
+          catbusGroup.classList.remove('catbus-motion-blur');
+        }
+
+        // Giảm dần các vệt tốc độ
+        if (speedStreaks) {
+          speedStreaks.classList.remove('active');
+        }
+        if (wipeOverlay) {
+          wipeOverlay.style.opacity = '0';
+        }
+        catWindMultiplier = 2.5;
+
+        // Cat Bus bắt đầu trượt vào ga êm ái
+        if (catbusGroup) {
+          catbusGroup.style.transition = 'transform 1.4s cubic-bezier(0.16, 1, 0.3, 1)';
           catbusGroup.style.transform = 'translate(0px, 0px)';
         }
 
-        // Cuộn trang mượt mà: nếu ở chế độ Kể Chuyện Từng Ga thì cuộn nhẹ nhàng đến bộ điều hướng xe mèo
-        if (st && st.stationId) {
-          const isStageMode = document.body.classList.contains('story-stage-active');
-          if (isStageMode) {
-            const navBox = document.getElementById('catbusStageNavBox');
-            if (navBox) {
-              navBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-          } else {
-            const targetEl = document.getElementById(st.stationId);
-            if (targetEl) {
-              if (!document.body.classList.contains('story-stage-active')) {
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // ĐỔI NHẠC NỀN TẠI ĐÂY (~3.6s): Tự nhiên hơn khi tàu sắp vào ga
+        if (typeof syncStationSoundtrack === 'function') {
+          syncStationSoundtrack(targetIdx);
         }
-            }
+
+        if (speedInd) {
+          speedInd.textContent = '🔔 Đang giảm tốc vào ga...';
+          speedInd.className = 'text-[11px] mono text-yellow-300 font-semibold';
+        }
+        if (posLabel) {
+          posLabel.textContent = '🚌 Xe Mèo đang giảm tốc chuẩn bị cập: ' + targetStationData.badge;
+        }
+      }, 3600);
+
+      // ==========================================
+      // GIAI ĐOẠN 4: ~4.1s: GA MỚI BẮT ĐẦU XUẤT HIỆN
+      // (Thẻ kính kể chuyện chuyển ga, hiển thị nội dung bến mới)
+      // ==========================================
+      setTimeout(() => {
+        if (!isCatbusTransitioning) return;
+
+        currentGhibliStationIdx = (targetIdx - 1) % GHIBLI_STATIONS.length;
+
+        // Cập nhật thẻ kính kể chuyện bên phải
+        if (typeof updateStageNavigatorUI === 'function') {
+          updateStageNavigatorUI(targetIdx);
+        }
+
+        // Cập nhật thông tin trên HUD xe mèo
+        const badge = document.getElementById('sceneBadge');
+        const title = document.getElementById('sceneTitle');
+        const desc = document.getElementById('sceneDesc');
+        if (badge) badge.textContent = targetStationData.badge;
+        if (title) title.textContent = targetStationData.title;
+        if (desc) desc.textContent = targetStationData.desc;
+
+        // Cập nhật trạng thái Active trên Apple Journey Dock
+        document.querySelectorAll('.apple-dock .station-btn').forEach((btn, i) => {
+          if (i === currentGhibliStationIdx) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        // Hiện rõ lại thẻ kính kể chuyện với nội dung mới
+        if (storyCard) {
+          storyCard.classList.remove('story-card-transit-blur');
+        }
+
+        // Cuộn mượt mà nếu không ở chế độ Story Stage
+        if (!document.body.classList.contains('story-stage-active')) {
+          const targetEl = document.getElementById(targetStationData.stationId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }
+      }, 4100);
 
-      }, 640);
-
+      // ==========================================
+      // GIAI ĐOẠN 5: ~5.0s: HOÀN TOÀN CẬP GA, CAT BUS DỪNG LẠI
+      // (12 chân dừng, chuông cập bến, pháo hoa, trạng thái đỗ)
+      // ==========================================
       setTimeout(() => {
         if (legsGroup) legsGroup.classList.remove('running-legs');
         if (rollerGroup) rollerGroup.classList.remove('sign-flipping');
-        if (wipeOverlay && flashBeam) {
-          wipeOverlay.style.opacity = '0';
+        if (flashBeam) {
           flashBeam.style.transition = 'none';
           flashBeam.style.transform = 'translateX(-100%)';
         }
-        catWindMultiplier = 1;
+        if (catbusGroup) {
+          catbusGroup.style.transition = '';
+        }
+        catWindMultiplier = 1.0;
+
+        // Âm thanh chuông xe mèo cập bến & pháo hoa chúc mừng
+        playChime(587, 0.18);
+        setTimeout(() => playChime(880, 0.25), 110);
+        confetti({
+          particleCount: 35,
+          spread: 60,
+          origin: { y: 0.65 },
+          colors: ['#fbbf24', '#f59e0b', '#f472b6']
+        });
+
         if (speedInd) {
           speedInd.textContent = '● Đang đỗ';
           speedInd.className = 'text-[11px] mono text-emerald-400 font-semibold';
         }
-        if (posLabel) posLabel.textContent = '🚌 Xe Mèo 12 Chân • Đèn Pha Quét Sáng Theo Chuột 60FPS';
-        if (catbusGroup) catbusGroup.style.transition = '';
+        if (posLabel) {
+          posLabel.textContent = '🚌 Xe Mèo 12 Chân • Đã cập bến: ' + targetStationData.badge;
+        }
+
         isCatbusTransitioning = false;
-      }, 1400);
+      }, 5000);
     }
 
-    // Đồng bộ hàm rideCatbusToStation để gọi triggerCatbusStationTransition
-    
-      // Khởi tạo hiển thị Ga 1 cho Stage Navigator
-      if (typeof updateStageNavigatorUI === 'function') {
-        updateStageNavigatorUI(1);
-      }
-    const originalRideCatbus = window.rideCatbusToStation;
-    window.rideCatbusToStation = function(targetIdx) {
-      if (typeof triggerCatbusStationTransition === 'function') {
-        triggerCatbusStationTransition(targetIdx);
-      }
-      if (typeof originalRideCatbus === 'function') {
-        originalRideCatbus(targetIdx);
-      }
-    };
+    // Khởi tạo hiển thị Ga 1 cho Stage Navigator
+    if (typeof updateStageNavigatorUI === 'function') {
+      updateStageNavigatorUI(1);
+    }
 
     // Khởi tạo các sự kiện cho Stage Mới
     setTimeout(() => {
       initRainForestEngine();
       updateCatbusGameLoop();
 
-      const btnTotoro = document.getElementById('btnTotoroJump');
-      if (btnTotoro) btnTotoro.addEventListener('click', triggerTotoroJumpAnimation);
-
-      const totoroGroup = document.getElementById('totoroMasterGroup');
-      if (totoroGroup) totoroGroup.addEventListener('click', triggerTotoroJumpAnimation);
-
+      // Nút Phóng Vút Qua (duy nhất trên thanh điều khiển xe mèo)
       const btnDash = document.getElementById('btnCallCatbusDash');
-      
+      if (btnDash) {
+        btnDash.addEventListener('click', () => {
+          const nextIdx = (currentGhibliStationIdx + 2) > 7 ? 1 : (currentGhibliStationIdx + 2);
+          window.rideCatbusToStation(nextIdx);
+        });
+      }
+
+      // Nút âm thanh nhỏ ở góc trên khung ảnh (Mặc định: TẮT)
+      const btnSoundMini = document.getElementById('btnToggleSoundMini');
+      if (btnSoundMini) {
+        btnSoundMini.addEventListener('click', () => {
+          ghibliSoundEnabled = !ghibliSoundEnabled;
+          const iconMini = document.getElementById('soundIconMini');
+          if (iconMini) iconMini.textContent = ghibliSoundEnabled ? '🔊' : '🔇';
+          btnSoundMini.title = ghibliSoundEnabled ? 'Âm thanh Ghibli SFX: Đang BẬT' : 'Âm thanh Ghibli SFX: Đang TẮT (Mặc định)';
+          if (ghibliSoundEnabled) playGhibliSfx('catbusRoar');
+        });
+      }
+
       // Lắng nghe sự kiện click trên thanh Apple Journey Dock
       document.querySelectorAll('.apple-dock .station-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -8499,48 +8663,15 @@
         });
       }
 
-      // Phím tắt bàn phím: Space để chuyển ga, T để Totoro nhảy
+      // Phím tắt bàn phím: Space để chuyển ga
       window.addEventListener('keydown', (e) => {
         if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) return;
         if (e.key === ' ') {
           e.preventDefault();
           const nextIdx = (currentGhibliStationIdx + 2) > 7 ? 1 : (currentGhibliStationIdx + 2);
           window.rideCatbusToStation(nextIdx);
-        } else if (e.key.toLowerCase() === 't') {
-          triggerTotoroJumpAnimation();
         }
       });
-
-      if (btnDash) {
-        btnDash.addEventListener('click', () => {
-          const nextIdx = (currentGhibliStationIdx + 2) > 7 ? 1 : (currentGhibliStationIdx + 2);
-          window.rideCatbusToStation(nextIdx);
-        });
-      }
-
-      const btnHighBeam = document.getElementById('btnToggleHighBeam');
-      if (btnHighBeam) {
-        btnHighBeam.addEventListener('click', () => {
-          catbusHighBeamActive = !catbusHighBeamActive;
-          const beams = document.getElementById('headlightBeamsGroup');
-          const pool = document.getElementById('groundLightPool');
-          if (beams) beams.style.opacity = catbusHighBeamActive ? '1' : '0.12';
-          if (pool) pool.style.opacity = catbusHighBeamActive ? '0.55' : '0.08';
-          playGhibliSfx('beamClick');
-        });
-      }
-
-      const btnSound = document.getElementById('btnToggleSound');
-      if (btnSound) {
-        btnSound.addEventListener('click', () => {
-          ghibliSoundEnabled = !ghibliSoundEnabled;
-          const icon = document.getElementById('soundIcon');
-          const lbl = document.getElementById('soundLabel');
-          if (icon) icon.textContent = ghibliSoundEnabled ? '🔊' : '🔇';
-          if (lbl) lbl.textContent = ghibliSoundEnabled ? 'Âm Thanh Ghibli: BẬT' : 'Âm Thanh Ghibli: TẮT';
-          if (ghibliSoundEnabled) playGhibliSfx('catbusRoar');
-        });
-      }
 
       // Xử lý nút bấm Bó Hoa Hồng Mừng 20/10 mở ra Special Ticket
       const btnOpenGift = document.getElementById('btnOpenFinalGift');
@@ -8557,8 +8688,6 @@
         });
       }
     }, 300);
-
-  
-    </script>
+</script>
 </body>
 </html>
