@@ -7183,12 +7183,30 @@
               </div>
             </div>
 
-            <!-- Lựa chọn 3: Nhúng Video YouTube xem trực tiếp -->
-            <div style="margin-top: 22px; border-radius: 12px; overflow: hidden; max-width: 580px; margin-left: auto; margin-right: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-              <div style="font-size: 0.85rem; color: #fde68a; margin-bottom: 8px; font-weight: 600;">
-                Hoặc xem qua YouTube nhúng trực tiếp:
+            <!-- Lựa chọn 3: Nhúng Video YouTube xem trực tiếp (Tích hợp cảm biến âm thanh đa tầng) -->
+            <div id="youtube-player-container" style="margin-top: 22px; border-radius: 14px; overflow: hidden; max-width: 580px; margin-left: auto; margin-right: auto; box-shadow: 0 12px 35px rgba(0,0,0,0.6); background: rgba(15, 23, 42, 0.7); padding: 14px; border: 1px solid rgba(251, 191, 36, 0.25);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+                <div style="font-size: 0.88rem; color: #fde68a; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+                  <span>▶️</span>
+                  <span>Hoặc xem qua YouTube nhúng trực tiếp:</span>
+                </div>
+                <div id="yt-audio-status-badge" style="font-size: 0.72rem; padding: 3px 10px; border-radius: 20px; background: rgba(239, 68, 68, 0.25); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.5); font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                  <span id="yt-status-dot" style="width: 7px; height: 7px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
+                  <span id="yt-status-text">Nhạc nền sẽ tắt khi phát video</span>
+                </div>
               </div>
-              <iframe id="youtube-reward-iframe" width="100%" height="315" src="https://www.youtube.com/embed/eN2Fp5nxguY?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 12px;"></iframe>
+              <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.4);">
+                <iframe id="youtube-reward-iframe" style="position: absolute; top:0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/eN2Fp5nxguY?enablejsapi=1&version=3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+              <!-- Nút điều khiển nhanh cho người xem YouTube -->
+              <div style="display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap;">
+                <button type="button" id="btn-force-mute-bg" style="font-size: 0.76rem; padding: 5px 12px; border-radius: 16px; background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                  <span>🔇</span> Tắt Nhạc Nền Nghe YouTube
+                </button>
+                <button type="button" id="btn-resume-bg" style="font-size: 0.76rem; padding: 5px 12px; border-radius: 16px; background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                  <span>🎵</span> Bật Lại Nhạc Nền Trang Web
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -9467,35 +9485,174 @@
       });
     });
 
-    // Lắng nghe YouTube Iframe Player qua postMessage API
-    window.addEventListener('message', function(event) {
+    // ==========================================================================
+    // ĐIỀU PHỐI ÂM THANH YOUTUBE ĐA TẦNG (TRIPLE-LAYER YOUTUBE AUDIO COORDINATOR)
+    // - Tầng 1: Official YouTube IFrame Player API (YT.Player onStateChange)
+    // - Tầng 2: Raw postMessage Protocol (Hỗ trợ cả infoDelivery và onStateChange)
+    // - Tầng 3: Cảm biến tương tác chuột & Window Blur (Tắt ngay khi người dùng bấm vào player)
+    // - Tầng 4: Nút điều khiển nhanh cho phép tắt/bật chủ động
+    // ==========================================================================
+    let isYouTubePlaying = false;
+
+    function pauseBgMusicForYouTube() {
+      isYouTubePlaying = true;
+      if (audioPlayer && !audioPlayer.paused) {
+        wasBgAudioPlayingBeforeVideo = true;
+        savedBgAudioTime = audioPlayer.currentTime;
+        audioPlayer.pause();
+        isAudioPlaying = false;
+        if (vinylDiscToggle) vinylDiscToggle.classList.remove('playing');
+        console.log("Audio Coordinator: YouTube đang phát -> ĐÃ TẮT NHẠC NỀN tại giây", savedBgAudioTime.toFixed(1));
+      }
+      const nanGiaiVid = document.getElementById('nan-giai-direct-player');
+      if (nanGiaiVid && !nanGiaiVid.paused) nanGiaiVid.pause();
+
+      const statusBadge = document.getElementById('yt-audio-status-badge');
+      const statusText = document.getElementById('yt-status-text');
+      const statusDot = document.getElementById('yt-status-dot');
+      if (statusBadge && statusText && statusDot) {
+        statusText.textContent = "🔇 Đang xem YouTube • Đã tắt nhạc nền web";
+        statusBadge.style.background = "rgba(239, 68, 68, 0.35)";
+        statusBadge.style.borderColor = "#ef4444";
+        statusDot.style.background = "#ef4444";
+      }
+    }
+
+    function resumeBgMusicAfterYouTube() {
+      isYouTubePlaying = false;
+      const statusBadge = document.getElementById('yt-audio-status-badge');
+      const statusText = document.getElementById('yt-status-text');
+      const statusDot = document.getElementById('yt-status-dot');
+      if (statusBadge && statusText && statusDot) {
+        statusText.textContent = "🎵 YouTube đã tạm dừng • Đang phát lại nhạc nền";
+        statusBadge.style.background = "rgba(16, 185, 129, 0.35)";
+        statusBadge.style.borderColor = "#10b981";
+        statusDot.style.background = "#10b981";
+      }
+      if (wasBgAudioPlayingBeforeVideo && audioPlayer) {
+        resumeBgMusicIfNeeded();
+        console.log("Audio Coordinator: YouTube dừng -> BẬT LẠI NHẠC NỀN đúng chỗ vừa dừng!");
+      }
+    }
+
+    // TẦNG 1: TẢI & KHỞI TẠO CHÍNH THỨC YOUTUBE IFRAME PLAYER API
+    (function loadYouTubeApi() {
+      if (!window.YT) {
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      }
+    })();
+
+    let ytRewardPlayer = null;
+    window.onYouTubeIframeAPIReady = function() {
       try {
-        if (typeof event.data === 'string') {
-          const data = JSON.parse(event.data);
-          if (data.event === 'onStateChange') {
-            // State 1: YouTube Playing -> Tắt nhạc nền và dừng video trực tiếp
-            if (data.info === 1) {
-              if (audioPlayer && !audioPlayer.paused) {
-                wasBgAudioPlayingBeforeVideo = true;
-                savedBgAudioTime = audioPlayer.currentTime;
-                audioPlayer.pause();
-                isAudioPlaying = false;
-                if (vinylDiscToggle) vinylDiscToggle.classList.remove('playing');
-                console.log("Audio Coordinator: YouTube iframe đang phát -> Tắt nhạc nền.");
-              }
-              const nanGiaiVid = document.getElementById('nan-giai-direct-player');
-              if (nanGiaiVid && !nanGiaiVid.paused) nanGiaiVid.pause();
-            } else if (data.info === 2 || data.info === 0) {
-              // State 2: YouTube Paused, State 0: YouTube Ended -> Phục hồi nhạc nền
-              if (wasBgAudioPlayingBeforeVideo && audioPlayer) {
-                resumeBgMusicIfNeeded();
-                console.log("Audio Coordinator: YouTube iframe dừng -> Bật lại nhạc nền đúng chỗ vừa dừng.");
+        ytRewardPlayer = new YT.Player('youtube-reward-iframe', {
+          events: {
+            'onStateChange': function(event) {
+              console.log("YouTube API onStateChange:", event.data);
+              // YT.PlayerState: PLAYING = 1, BUFFERING = 3
+              if (event.data === 1 || event.data === 3) {
+                pauseBgMusicForYouTube();
+              } else if (event.data === 2 || event.data === 0) {
+                // PAUSED = 2, ENDED = 0
+                resumeBgMusicAfterYouTube();
               }
             }
           }
+        });
+      } catch (err) {
+        console.warn("YouTube API Player init error:", err);
+      }
+    };
+
+    // TẦNG 2: RAW POSTMESSAGE PROTOCOL (HỖ TRỢ CẢ INFODELIVERY VÀ ONSTATECHANGE)
+    const ytIframeEl = document.getElementById('youtube-reward-iframe');
+    if (ytIframeEl) {
+      const sendListeningHandshake = () => {
+        try {
+          if (ytIframeEl.contentWindow) {
+            ytIframeEl.contentWindow.postMessage(JSON.stringify({ event: 'listening' }), '*');
+          }
+        } catch (e) {}
+      };
+      ytIframeEl.addEventListener('load', sendListeningHandshake);
+      setInterval(sendListeningHandshake, 1200);
+    }
+
+    window.addEventListener('message', function(event) {
+      try {
+        let data = event.data;
+        if (typeof data === 'string') {
+          try { data = JSON.parse(data); } catch (err) { return; }
+        }
+        if (!data || typeof data !== 'object') return;
+
+        // Chuẩn direct onStateChange: data.info là số
+        if (data.event === 'onStateChange') {
+          const s = data.info;
+          if (s === 1 || s === 3) pauseBgMusicForYouTube();
+          else if (s === 2 || s === 0) resumeBgMusicAfterYouTube();
+        }
+        // Chuẩn infoDelivery: data.info.playerState là số
+        else if (data.event === 'infoDelivery' && data.info) {
+          const s = data.info.playerState;
+          if (s === 1 || s === 3) pauseBgMusicForYouTube();
+          else if (s === 2 || s === 0) resumeBgMusicAfterYouTube();
         }
       } catch (err) {}
     });
+
+    // TẦNG 3: CẢM BIẾN TƯƠNG TÁC CHUỘT & WINDOW BLUR
+    // Khi người dùng bấm vào iframe YouTube, trình duyệt bắt buộc chuyển focus vào iframe
+    let isMouseOverYouTubeBox = false;
+    const ytBoxEl = document.getElementById('youtube-player-container');
+
+    if (ytBoxEl) {
+      ytBoxEl.addEventListener('mouseenter', () => { isMouseOverYouTubeBox = true; });
+      ytBoxEl.addEventListener('mouseleave', () => { isMouseOverYouTubeBox = false; });
+      ytBoxEl.addEventListener('touchstart', () => {
+        isMouseOverYouTubeBox = true;
+        setTimeout(() => {
+          pauseBgMusicForYouTube();
+        }, 80);
+      }, { passive: true });
+    }
+
+    window.addEventListener('blur', () => {
+      // Khi window mất focus và chuột đang ở trên YouTube hoặc activeElement là iframe
+      if (isMouseOverYouTubeBox || (ytIframeEl && document.activeElement === ytIframeEl)) {
+        console.log("Audio Coordinator: Người dùng click vào YouTube iframe -> TẮT NHẠC NỀN!");
+        pauseBgMusicForYouTube();
+      }
+    });
+
+    // Giám sát định kỳ: nếu activeElement là iframe YouTube mà nhạc vẫn đang mở thì tắt ngay
+    setInterval(() => {
+      if (ytIframeEl && document.activeElement === ytIframeEl) {
+        if (audioPlayer && !audioPlayer.paused) {
+          pauseBgMusicForYouTube();
+        }
+      }
+    }, 400);
+
+    // TẦNG 4: NÚT ĐIỀU KHIỂN NHANH CHỦ ĐỘNG
+    const btnForceMuteBg = document.getElementById('btn-force-mute-bg');
+    const btnResumeBg = document.getElementById('btn-resume-bg');
+
+    if (btnForceMuteBg) {
+      btnForceMuteBg.addEventListener('click', (e) => {
+        e.preventDefault();
+        pauseBgMusicForYouTube();
+      });
+    }
+    if (btnResumeBg) {
+      btnResumeBg.addEventListener('click', (e) => {
+        e.preventDefault();
+        resumeBgMusicAfterYouTube();
+      });
+    }
 
     /* ==========================================================================
        2. PHÂN PHỐI NHẠC NỀN THEO TỪNG GA (Ở GA NÀO MỞ BÀI NHẠC GA ĐÓ)
